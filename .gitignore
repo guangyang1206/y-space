@@ -16,11 +16,15 @@ Desktop.ini
 *~
 .project
 .settings/
+*.sublime-project
+*.sublime-workspace
 
 # Node (in case of future tooling)
 node_modules/
 package-lock.json
 npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # Temporary files
 *.tmp
@@ -31,3 +35,18 @@ npm-debug.log*
 dist/
 build/
 .cache/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Design source files (keep DESIGN.md, ignore heavy assets)
+*.psd
+*.sketch
+*.fig
+*.ai
+
+# Deployment artifacts
+*.tar.gz
+*.zip
