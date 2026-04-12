@@ -1,0 +1,48 @@
+# =====================================================
+#  工蜂 CI/CD 配置 — 自动部署到腾讯云轻量服务器
+#  文件: .gongfeng-ci.yml
+# =====================================================
+#
+#  工作流程:
+#    push to master → CI Runner 构建 → rsync/scp 部署到服务器
+#
+#  前置配置（在工蜂项目 Settings → CI/CD → Variables 中设置）:
+#    - DEPLOY_HOST:     服务器 IP 地址
+#    - DEPLOY_USER:     SSH 登录用户名（如 root 或 ubuntu）
+#    - DEPLOY_SSH_KEY:  SSH 私钥内容（用于免密登录）
+#    - DEPLOY_PATH:     服务器上站点目录（如 /var/www/my-space）
+#
+# =====================================================
+
+stages:
+  - deploy
+
+# ── 部署到生产服务器 ──
+deploy_production:
+  stage: deploy
+  only:
+    - master
+  tags:
+    - linux
+  before_script:
+    # 配置 SSH 免密登录
+    - mkdir -p ~/.ssh
+    - echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+    - chmod 600 ~/.ssh/deploy_key
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null\n" > ~/.ssh/config
+  script:
+    # 使用 rsync 同步文件到服务器（排除 git 元数据和 CI 配置）
+    - |
+      rsync -avz --delete \
+        --exclude='.git' \
+        --exclude='.gongfeng-ci.yml' \
+        --exclude='DESIGN.md' \
+        -e "ssh -i ~/.ssh/deploy_key" \
+        ./ ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/
+    - echo "✅ Deployed to ${DEPLOY_HOST}:${DEPLOY_PATH}"
+  after_script:
+    # 清理 SSH 密钥
+    - rm -f ~/.ssh/deploy_key
+  environment:
+    name: production
+    url: https://yeranyang.com

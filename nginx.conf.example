@@ -1,0 +1,85 @@
+# =====================================================
+#  Nginx 配置 — yeranyang.com 个人门户
+# =====================================================
+#  
+#  将此文件放到服务器上:
+#    /etc/nginx/sites-available/yeranyang.com
+#  
+#  然后创建软链接:
+#    ln -sf /etc/nginx/sites-available/yeranyang.com /etc/nginx/sites-enabled/
+#    nginx -t && systemctl reload nginx
+#
+# =====================================================
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name yeranyang.com www.yeranyang.com;
+
+    # HTTP → HTTPS 重定向
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name yeranyang.com www.yeranyang.com;
+
+    # ── SSL 证书（Let's Encrypt）──
+    # 如果还没有证书，先注释掉 ssl 相关行，用 certbot 生成:
+    #   certbot --nginx -d yeranyang.com -d www.yeranyang.com
+    ssl_certificate     /etc/letsencrypt/live/yeranyang.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yeranyang.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    # ── 站点根目录（从 ai-slides 改为 my-space）──
+    root /var/www/my-space;
+    index index.html;
+
+    # ── 访问日志 ──
+    access_log /var/log/nginx/yeranyang.com.access.log;
+    error_log  /var/log/nginx/yeranyang.com.error.log;
+
+    # ── 静态文件服务 ──
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # ── 缓存策略 ──
+    # HTML 文件不缓存（每次获取最新版本）
+    location ~* \.html$ {
+        expires -1;
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # CSS / JS / 字体缓存 7 天
+    location ~* \.(css|js|woff2?|ttf|eot|svg)$ {
+        expires 7d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # 图片缓存 30 天
+    location ~* \.(png|jpg|jpeg|gif|ico|webp|avif)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # ── Gzip 压缩 ──
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript image/svg+xml;
+    gzip_min_length 256;
+    gzip_vary on;
+
+    # ── 安全头 ──
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    # ── 禁止访问隐藏文件 ──
+    location ~ /\. {
+        deny all;
+    }
+}
