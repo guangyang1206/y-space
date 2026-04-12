@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — My Space</title>
+  <meta name="description" content="Project portfolio — things I've built and worked on.">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <script src="../assets/js/site.js"></script>
+  <style>
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: var(--sp-5);
+      margin-top: var(--sp-6);
+    }
+
+    .project-card {
+      padding: 0;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover { text-decoration: none; color: inherit; }
+
+    .project-thumb {
+      height: 180px;
+      background: var(--color-bg-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 1px solid var(--color-border-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 50%, rgba(10,114,239,0.03) 100%);
+    }
+
+    .project-body {
+      padding: var(--sp-5);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-body h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: var(--sp-1);
+    }
+    .project-body .project-desc {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: var(--sp-3);
+    }
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .project-link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-status {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .project-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="dot pulse"></span>My Space</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/resume/">Resume</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="/">Home</a><a href="/about/">About</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a>
+</nav>
+
+<main class="site-main">
+  <section class="page-hero">
+    <p class="section-label anim-in">Projects</p>
+    <h1 class="section-title anim-in">Things I've built</h1>
+    <p class="section-desc anim-in">A collection of projects, experiments, and side quests. Some useful, some just for fun.</p>
+  </section>
+
+  <div class="project-grid">
+
+    <!-- AI Explainer -->
+    <a href="/projects/ai-explainer/" class="card project-card scroll-reveal">
+      <div class="project-thumb">🧠</div>
+      <div class="project-body">
+        <h3>AI Explainer</h3>
+        <p class="project-desc">
+          An interactive AI science popularization page that makes complex AI concepts accessible through clear visuals and simple language.
+        </p>
+        <div class="project-meta">
+          <div class="tag-list">
+            <span class="badge">AI</span>
+            <span class="badge badge--green">Education</span>
+          </div>
+          <span class="project-link">View →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Personal Portal -->
+    <a href="/projects/personal-portal/" class="card project-card scroll-reveal">
+      <div class="project-thumb">🏗️</div>
+      <div class="project-body">
+        <h3>Personal Portal</h3>
+        <p class="project-desc">
+          This very site — a static, hand-crafted personal portal with a design system inspired by Vercel. No frameworks, just HTML/CSS/JS.
+        </p>
+        <div class="project-meta">
+          <div class="tag-list">
+            <span class="badge badge--purple">Meta</span>
+            <span class="badge">Design</span>
+          </div>
+          <span class="project-link">View →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Placeholder project -->
+    <div class="card project-card scroll-reveal" style="opacity:0.6;pointer-events:none">
+      <div class="project-thumb" style="background:var(--color-bg-subtle)">🚧</div>
+      <div class="project-body">
+        <h3>Coming Soon</h3>
+        <p class="project-desc">
+          More projects are on the way. Stay tuned for new experiments and builds.
+        </p>
+        <div class="project-meta">
+          <div class="tag-list">
+            <span class="badge" style="background:var(--color-bg-subtle);color:var(--color-text-muted)">Upcoming</span>
+          </div>
+          <span class="project-status" style="color:var(--color-text-faint)">TBD</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2025 My Space. Built with intention.</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launching a Personal Portal — My Space</title>
+  <meta name="description" content="Why I decided to build a personal website from scratch, and the design decisions that shaped it.">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <script src="../../assets/js/site.js"></script>
+  <style>
+    .article-header {
+      padding: var(--sp-10) 0 var(--sp-6);
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-4);
+    }
+    .breadcrumb a { color: var(--color-text-muted); }
+    .breadcrumb a:hover { color: var(--color-text); }
+    .breadcrumb svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-top: var(--sp-4);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+    }
+    .article-meta .dot-sep {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--color-text-faint);
+    }
+
+    .article-body {
+      max-width: 720px;
+    }
+
+    .article-footer {
+      margin-top: var(--sp-8);
+      padding-top: var(--sp-6);
+      border-top: 1px solid var(--color-border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+    }
+    .article-nav-link {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+    .article-nav-link:hover { color: var(--color-text); }
+    .article-nav-label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="dot pulse"></span>My Space</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/resume/">Resume</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="/">Home</a><a href="/about/">About</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a>
+</nav>
+
+<main class="site-main">
+
+  <header class="article-header">
+    <nav class="breadcrumb anim-in">
+      <a href="/blog/">Blog</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      <span style="color:var(--color-text)">Launching a Personal Portal</span>
+    </nav>
+    <h1 class="section-title anim-in" style="font-size:clamp(1.75rem,5vw,2.5rem)">Launching a Personal Portal</h1>
+    <p class="section-desc anim-in">Why I decided to build a personal website from scratch, and the design decisions that shaped it.</p>
+    <div class="article-meta anim-in">
+      <span>April 12, 2025</span>
+      <span class="dot-sep"></span>
+      <span>5 min read</span>
+      <span class="dot-sep"></span>
+      <div class="tag-list">
+        <span class="badge badge--purple">Meta</span>
+        <span class="badge">Design</span>
+      </div>
+    </div>
+  </header>
+
+  <hr class="divider" style="margin-top:0">
+
+  <article class="article-body prose">
+
+    <p>
+      Every developer eventually asks themselves: <em>should I build a personal website?</em> 
+      The answer is almost always yes — but the follow-up question is harder: <em>how?</em>
+    </p>
+
+    <p>
+      There are countless options. Static site generators like Hugo, Jekyll, or Astro. 
+      Full frameworks like Next.js or Nuxt. Managed platforms like Notion, Super, or Hashnode. 
+      Each has trade-offs, and each pushes you toward a particular set of decisions.
+    </p>
+
+    <p>
+      I chose none of them.
+    </p>
+
+    <h2>The Case for Vanilla</h2>
+
+    <p>
+      This site is built with plain HTML, CSS, and a small amount of vanilla JavaScript. 
+      No build step, no node_modules, no configuration files. Here's why:
+    </p>
+
+    <ul>
+      <li><strong>Simplicity</strong> — Every page is a self-contained HTML file. There's no mental model to learn beyond "edit a file, refresh the browser."</li>
+      <li><strong>Portability</strong> — The entire site can be deployed by copying a folder to any web server. Nginx, Caddy, Apache, S3, GitHub Pages — anything that serves static files.</li>
+      <li><strong>Longevity</strong> — HTML doesn't break. There are no dependency updates, no breaking changes, no "this worked last week." The site will work in 10 years exactly as it does today.</li>
+      <li><strong>Performance</strong> — Zero JavaScript frameworks means zero KB of framework runtime. The entire site loads in milliseconds.</li>
+    </ul>
+
+    <h2>Finding a Design Language</h2>
+
+    <p>
+      The hardest part of building a personal site isn't the code — it's the design. I 
+      discovered the <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank">awesome-design-md</a> 
+      collection, which provides ready-to-use design systems extracted from real websites 
+      in the DESIGN.md format.
+    </p>
+
+    <p>
+      I chose a design system inspired by Vercel's visual language, which emphasizes:
+    </p>
+
+    <ul>
+      <li><strong>Shadow-as-border</strong> — Using <code>box-shadow: 0 0 0 1px rgba(0,0,0,0.08)</code> instead of CSS borders, creating softer, more refined edges</li>
+      <li><strong>Aggressive letter-spacing</strong> — Negative tracking at display sizes (-2.4px at 48px) creates that compressed, engineered feel</li>
+      <li><strong>Three-weight type system</strong> — 400 for reading, 500 for interaction, 600 for headings. No more, no less.</li>
+      <li><strong>Achromatic palette</strong> — Grays from #171717 to #ffffff are the foundation, with accent colors used sparingly and functionally</li>
+    </ul>
+
+    <h2>Structure That Scales</h2>
+
+    <p>
+      The portal uses a flat, directory-based URL structure where each page lives in its own 
+      folder with an <code>index.html</code>. This gives clean URLs (<code>/about/</code> instead 
+      of <code>/about.html</code>) and makes the hierarchy self-documenting.
+    </p>
+
+    <p>
+      Adding a new page is dead simple:
+    </p>
+
+    <ol>
+      <li>Create a new directory (e.g., <code>/blog/new-post/</code>)</li>
+      <li>Copy any existing page as a template</li>
+      <li>Edit the content</li>
+      <li>Add a link in the parent list page</li>
+    </ol>
+
+    <p>
+      No build step, no frontmatter, no routing config. Just files in folders.
+    </p>
+
+    <h2>Dark Mode Done Right</h2>
+
+    <p>
+      The theme system uses CSS custom properties with a <code>data-theme</code> attribute 
+      on the <code>&lt;html&gt;</code> element. All colors, shadows, and surfaces are defined 
+      as variables that swap when the theme changes. The preference respects the OS setting 
+      on first visit and persists in <code>localStorage</code> after manual toggle.
+    </p>
+
+    <h2>What's Next</h2>
+
+    <p>
+      This is just the beginning. The portal is designed to grow incrementally — new projects, 
+      new blog posts, new sections can be added without touching existing code. Some ideas 
+      for the future:
+    </p>
+
+    <ul>
+      <li>RSS feed for blog posts</li>
+      <li>Search functionality with a lightweight client-side index</li>
+      <li>More interactive project demos</li>
+      <li>A /uses page documenting my tools and setup</li>
+      <li>Reading list / bookmarks page</li>
+    </ul>
+
+    <blockquote>
+      "The best time to plant a tree was twenty years ago. The second best time is now."
+    </blockquote>
+
+    <p>
+      If you've been putting off building your own corner of the internet — start today. 
+      It doesn't have to be complex. It just has to be yours.
+    </p>
+
+  </article>
+
+  <div class="article-footer">
+    <div>
+      <a href="/blog/" class="btn btn--ghost" style="font-size:0.8125rem">← All Posts</a>
+    </div>
+    <div style="text-align:right">
+      <span class="article-nav-label">Next</span>
+      <a href="/projects/ai-explainer/" class="article-nav-link">AI Explainer →</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2025 My Space. Built with intention.</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

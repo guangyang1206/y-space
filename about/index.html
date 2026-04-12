@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — My Space</title>
+  <meta name="description" content="About me — background, interests, and what I'm up to.">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <script src="../assets/js/site.js"></script>
+  <style>
+    .about-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--sp-8);
+      margin-top: var(--sp-6);
+    }
+    .about-sidebar {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+    .avatar-container {
+      width: 200px; height: 200px;
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      margin-bottom: var(--sp-5);
+      background: var(--color-bg-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: var(--color-text-muted);
+    }
+    .sidebar-info {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .sidebar-info dt {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      margin-top: var(--sp-4);
+      margin-bottom: var(--sp-1);
+    }
+    .sidebar-info dd {
+      font-weight: 500;
+      color: var(--color-text);
+    }
+    .social-links {
+      display: flex;
+      gap: var(--sp-3);
+      margin-top: var(--sp-5);
+      padding-top: var(--sp-5);
+      border-top: 1px solid var(--color-border-light);
+    }
+    .social-links a {
+      color: var(--color-text-muted);
+      transition: color var(--duration) var(--ease-out);
+    }
+    .social-links a:hover { color: var(--color-text); }
+
+    .about-content h2 {
+      font-size: 1.375rem;
+      font-weight: 600;
+      letter-spacing: -0.64px;
+      margin-bottom: var(--sp-3);
+      padding-top: var(--sp-6);
+      border-top: 1px solid var(--color-border-light);
+    }
+    .about-content h2:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+    .about-content p {
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--sp-4);
+    }
+
+    .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--sp-3);
+      margin-top: var(--sp-3);
+    }
+    .interest-item {
+      padding: var(--sp-4);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+    }
+    .interest-item .icon {
+      font-size: 1.25rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .interest-item strong {
+      display: block;
+      font-size: 0.9375rem;
+      margin-bottom: 2px;
+    }
+    .interest-item span {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: var(--sp-5);
+      }
+      .about-sidebar {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .social-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="dot pulse"></span>My Space</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/resume/">Resume</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="/">Home</a><a href="/about/">About</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a>
+</nav>
+
+<main class="site-main">
+  <section class="page-hero">
+    <p class="section-label anim-in">About</p>
+    <h1 class="section-title anim-in">A bit about me</h1>
+    <p class="section-desc anim-in">Developer, tinkerer, lifelong learner. Here's my story.</p>
+  </section>
+
+  <div class="about-layout">
+    <!-- Sidebar -->
+    <aside class="about-sidebar anim-in">
+      <div class="avatar-container">👤</div>
+      <dl class="sidebar-info">
+        <dt>Location</dt>
+        <dd>Earth, mostly</dd>
+        <dt>Focus</dt>
+        <dd>Full-stack Development, AI</dd>
+        <dt>Education</dt>
+        <dd>CS / Self-taught hybrid</dd>
+        <dt>Status</dt>
+        <dd><span class="badge badge--green">Open to work</span></dd>
+      </dl>
+      <div class="social-links">
+        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="mailto:hello@example.com" aria-label="Email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="#" aria-label="Twitter/X">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <div class="about-content">
+      <h2 class="scroll-reveal">Who I am</h2>
+      <p class="scroll-reveal">
+        Hi there! I'm a developer who loves building things that live on the internet. 
+        Whether it's a sleek web app, a command-line tool, or an AI-powered experiment — 
+        if it involves code, I'm probably interested.
+      </p>
+      <p class="scroll-reveal">
+        I started my journey with curiosity and a text editor. Over the years, that's 
+        evolved into a passion for clean architecture, thoughtful design, and making 
+        technology more accessible.
+      </p>
+
+      <h2 class="scroll-reveal">What I do</h2>
+      <p class="scroll-reveal">
+        I build full-stack applications, explore AI/ML tooling, and write about what I learn. 
+        Currently, I'm focused on creating tools and content that help others understand 
+        complex technical concepts.
+      </p>
+
+      <h2 class="scroll-reveal">Interests</h2>
+      <div class="interest-grid">
+        <div class="card interest-item scroll-reveal">
+          <span class="icon">🧠</span>
+          <div><strong>AI & Machine Learning</strong><span>Making AI understandable</span></div>
+        </div>
+        <div class="card interest-item scroll-reveal">
+          <span class="icon">🎨</span>
+          <div><strong>Design Systems</strong><span>Bridging code & aesthetics</span></div>
+        </div>
+        <div class="card interest-item scroll-reveal">
+          <span class="icon">📝</span>
+          <div><strong>Technical Writing</strong><span>Simplifying the complex</span></div>
+        </div>
+        <div class="card interest-item scroll-reveal">
+          <span class="icon">🛠️</span>
+          <div><strong>Open Source</strong><span>Building in the open</span></div>
+        </div>
+      </div>
+
+      <h2 class="scroll-reveal">This site</h2>
+      <p class="scroll-reveal">
+        This portal is a static, hand-crafted site built with vanilla HTML, CSS, and JS — 
+        no frameworks, no build tools. It's designed to be fast, lightweight, and easy to 
+        deploy on any static hosting or lightweight server. The design system is inspired by
+        <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener">awesome-design-md</a>, 
+        specifically the Vercel design language.
+      </p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2025 My Space. Built with intention.</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

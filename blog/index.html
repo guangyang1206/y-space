@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — My Space</title>
+  <meta name="description" content="Blog posts — thoughts on building, learning, and tech.">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <script src="../assets/js/site.js"></script>
+  <style>
+    .blog-list {
+      margin-top: var(--sp-6);
+    }
+    .blog-entry {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: var(--sp-5);
+      padding: var(--sp-5) 0;
+      border-bottom: 1px solid var(--color-border-light);
+      text-decoration: none;
+      color: inherit;
+      transition: padding-left var(--duration) var(--ease-out);
+    }
+    .blog-entry:hover {
+      text-decoration: none;
+      color: inherit;
+      padding-left: var(--sp-2);
+    }
+    .blog-entry:first-child {
+      padding-top: 0;
+    }
+
+    .blog-date {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      padding-top: 4px;
+    }
+    .blog-entry h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.32px;
+      margin-bottom: var(--sp-1);
+      transition: color var(--duration) var(--ease-out);
+    }
+    .blog-entry:hover h3 { color: var(--color-accent); }
+    .blog-entry p {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--sp-2);
+    }
+
+    .blog-empty {
+      text-align: center;
+      padding: var(--sp-10) 0;
+      color: var(--color-text-muted);
+    }
+    .blog-empty p {
+      font-size: 1rem;
+      margin-top: var(--sp-3);
+    }
+
+    @media (max-width: 768px) {
+      .blog-entry {
+        grid-template-columns: 1fr;
+        gap: var(--sp-1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="dot pulse"></span>My Space</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/resume/">Resume</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="/">Home</a><a href="/about/">About</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a>
+</nav>
+
+<main class="site-main">
+  <section class="page-hero">
+    <p class="section-label anim-in">Blog</p>
+    <h1 class="section-title anim-in">Writing & Thinking</h1>
+    <p class="section-desc anim-in">Occasional thoughts on building, learning, and working with technology.</p>
+  </section>
+
+  <div class="blog-list">
+    <a href="/blog/launching-a-personal-portal/" class="blog-entry scroll-reveal">
+      <div class="blog-date">2025-04-12</div>
+      <div>
+        <h3>Launching a Personal Portal</h3>
+        <p>Why I decided to build a personal website from scratch, and the design decisions that shaped it.</p>
+        <div class="tag-list">
+          <span class="badge badge--purple">Meta</span>
+          <span class="badge">Design</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="/projects/ai-explainer/" class="blog-entry scroll-reveal">
+      <div class="blog-date">2025-03-15</div>
+      <div>
+        <h3>Making AI Accessible: The Explainer Project</h3>
+        <p>A deep dive into the AI Explainer project — goals, approach, and what I learned along the way.</p>
+        <div class="tag-list">
+          <span class="badge">AI</span>
+          <span class="badge badge--green">Education</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2025 My Space. Built with intention.</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

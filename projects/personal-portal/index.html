@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portal — My Space</title>
+  <meta name="description" content="About this personal portal site — architecture and design decisions.">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <script src="../../assets/js/site.js"></script>
+  <style>
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-4);
+    }
+    .breadcrumb a { color: var(--color-text-muted); }
+    .breadcrumb a:hover { color: var(--color-text); }
+    .breadcrumb svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .sitemap-tree {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      line-height: 2;
+      padding: var(--sp-5);
+      background: var(--color-bg-subtle);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-card);
+      overflow-x: auto;
+      margin: var(--sp-5) 0;
+    }
+    .sitemap-tree a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+    .sitemap-tree a:hover { text-decoration: underline; }
+
+    .arch-card {
+      padding: var(--sp-5);
+      margin-bottom: var(--sp-3);
+    }
+    .arch-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: var(--sp-2);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+    .arch-card p {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="dot pulse"></span>My Space</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/resume/">Resume</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="/">Home</a><a href="/about/">About</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a>
+</nav>
+
+<main class="site-main">
+  <section style="padding:var(--sp-10) 0 var(--sp-6)">
+    <nav class="breadcrumb anim-in">
+      <a href="/projects/">Projects</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      <span style="color:var(--color-text)">Personal Portal</span>
+    </nav>
+    <h1 class="section-title anim-in" style="font-size:clamp(2rem,5vw,2.75rem)">Personal Portal</h1>
+    <p class="section-desc anim-in">The architecture and design decisions behind this very website.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-4)" class="anim-in">
+      <span class="badge badge--purple">Meta</span>
+      <span class="badge">Design System</span>
+      <span class="badge badge--green">Static</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <article class="prose">
+    <h2>Overview</h2>
+    <p>
+      This portal is a static, hand-crafted personal website designed to be deployed on any 
+      lightweight server. No build tools, no JavaScript frameworks — just vanilla HTML, CSS, 
+      and a sprinkle of JS for theme switching and scroll animations.
+    </p>
+    <p>
+      The design system is inspired by the 
+      <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank">awesome-design-md</a> 
+      collection, specifically the Vercel design language: shadow-as-border technique, aggressive 
+      negative letter-spacing, achromatic palette with functional accent colors, and a multi-layer 
+      shadow system for depth.
+    </p>
+
+    <h2>Site Structure</h2>
+    <p>The portal follows a clean, flat URL structure:</p>
+  </article>
+
+  <div class="sitemap-tree scroll-reveal">
+<pre>my-space/
+├── <a href="/">index.html</a>                          ← Portal Home
+├── <a href="/about/">about/index.html</a>                   ← About Me
+├── <a href="/resume/">resume/index.html</a>                  ← Online Resume
+├── <a href="/projects/">projects/index.html</a>                ← Project Gallery
+│   ├── <a href="/projects/ai-explainer/">ai-explainer/index.html</a>        ← AI Explainer (migrated)
+│   └── <a href="/projects/personal-portal/">personal-portal/index.html</a>     ← This page
+├── <a href="/blog/">blog/index.html</a>                    ← Blog List
+│   └── <a href="/blog/launching-a-personal-portal/">launching-a-personal-portal/</a>   ← Sample article
+├── assets/
+│   ├── css/global.css                 ← Design tokens & components
+│   └── js/site.js                     ← Theme, nav, scroll animations
+├── DESIGN.md                          ← Design system reference
+└── README.md</pre>
+  </div>
+
+  <article class="prose">
+    <h2>Architecture Decisions</h2>
+  </article>
+
+  <div style="margin-top:var(--sp-4)">
+    <div class="card arch-card scroll-reveal">
+      <h4>📦 Zero Dependencies</h4>
+      <p>
+        No npm, no webpack, no React. Every page is a self-contained HTML file that links 
+        to shared CSS and JS. This means instant deployment — just copy the folder to any 
+        static server (Nginx, Caddy, GitHub Pages, S3, etc.).
+      </p>
+    </div>
+
+    <div class="card arch-card scroll-reveal">
+      <h4>🎨 DESIGN.md Driven</h4>
+      <p>
+        The visual language follows the DESIGN.md format from Google Stitch / awesome-design-md. 
+        All tokens (colors, spacing, shadows, typography) are defined as CSS custom properties 
+        in a single file, making the design system easy to modify and maintain.
+      </p>
+    </div>
+
+    <div class="card arch-card scroll-reveal">
+      <h4>🌓 Dark Mode</h4>
+      <p>
+        Theme switching is handled via a <code>data-theme</code> attribute on the root element, 
+        with CSS custom properties swapping colors. Preference is persisted in localStorage 
+        and respects the system's <code>prefers-color-scheme</code>.
+      </p>
+    </div>
+
+    <div class="card arch-card scroll-reveal">
+      <h4>📱 Responsive</h4>
+      <p>
+        Every page uses CSS Grid and Flexbox with fluid sizing. A single breakpoint at 768px 
+        handles the mobile ↔ desktop transition, with a mobile nav overlay for smaller screens.
+      </p>
+    </div>
+
+    <div class="card arch-card scroll-reveal">
+      <h4>♿ Accessibility</h4>
+      <p>
+        Semantic HTML throughout (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, 
+        <code>&lt;article&gt;</code>), ARIA labels on interactive elements, keyboard-navigable, 
+        and respects <code>prefers-reduced-motion</code>.
+      </p>
+    </div>
+
+    <div class="card arch-card scroll-reveal">
+      <h4>🔗 Extensible</h4>
+      <p>
+        Adding a new page is as simple as creating a new folder with an <code>index.html</code>, 
+        linking the shared CSS/JS, and adding a nav entry. No build step, no config files. 
+        The flat URL structure means clean permalinks out of the box.
+      </p>
+    </div>
+  </div>
+
+  <article class="prose" style="margin-top:var(--sp-6)">
+    <h2>Deployment</h2>
+    <p>
+      Copy the <code>my-space/</code> directory to your server's web root. For Nginx, point 
+      the root to the folder and ensure <code>index.html</code> is served for directory requests. 
+      That's it.
+    </p>
+    <pre><code># Example Nginx config
+server {
+    listen 80;
+    server_name example.com;
+    root /var/www/my-space;
+    index index.html;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}</code></pre>
+  </article>
+
+  <div style="margin-top:var(--sp-8)">
+    <a href="/projects/" class="btn btn--ghost">← Back to Projects</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2025 My Space. Built with intention.</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

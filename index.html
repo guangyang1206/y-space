@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Space — Personal Portal</title>
+  <meta name="description" content="A personal portal for projects, blog, resume, and more.">
+  <link rel="stylesheet" href="assets/css/global.css">
+  <script src="assets/js/site.js"></script>
+  <style>
+    /* ── Home Hero ── */
+    .home-hero {
+      padding: var(--sp-11) 0 var(--sp-10);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+    .home-hero::before {
+      content: '';
+      position: absolute;
+      top: -56px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(10,114,239,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    [data-theme="dark"] .home-hero::before {
+      background: radial-gradient(circle, rgba(10,114,239,0.08) 0%, transparent 70%);
+    }
+    .home-hero > * { position: relative; z-index: 1; }
+
+    .hero-greeting {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      letter-spacing: 0.05em;
+      margin-bottom: var(--sp-4);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+    .hero-greeting .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--color-green);
+    }
+
+    .hero-name {
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -2.88px;
+      line-height: 1.0;
+      margin-bottom: var(--sp-4);
+    }
+    .hero-tagline {
+      font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      max-width: 560px;
+      margin-bottom: var(--sp-6);
+    }
+    .hero-actions {
+      display: flex;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+    }
+
+    /* ── Feature Grid ── */
+    .feature-section {
+      padding: var(--sp-10) 0;
+      border-top: 1px solid var(--color-border-light);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--sp-5);
+      margin-top: var(--sp-6);
+    }
+    .feature-card {
+      padding: var(--sp-6);
+    }
+    .feature-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--r-lg);
+      background: var(--color-accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--sp-4);
+      color: var(--color-accent);
+    }
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: var(--sp-2);
+    }
+    .feature-card p {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .feature-card .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      margin-top: var(--sp-3);
+    }
+    .feature-card .card-link:hover { text-decoration: underline; }
+
+    /* ── Latest Posts ── */
+    .latest-section {
+      padding: var(--sp-10) 0;
+      border-top: 1px solid var(--color-border-light);
+    }
+    .post-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--sp-4) 0;
+      border-bottom: 1px solid var(--color-border-light);
+      transition: padding-left var(--duration) var(--ease-out);
+    }
+    .post-item:hover { padding-left: var(--sp-2); }
+    .post-item a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+    .post-date {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      margin-left: var(--sp-4);
+    }
+
+    /* ── Status Bar ── */
+    .status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-5);
+      padding: var(--sp-8) 0;
+      border-top: 1px solid var(--color-border-light);
+    }
+    .status-item {
+      flex: 1;
+      min-width: 140px;
+    }
+    .status-number {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -1.28px;
+      line-height: 1;
+      margin-bottom: var(--sp-1);
+    }
+    .status-label {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .home-hero { padding: var(--sp-8) 0 var(--sp-6); }
+      .feature-grid { grid-template-columns: 1fr; }
+      .post-item { flex-direction: column; gap: var(--sp-1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═════ Header ═════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="dot pulse"></span>My Space</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/resume/">Resume</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+  <a href="/resume/">Resume</a>
+  <a href="/projects/">Projects</a>
+  <a href="/blog/">Blog</a>
+</nav>
+
+<!-- ═════ Main ═════ -->
+<main class="site-main">
+
+  <!-- Hero -->
+  <section class="home-hero">
+    <div class="hero-greeting anim-in">
+      <span class="dot pulse"></span>
+      <span>available for opportunities</span>
+    </div>
+    <h1 class="hero-name anim-in">Hello, I'm<br>Your Name</h1>
+    <p class="hero-tagline anim-in">
+      A developer, writer, and builder. I create things on the internet and occasionally write about it. This is my personal corner of the web.
+    </p>
+    <div class="hero-actions anim-in">
+      <a href="/projects/" class="btn btn--primary">View Projects →</a>
+      <a href="/about/" class="btn btn--ghost">About Me</a>
+    </div>
+  </section>
+
+  <!-- Status Metrics -->
+  <section class="status-bar">
+    <div class="status-item scroll-reveal">
+      <div class="status-number">5+</div>
+      <div class="status-label">Projects</div>
+    </div>
+    <div class="status-item scroll-reveal">
+      <div class="status-number">3</div>
+      <div class="status-label">Blog Posts</div>
+    </div>
+    <div class="status-item scroll-reveal">
+      <div class="status-number">2025</div>
+      <div class="status-label">Since</div>
+    </div>
+    <div class="status-item scroll-reveal">
+      <div class="status-number">∞</div>
+      <div class="status-label">Curiosity</div>
+    </div>
+  </section>
+
+  <!-- Feature Cards -->
+  <section class="feature-section">
+    <p class="section-label">Explore</p>
+    <h2 class="section-title">What you'll find here</h2>
+    <p class="section-desc">A personal portal for sharing work, thoughts, and everything in between.</p>
+
+    <div class="feature-grid">
+      <div class="card feature-card scroll-reveal">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        </div>
+        <h3>About</h3>
+        <p>Get to know who I am, what drives me, and what I'm working on.</p>
+        <a href="/about/" class="card-link">Learn more →</a>
+      </div>
+
+      <div class="card feature-card scroll-reveal">
+        <div class="feature-icon" style="background:rgba(222,29,141,0.1);color:var(--color-pink)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>Projects</h3>
+        <p>A showcase of things I've built — from AI tools to this very portal.</p>
+        <a href="/projects/" class="card-link">Browse projects →</a>
+      </div>
+
+      <div class="card feature-card scroll-reveal">
+        <div class="feature-icon" style="background:rgba(23,177,105,0.1);color:var(--color-green)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+        </div>
+        <h3>Blog</h3>
+        <p>Thoughts on building, learning, and occasionally rambling about tech.</p>
+        <a href="/blog/" class="card-link">Read posts →</a>
+      </div>
+
+      <div class="card feature-card scroll-reveal">
+        <div class="feature-icon" style="background:rgba(121,40,202,0.1);color:var(--color-purple)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h3>Resume</h3>
+        <p>My professional background, skills, and experience — all in one place.</p>
+        <a href="/resume/" class="card-link">View resume →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts -->
+  <section class="latest-section">
+    <p class="section-label">Latest</p>
+    <h2 class="section-title">Recent writings</h2>
+    <div style="margin-top:var(--sp-5)">
+      <div class="post-item scroll-reveal">
+        <a href="/blog/launching-a-personal-portal/">Launching a Personal Portal</a>
+        <span class="post-date">2025-04</span>
+      </div>
+      <div class="post-item scroll-reveal">
+        <a href="/projects/ai-explainer/">AI Explainer: Making AI Accessible</a>
+        <span class="post-date">2025-03</span>
+      </div>
+    </div>
+    <div style="margin-top:var(--sp-5)">
+      <a href="/blog/" class="btn btn--ghost" style="font-size:0.8125rem">All Posts →</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═════ Footer ═════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2025 My Space. Built with intention.</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
