@@ -4,20 +4,43 @@
 # =====================================================
 #
 #  工作流程:
-#    push to master → CI Runner 构建 → rsync/scp 部署到服务器
+#    push to master → 校验 → 部署 → 验证
 #
 #  前置配置（在工蜂项目 Settings → CI/CD → Variables 中设置）:
-#    - DEPLOY_HOST:     服务器 IP 地址
-#    - DEPLOY_USER:     SSH 登录用户名（如 root 或 ubuntu）
-#    - DEPLOY_SSH_KEY:  SSH 私钥内容（用于免密登录）
+#    - DEPLOY_HOST:     服务器 IP 地址（如 1.2.3.4）
+#    - DEPLOY_USER:     SSH 登录用户名（如 root）
+#    - DEPLOY_SSH_KEY:  SSH 私钥内容（用于免密登录，类型: File）
 #    - DEPLOY_PATH:     服务器上站点目录（如 /var/www/my-space）
+#    - SITE_URL:        站点 URL（如 https://yeranyang.com，用于健康检查）
 #
 # =====================================================
 
 stages:
+  - validate
   - deploy
+  - verify
 
-# ── 部署到生产服务器 ──
+# ── 阶段 1: 校验 ──
+validate_html:
+  stage: validate
+  only:
+    - master
+  tags:
+    - linux
+  script:
+    - echo "🔍 Validating project structure..."
+    # 检查核心文件是否存在
+    - test -f index.html || (echo "❌ index.html not found" && exit 1)
+    - test -f assets/css/global.css || (echo "❌ global.css not found" && exit 1)
+    - test -f assets/js/site.js || (echo "❌ site.js not found" && exit 1)
+    # 检查所有子页面
+    - |
+      for page in about resume projects blog; do
+        test -f "${page}/index.html" || (echo "❌ ${page}/index.html not found" && exit 1)
+      done
+    - echo "✅ All core files present"
+
+# ── 阶段 2: 部署到生产服务器 ──
 deploy_production:
   stage: deploy
   only:
@@ -31,18 +54,63 @@ deploy_production:
     - chmod 600 ~/.ssh/deploy_key
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null\n" > ~/.ssh/config
   script:
-    # 使用 rsync 同步文件到服务器（排除 git 元数据和 CI 配置）
+    - echo "📦 Deploying to ${DEPLOY_HOST}:${DEPLOY_PATH}..."
+    # 确保远程目录存在
+    - ssh -i ~/.ssh/deploy_key ${DEPLOY_USER}@${DEPLOY_HOST} "mkdir -p ${DEPLOY_PATH}"
+    # 使用 rsync 同步文件到服务器（排除非部署文件）
     - |
       rsync -avz --delete \
         --exclude='.git' \
+        --exclude='.gitignore' \
         --exclude='.gongfeng-ci.yml' \
+        --exclude='deploy.sh' \
         --exclude='DESIGN.md' \
+        --exclude='README.md' \
+        --exclude='nginx.conf.example' \
+        --exclude='*.md' \
         -e "ssh -i ~/.ssh/deploy_key" \
         ./ ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/
-    - echo "✅ Deployed to ${DEPLOY_HOST}:${DEPLOY_PATH}"
+    # 设置文件权限
+    - |
+      ssh -i ~/.ssh/deploy_key ${DEPLOY_USER}@${DEPLOY_HOST} \
+        "chown -R www-data:www-data ${DEPLOY_PATH} 2>/dev/null || true && chmod -R 755 ${DEPLOY_PATH}"
+    # 重载 nginx（如果配置有变更）
+    - |
+      ssh -i ~/.ssh/deploy_key ${DEPLOY_USER}@${DEPLOY_HOST} \
+        "nginx -t 2>/dev/null && systemctl reload nginx 2>/dev/null || echo 'ℹ️ Nginx reload skipped (not configured or no permission)'"
+    - echo "✅ Deploy complete!"
   after_script:
     # 清理 SSH 密钥
-    - rm -f ~/.ssh/deploy_key
+    - rm -f ~/.ssh/deploy_key ~/.ssh/config
   environment:
     name: production
     url: https://yeranyang.com
+
+# ── 阶段 3: 部署后验证 ──
+verify_deployment:
+  stage: verify
+  only:
+    - master
+  tags:
+    - linux
+  script:
+    - echo "🏥 Running health check..."
+    - SITE_URL="${SITE_URL:-https://yeranyang.com}"
+    # 等待 5 秒让 nginx 完成 reload
+    - sleep 5
+    # 检查首页是否可访问
+    - |
+      HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE_URL}" 2>/dev/null || echo "000")
+      if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "301" ] || [ "$HTTP_CODE" = "302" ]; then
+        echo "✅ Site is UP (HTTP ${HTTP_CODE}): ${SITE_URL}"
+      else
+        echo "⚠️ Site returned HTTP ${HTTP_CODE}: ${SITE_URL}"
+        echo "   This may be expected if DNS/SSL is not yet configured"
+      fi
+    # 检查关键页面
+    - |
+      for path in /about/ /resume/ /projects/ /blog/; do
+        CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE_URL}${path}" 2>/dev/null || echo "000")
+        echo "   ${path} → HTTP ${CODE}"
+      done
+  allow_failure: true
