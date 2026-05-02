@@ -77,5 +77,50 @@
       },
       "all": "All Projects →"
     }
+  },
+  "about": {
+    "meta": {
+      "title": "About — YSpace",
+      "description": "About me — background, interests, and what I'm working on."
+    },
+    "hero": {
+      "kicker": "About",
+      "title": "A little about me",
+      "desc": "Developer, tinkerer, lifelong learner — here's the short version."
+    },
+    "sidebar": {
+      "location": { "label": "Location", "value": "Earth, mostly" },
+      "focus":    { "label": "Focus",    "value": "AI · Full-stack Development" },
+      "education":{ "label": "Education","value": "M.Sc. · Mostly self-taught" },
+      "status":   { "label": "Status",   "value": "Deep seeking" }
+    },
+    "who": {
+      "heading": "Who I am",
+      "p1": "Hi, I'm Yang Guang — a developer who enjoys building things that live on the web. Whether it's a web app, a small CLI tool, or an AI experiment, if it involves code I'm probably curious about it.",
+      "p2": "I come from a full-stack background. Over the years I've quietly shipped corporate sites, content platforms, and data products, often moving things forward through collaboration. What I really care about isn't just the code — it's how content flows, how ideas travel, and how AI can actually fit into the way teams work day to day.",
+      "p3": "I started with curiosity and a text editor. That curiosity has slowly grown into a quiet appreciation for clean architecture, thoughtful design, and making technology feel a bit more human."
+    },
+    "doing": {
+      "heading": "What I do",
+      "p1": "I build full-stack applications, explore AI tooling, and write down what I learn along the way. These days I'm focused on making complex ideas easier to understand — through small tools, clear writing, and honest examples."
+    },
+    "interests": {
+      "heading": "Interests",
+      "ai":     { "title": "AI & Machine Learning", "desc": "Making AI easier to understand" },
+      "design": { "title": "Design Systems",        "desc": "Where code meets craft" },
+      "writing":{ "title": "Technical Writing",     "desc": "Plain words for complex ideas" },
+      "oss":    { "title": "Open Source",           "desc": "Building in the open" }
+    },
+    "site": {
+      "heading": "About this site",
+      "p1": "This site is a static, hand-crafted portal — plain HTML, CSS, and JavaScript, with no frameworks or build tools. It's meant to stay fast, light, and easy to host almost anywhere. The design language borrows from",
+      "p1_link": "awesome-design-md",
+      "p1_tail": ", and leans on the spirit of Vercel's visual system."
+    },
+    "social": {
+      "github": "GitHub",
+      "email": "Email",
+      "x": "X (Twitter)"
+    }
   }
 }

@@ -133,9 +133,9 @@
 
 <main class="site-main">
   <section class="page-hero">
-    <p class="section-label anim-in">About</p>
-    <h1 class="section-title anim-in">A bit about me</h1>
-    <p class="section-desc anim-in">Developer, tinkerer, lifelong learner. Here's my story.</p>
+    <p class="section-label anim-in" data-i18n="about.hero.kicker">About</p>
+    <h1 class="section-title anim-in" data-i18n="about.hero.title">A little about me</h1>
+    <p class="section-desc anim-in" data-i18n="about.hero.desc">Developer, tinkerer, lifelong learner — here's the short version.</p>
   </section>
 
   <div class="about-layout">
@@ -145,23 +145,23 @@
         <img src="/assets/images/avatar.png" alt="Portrait of YANG Guang" width="240" height="240" loading="lazy" decoding="async">
       </div>
       <dl class="sidebar-info">
-        <dt>Location</dt>
-        <dd>Earth, mostly</dd>
-        <dt>Focus</dt>
-        <dd>AI, Full-stack Development</dd>
-        <dt>Education</dt>
-        <dd>Master of Science/Self-taught hybrid</dd>
-        <dt>Status</dt>
-        <dd><span class="badge badge--green">Deep seeking</span></dd>
+        <dt data-i18n="about.sidebar.location.label">Location</dt>
+        <dd data-i18n="about.sidebar.location.value">Earth, mostly</dd>
+        <dt data-i18n="about.sidebar.focus.label">Focus</dt>
+        <dd data-i18n="about.sidebar.focus.value">AI · Full-stack Development</dd>
+        <dt data-i18n="about.sidebar.education.label">Education</dt>
+        <dd data-i18n="about.sidebar.education.value">M.Sc. · Mostly self-taught</dd>
+        <dt data-i18n="about.sidebar.status.label">Status</dt>
+        <dd><span class="badge badge--green" data-i18n="about.sidebar.status.value">Deep seeking</span></dd>
       </dl>
       <div class="social-links">
-        <a href="https://github.com/guangyang1206" target="_blank" rel="noopener" aria-label="GitHub">
+        <a href="https://github.com/guangyang1206" target="_blank" rel="noopener" aria-label="GitHub" data-i18n="about.social.github" data-i18n-attr="aria-label">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
-        <a href="mailto:hello@example.com" aria-label="Email">
+        <a href="mailto:guangyang1206@hotmail.com" aria-label="Email" data-i18n="about.social.email" data-i18n-attr="aria-label">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </a>
-        <a href="#" aria-label="Twitter/X">
+        <a href="https://x.com/guangyang1206" target="_blank" rel="noopener" aria-label="X (Twitter)" data-i18n="about.social.x" data-i18n-attr="aria-label">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
       </div>
@@ -169,53 +169,46 @@
 
     <!-- Content -->
     <div class="about-content">
-      <h2 class="scroll-reveal">Who I am</h2>
-      <p class="scroll-reveal">
-        Hi there! I'm a developer who loves building things that live on the internet. 
-        Whether it's a sleek web app, a command-line tool, or an AI-powered experiment — 
-        if it involves code, I'm probably interested.
-        With a full-stack background, I've spent years quietly shipping corporate sites, content platforms, and data products, often driving projects forward through collaboration. What I care about isn't just the code — it's content efficiency, how ideas travel, and how AI can genuinely find its way into the way teams actually work.
+      <h2 class="scroll-reveal" data-i18n="about.who.heading">Who I am</h2>
+      <p class="scroll-reveal" data-i18n="about.who.p1">
+        Hi, I'm Yang Guang — a developer who enjoys building things that live on the web. Whether it's a web app, a small CLI tool, or an AI experiment, if it involves code I'm probably curious about it.
       </p>
-      <p class="scroll-reveal">
-        I started my journey with curiosity and a text editor. Over the years, that's 
-        evolved into a passion for clean architecture, thoughtful design, and making 
-        technology more accessible.
+      <p class="scroll-reveal" data-i18n="about.who.p2">
+        I come from a full-stack background. Over the years I've quietly shipped corporate sites, content platforms, and data products, often moving things forward through collaboration. What I really care about isn't just the code — it's how content flows, how ideas travel, and how AI can actually fit into the way teams work day to day.
+      </p>
+      <p class="scroll-reveal" data-i18n="about.who.p3">
+        I started with curiosity and a text editor. That curiosity has slowly grown into a quiet appreciation for clean architecture, thoughtful design, and making technology feel a bit more human.
       </p>
 
-      <h2 class="scroll-reveal">What I do</h2>
-      <p class="scroll-reveal">
-        I build full-stack applications, explore AI/ML tooling, and write about what I learn. 
-        Currently, I'm focused on creating tools and content that help others understand 
-        complex technical concepts.
+      <h2 class="scroll-reveal" data-i18n="about.doing.heading">What I do</h2>
+      <p class="scroll-reveal" data-i18n="about.doing.p1">
+        I build full-stack applications, explore AI tooling, and write down what I learn along the way. These days I'm focused on making complex ideas easier to understand — through small tools, clear writing, and honest examples.
       </p>
 
-      <h2 class="scroll-reveal">Interests</h2>
+      <h2 class="scroll-reveal" data-i18n="about.interests.heading">Interests</h2>
       <div class="interest-grid">
         <div class="card interest-item scroll-reveal">
           <span class="icon">🧠</span>
-          <div><strong>AI & Machine Learning</strong><span>Making AI understandable</span></div>
+          <div><strong data-i18n="about.interests.ai.title">AI & Machine Learning</strong><span data-i18n="about.interests.ai.desc">Making AI easier to understand</span></div>
         </div>
         <div class="card interest-item scroll-reveal">
           <span class="icon">🎨</span>
-          <div><strong>Design Systems</strong><span>Bridging code & aesthetics</span></div>
+          <div><strong data-i18n="about.interests.design.title">Design Systems</strong><span data-i18n="about.interests.design.desc">Where code meets craft</span></div>
         </div>
         <div class="card interest-item scroll-reveal">
           <span class="icon">📝</span>
-          <div><strong>Technical Writing</strong><span>Simplifying the complex</span></div>
+          <div><strong data-i18n="about.interests.writing.title">Technical Writing</strong><span data-i18n="about.interests.writing.desc">Plain words for complex ideas</span></div>
         </div>
         <div class="card interest-item scroll-reveal">
           <span class="icon">🛠️</span>
-          <div><strong>Open Source</strong><span>Building in the open</span></div>
+          <div><strong data-i18n="about.interests.oss.title">Open Source</strong><span data-i18n="about.interests.oss.desc">Building in the open</span></div>
         </div>
       </div>
 
-      <h2 class="scroll-reveal">This site</h2>
+      <h2 class="scroll-reveal" data-i18n="about.site.heading">About this site</h2>
       <p class="scroll-reveal">
-        This portal is a static, hand-crafted site built with vanilla HTML, CSS, and JS — 
-        no frameworks, no build tools. It's designed to be fast, lightweight, and easy to 
-        deploy on any static hosting or lightweight server. The design system is inspired by
-        <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener">awesome-design-md</a>, 
-        specifically the Vercel design language.
+        <span data-i18n="about.site.p1">This site is a static, hand-crafted portal — plain HTML, CSS, and JavaScript, with no frameworks or build tools. It's meant to stay fast, light, and easy to host almost anywhere. The design language borrows from</span>
+        <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener" data-i18n="about.site.p1_link">awesome-design-md</a><span data-i18n="about.site.p1_tail">, and leans on the spirit of Vercel's visual system.</span>
       </p>
     </div>
   </div>
