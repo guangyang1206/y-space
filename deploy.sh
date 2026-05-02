@@ -1,55 +1,45 @@
 #!/bin/bash
-# =====================================================
-#  deploy.sh — 手动一键部署到腾讯云轻量服务器
-# =====================================================
-#
-#  用法:
-#    ./deploy.sh [服务器IP] [用户名] [目标路径]
-#
-#  示例:
-#    ./deploy.sh 1.2.3.4 root /var/www/my-space
-#
-#  前提: 已配置 SSH 免密登录（ssh-copy-id）
-#
-# =====================================================
+set -e
 
-set -euo pipefail
+# ===== 配置 =====
+SERVER_IP="139.199.72.245"
+SERVER_USER="ubuntu"
+SSH_KEY="/data/workspace/light_server_for_claw.pem"
+DEPLOY_PATH="/var/www/my-space"
 
-# 默认值（请修改为你的实际配置）
-DEPLOY_HOST="${1:-YOUR_SERVER_IP}"
-DEPLOY_USER="${2:-root}"
-DEPLOY_PATH="${3:-/var/www/my-space}"
+echo "========== 开始部署 my-space =========="
 
-# 颜色
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m'
-
-echo -e "${BLUE}━━━ Deploying to ${DEPLOY_HOST}:${DEPLOY_PATH} ━━━${NC}"
-
-# 获取脚本所在目录（即项目根目录）
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Step 1: 确保远程目录存在
-echo "📁 Ensuring remote directory exists..."
-ssh ${DEPLOY_USER}@${DEPLOY_HOST} "mkdir -p ${DEPLOY_PATH}"
-
-# Step 2: rsync 同步
-echo "📦 Syncing files..."
+# 1. 同步文件到服务器
+echo "📦 同步文件..."
 rsync -avz --delete \
   --exclude='.git' \
   --exclude='.gongfeng-ci.yml' \
   --exclude='deploy.sh' \
-  --exclude='DESIGN.md' \
-  --exclude='.gitignore' \
-  "${SCRIPT_DIR}/" \
-  "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/"
+  --exclude='*.md' \
+  --exclude='node_modules' \
+  -e "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no" \
+  ./ ${SERVER_USER}@${SERVER_IP}:${DEPLOY_PATH}/
 
-# Step 3: 设置权限
-echo "🔒 Setting permissions..."
-ssh ${DEPLOY_USER}@${DEPLOY_HOST} "chown -R www-data:www-data ${DEPLOY_PATH} 2>/dev/null || true && chmod -R 755 ${DEPLOY_PATH}"
+echo "✅ 文件同步完成"
 
-echo ""
-echo -e "${GREEN}✅ Deploy complete!${NC}"
-echo -e "   Site: https://yeranyang.com"
-echo -e "   Path: ${DEPLOY_HOST}:${DEPLOY_PATH}"
+# 2. 服务器上设置权限并重载 Nginx
+echo "🔄 重载 Nginx..."
+ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << 'REMOTE'
+sudo chown -R ubuntu:ubuntu /var/www/my-space
+sudo chmod -R 755 /var/www/my-space
+sudo nginx -t && sudo systemctl reload nginx
+echo "✅ Nginx 重载完成"
+REMOTE
+
+# 3. 健康检查
+echo "🏥 健康检查..."
+sleep 2
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://yeranyang.com)
+if [ "$HTTP_CODE" = "200" ]; then
+    echo "✅ 部署成功！(HTTP ${HTTP_CODE})"
+    echo "🌐 网站地址: https://yeranyang.com"
+else
+    echo "⚠️  HTTP 状态码: ${HTTP_CODE}（可能是 CDN 缓存延迟，稍等再试）"
+fi
+
+echo "========== 部署完成 =========="

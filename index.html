@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="home.meta.title">My Space — Personal Portal</title>
+  <title data-i18n="home.meta.title">YSpace — Personal Portal</title>
   <meta name="description" content="A personal portal for projects, blog, resume, and more." data-i18n="home.meta.description" data-i18n-attr="content">
   <script src="/assets/js/head-boot.js?v=20260502"></script>
   <style>
     /* ── Home Hero ── */
     .home-hero {
       padding: var(--sp-11) 0 var(--sp-10);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--sp-9);
+      align-items: center;
       position: relative;
     }
     .home-hero::before {
@@ -28,6 +29,8 @@
       background: radial-gradient(circle, rgba(10,114,239,0.08) 0%, transparent 70%);
     }
     .home-hero > * { position: relative; z-index: 1; }
+
+    .hero-text { display: flex; flex-direction: column; align-items: flex-start; }
 
     .hero-greeting {
       font-family: var(--font-mono);
@@ -66,68 +69,135 @@
       flex-wrap: wrap;
     }
 
-    /* ── Feature Grid ── */
-    .feature-section {
-      padding: var(--sp-10) 0;
-      border-top: 1px solid var(--color-border-light);
+    /* ── Hero Portrait ── */
+    .hero-portrait {
+      width: 280px;
+      height: 280px;
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      background: var(--color-bg-subtle);
+      flex-shrink: 0;
     }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--sp-5);
-      margin-top: var(--sp-6);
+    .hero-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
-    .feature-card {
-      padding: var(--sp-6);
-    }
-    .feature-icon {
-      width: 40px; height: 40px;
-      border-radius: var(--r-lg);
-      background: var(--color-accent-soft);
+
+    /* ── NOW strip ── */
+    .now-strip {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-bottom: var(--sp-4);
-      color: var(--color-accent);
+      gap: var(--sp-4);
+      padding: var(--sp-5) 0;
+      border-top: 1px solid var(--color-border-light);
+      border-bottom: 1px solid var(--color-border-light);
+      flex-wrap: wrap;
     }
-    .feature-card h3 {
+    .now-label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .now-label .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--color-green);
+    }
+    .now-text {
+      font-size: 0.9375rem;
+      color: var(--color-text);
+      line-height: 1.5;
+      flex: 1;
+      min-width: 240px;
+    }
+    .now-date {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    /* ── Status Bar ── */
+    .status-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-5);
+      padding: var(--sp-8) 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .status-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .status-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-2);
+    }
+    .status-value {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -1.28px;
+      line-height: 1;
+      margin-bottom: var(--sp-1);
+      color: var(--color-text);
+    }
+    .status-value .status-sub {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      color: var(--color-text-secondary);
+      margin-left: 4px;
+    }
+    .status-meta {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .status-meta .sep { opacity: 0.4; margin: 0 6px; }
+
+    /* ── Two-column bottom (Writing | Work) ── */
+    .bottom-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-9);
+      padding: var(--sp-10) 0 var(--sp-8);
+    }
+    .bottom-col .section-label { margin-bottom: var(--sp-4); }
+    .bottom-col .col-title {
       font-size: 1.25rem;
       font-weight: 600;
       letter-spacing: -0.5px;
-      margin-bottom: var(--sp-2);
-    }
-    .feature-card p {
-      font-size: 0.9375rem;
-      color: var(--color-text-secondary);
-      line-height: 1.6;
-    }
-    .feature-card .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--color-accent);
-      margin-top: var(--sp-3);
-    }
-    .feature-card .card-link:hover { text-decoration: underline; }
-
-    /* ── Latest Posts ── */
-    .latest-section {
-      padding: var(--sp-10) 0;
-      border-top: 1px solid var(--color-border-light);
+      margin-bottom: var(--sp-4);
+      color: var(--color-text);
     }
     .post-item {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      gap: var(--sp-3);
       padding: var(--sp-4) 0;
       border-bottom: 1px solid var(--color-border-light);
       transition: padding-left var(--duration) var(--ease-out);
     }
     .post-item:hover { padding-left: var(--sp-2); }
     .post-item a {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 500;
       color: var(--color-text);
     }
@@ -136,37 +206,60 @@
       font-size: 0.75rem;
       color: var(--color-text-muted);
       white-space: nowrap;
-      margin-left: var(--sp-4);
     }
-
-    /* ── Status Bar ── */
-    .status-bar {
+    .work-item {
+      display: block;
+      padding: var(--sp-4) 0;
+      border-bottom: 1px solid var(--color-border-light);
+      transition: padding-left var(--duration) var(--ease-out);
+      text-decoration: none;
+    }
+    .work-item:hover { padding-left: var(--sp-2); text-decoration: none; }
+    .work-item .work-title {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-text);
       display: flex;
-      flex-wrap: wrap;
-      gap: var(--sp-5);
-      padding: var(--sp-8) 0;
-      border-top: 1px solid var(--color-border-light);
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-3);
     }
-    .status-item {
-      flex: 1;
-      min-width: 140px;
+    .work-item .work-title .arrow {
+      font-family: var(--font-mono);
+      color: var(--color-text-muted);
+      transition: transform var(--duration) var(--ease-out),
+                  color var(--duration) var(--ease-out);
     }
-    .status-number {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -1.28px;
-      line-height: 1;
-      margin-bottom: var(--sp-1);
+    .work-item:hover .work-title .arrow {
+      transform: translateX(3px);
+      color: var(--color-accent);
     }
-    .status-label {
+    .work-item .work-desc {
       font-size: 0.8125rem;
       color: var(--color-text-muted);
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+    .col-footer {
+      margin-top: var(--sp-5);
     }
 
-    @media (max-width: 768px) {
-      .home-hero { padding: var(--sp-8) 0 var(--sp-6); }
-      .feature-grid { grid-template-columns: 1fr; }
-      .post-item { flex-direction: column; gap: var(--sp-1); }
+    @media (max-width: 880px) {
+      .home-hero {
+        grid-template-columns: 1fr;
+        gap: var(--sp-6);
+        padding: var(--sp-8) 0 var(--sp-7);
+      }
+      .hero-portrait {
+        order: -1;
+        width: 140px;
+        height: 140px;
+      }
+      .status-bar { grid-template-columns: repeat(2, 1fr); gap: var(--sp-6) var(--sp-5); }
+      .status-value { font-size: 1.625rem; }
+      .bottom-split { grid-template-columns: 1fr; gap: var(--sp-8); padding: var(--sp-8) 0 var(--sp-6); }
+      .post-item { flex-direction: column; align-items: flex-start; gap: var(--sp-1); }
+      .now-strip { flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
     }
   </style>
 </head>
@@ -180,90 +273,76 @@
 
   <!-- Hero -->
   <section class="home-hero">
-<div class="hero-greeting anim-in">
-      <span class="dot pulse"></span>
-      <span data-i18n="home.hero.quote">He never grew up, but he never stopped growing. - Arthur C. Clarke</span>
+    <div class="hero-text">
+      <div class="hero-greeting anim-in">
+        <span class="dot pulse"></span>
+        <span data-i18n="home.hero.quote">He never grew up, but he never stopped growing. — Arthur C. Clarke</span>
+      </div>
+      <h1 class="hero-name anim-in" data-i18n="home.hero.greeting">Hello, I'm<br>YANG Guang</h1>
+      <p class="hero-tagline anim-in" data-i18n="home.hero.tagline">
+        I work at the intersection of websites, content, and AI products — the person on the team who makes the technical side happen.
+      </p>
+      <div class="hero-actions anim-in">
+        <a href="/projects/" class="btn btn--primary" data-i18n="home.hero.ctaProjects">View Projects →</a>
+        <a href="/about/" class="btn btn--ghost" data-i18n="home.hero.ctaAbout">About Me</a>
+      </div>
     </div>
-    <h1 class="hero-name anim-in" data-i18n="home.hero.greeting">Hello, I'm<br>YANG Guang</h1>
-    <p class="hero-tagline anim-in" data-i18n="home.hero.tagline">
-      I work at the intersection of websites, content, and AI products — the person on the team who makes the technical side happen.
-    </p>
-    <div class="hero-actions anim-in">
-      <a href="/projects/" class="btn btn--primary" data-i18n="home.hero.ctaProjects">View Projects →</a>
-      <a href="/about/" class="btn btn--ghost" data-i18n="home.hero.ctaAbout">About Me</a>
+    <div class="hero-portrait anim-in" aria-hidden="true">
+      <img src="/assets/images/avatar.png" alt="">
     </div>
   </section>
 
-  <!-- Status Metrics -->
+  <!-- NOW strip -->
+  <section class="now-strip scroll-reveal" aria-label="What I'm doing now">
+    <span class="now-label"><span class="dot"></span><span data-i18n="home.now.label">Now</span></span>
+    <span class="now-text" data-i18n="home.now.text">Learning in public — one commit, one article at a time.</span>
+    <span class="now-date" data-i18n="home.now.date">May 2026</span>
+  </section>
+
+  <!-- Status Bar -->
   <section class="status-bar">
     <div class="status-item scroll-reveal">
-      <div class="status-number">5+</div>
-      <div class="status-label" data-i18n="home.status.projects">Projects</div>
+      <div class="status-kicker" data-i18n="home.status.since.kicker">Since</div>
+      <div class="status-value">2016</div>
+      <div class="status-meta">
+        <span data-i18n="home.status.since.enSub">a decade in</span>
+        <span class="sep">·</span>
+        <span data-i18n="home.status.since.zhSub">十年在路上</span>
+      </div>
     </div>
     <div class="status-item scroll-reveal">
-      <div class="status-number">3</div>
-      <div class="status-label" data-i18n="home.status.posts">Blog Posts</div>
+      <div class="status-kicker" data-i18n="home.status.truth.kicker">Truth</div>
+      <div class="status-value" data-i18n="home.status.truth.value">Seeking</div>
+      <div class="status-meta">
+        <span data-i18n="home.status.truth.enSub">still searching</span>
+        <span class="sep">·</span>
+        <span data-i18n="home.status.truth.zhSub">在探索中</span>
+      </div>
     </div>
     <div class="status-item scroll-reveal">
-      <div class="status-number">2025</div>
-      <div class="status-label" data-i18n="home.status.since">Since</div>
+      <div class="status-kicker" data-i18n="home.status.craft.kicker">AI &amp; Coding</div>
+      <div class="status-value" data-i18n="home.status.craft.value">Learning</div>
+      <div class="status-meta">
+        <span data-i18n="home.status.craft.enSub">an apprentice's mind</span>
+        <span class="sep">·</span>
+        <span data-i18n="home.status.craft.zhSub">保持学徒心态</span>
+      </div>
     </div>
     <div class="status-item scroll-reveal">
-      <div class="status-number">∞</div>
-      <div class="status-label" data-i18n="home.status.curiosity">Curiosity</div>
-    </div>
-  </section>
-
-  <!-- Feature Cards -->
-  <section class="feature-section">
-    <p class="section-label" data-i18n="home.features.label">Explore</p>
-    <h2 class="section-title" data-i18n="home.features.title">What you'll find here</h2>
-    <p class="section-desc" data-i18n="home.features.desc">A personal portal for sharing work, thoughts, and everything in between.</p>
-
-    <div class="feature-grid">
-      <div class="card feature-card scroll-reveal">
-        <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-        </div>
-        <h3 data-i18n="home.features.about.title">About</h3>
-        <p data-i18n="home.features.about.desc">Get to know who I am, what drives me, and what I'm working on.</p>
-        <a href="/about/" class="card-link" data-i18n="home.features.about.link">Learn more →</a>
-      </div>
-
-      <div class="card feature-card scroll-reveal">
-        <div class="feature-icon" style="background:rgba(222,29,141,0.1);color:var(--color-pink)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
-        </div>
-        <h3 data-i18n="home.features.projects.title">Projects</h3>
-        <p data-i18n="home.features.projects.desc">A showcase of things I've built — from AI tools to this very portal.</p>
-        <a href="/projects/" class="card-link" data-i18n="home.features.projects.link">Browse projects →</a>
-      </div>
-
-      <div class="card feature-card scroll-reveal">
-        <div class="feature-icon" style="background:rgba(23,177,105,0.1);color:var(--color-green)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-        </div>
-        <h3 data-i18n="home.features.blog.title">Blog</h3>
-        <p data-i18n="home.features.blog.desc">Thoughts on building, learning, and occasionally rambling about tech.</p>
-        <a href="/blog/" class="card-link" data-i18n="home.features.blog.link">Read posts →</a>
-      </div>
-
-      <div class="card feature-card scroll-reveal">
-        <div class="feature-icon" style="background:rgba(121,40,202,0.1);color:var(--color-purple)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-        </div>
-        <h3 data-i18n="home.features.resume.title">Resume</h3>
-        <p data-i18n="home.features.resume.desc">My professional background, skills, and experience — all in one place.</p>
-        <a href="/resume/" class="card-link" data-i18n="home.features.resume.link">View resume →</a>
+      <div class="status-kicker" data-i18n="home.status.curiosity.kicker">Curiosity</div>
+      <div class="status-value">∞</div>
+      <div class="status-meta">
+        <span data-i18n="home.status.curiosity.enSub">no ceiling</span>
+        <span class="sep">·</span>
+        <span data-i18n="home.status.curiosity.zhSub">永不设限</span>
       </div>
     </div>
   </section>
 
-  <!-- Latest Blog Posts -->
-  <section class="latest-section">
-    <p class="section-label" data-i18n="home.latest.label">Latest</p>
-    <h2 class="section-title" data-i18n="home.latest.title">Recent writings</h2>
-    <div style="margin-top:var(--sp-5)">
+  <!-- Bottom: Writing | Work -->
+  <section class="bottom-split">
+    <div class="bottom-col">
+      <p class="section-label" data-i18n="home.latest.label">Recent writings</p>
       <div class="post-item scroll-reveal">
         <a href="/blog/launching-a-personal-portal/" data-i18n="home.latest.post1">Launching a Personal Portal</a>
         <span class="post-date">2025-04</span>
@@ -272,9 +351,30 @@
         <a href="/projects/ai-explainer/" data-i18n="home.latest.post2">AI Explainer: Making AI Accessible</a>
         <span class="post-date">2025-03</span>
       </div>
+      <div class="col-footer">
+        <a href="/blog/" class="btn btn--ghost" style="font-size:0.8125rem" data-i18n="home.latest.all">All Posts →</a>
+      </div>
     </div>
-    <div style="margin-top:var(--sp-5)">
-      <a href="/blog/" class="btn btn--ghost" style="font-size:0.8125rem" data-i18n="home.latest.all">All Posts →</a>
+
+    <div class="bottom-col">
+      <p class="section-label" data-i18n="home.work.label">Selected work</p>
+      <a href="/projects/ai-explainer/" class="work-item scroll-reveal">
+        <div class="work-title">
+          <span data-i18n="home.work.ai.title">AI Explainer</span>
+          <span class="arrow">→</span>
+        </div>
+        <div class="work-desc" data-i18n="home.work.ai.desc">An interactive tool that makes AI concepts approachable.</div>
+      </a>
+      <a href="/projects/personal-portal/" class="work-item scroll-reveal">
+        <div class="work-title">
+          <span data-i18n="home.work.portal.title">Personal Portal</span>
+          <span class="arrow">→</span>
+        </div>
+        <div class="work-desc" data-i18n="home.work.portal.desc">The architecture and design behind this very site.</div>
+      </a>
+      <div class="col-footer">
+        <a href="/projects/" class="btn btn--ghost" style="font-size:0.8125rem" data-i18n="home.work.all">All Projects →</a>
+      </div>
     </div>
   </section>
 

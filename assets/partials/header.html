@@ -1,7 +1,14 @@
 <!-- Shared site header — loaded via data-include -->
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="logo"><span class="dot pulse"></span><span data-i18n="common.brand">My Space</span></a>
+    <a href="/" class="logo" aria-label="YSpace — home">
+      <svg class="logo-mark" viewBox="0 0 250 60" width="125" height="30" aria-hidden="true" focusable="false">
+        <path d="M15 45L30 10l15 35-15-7z" fill="#0070f3"/>
+        <path d="M22 45l8 10 8-10" fill="none" stroke="#0070f3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="60" y="42" font-family="var(--font-sans, Inter, -apple-system, sans-serif)" font-weight="700" font-size="32" fill="currentColor">YSpace</text>
+      </svg>
+      <span class="visually-hidden" data-i18n="common.brand">YSpace</span>
+    </a>
     <nav>
       <ul class="nav-links">
         <li><a href="/" data-i18n="common.nav.home">Home</a></li>

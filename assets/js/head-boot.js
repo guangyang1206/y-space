@@ -15,7 +15,7 @@
  * add it here once — it propagates to every page automatically.
  */
 (function () {
-  var CACHE_BUST = 'v=5';
+  var CACHE_BUST = 'v=6';
 
   var tags = [
     // Stylesheets
@@ -25,9 +25,12 @@
     '<script src="/assets/js/i18n.js?' + CACHE_BUST + '"><\/script>',
     '<script src="/assets/js/site.js?' + CACHE_BUST + '"><\/script>',
 
-    // Favicon / theme color placeholders — add here when ready
-    // '<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">',
-    // '<meta name="theme-color" content="#000000">'
+    // Favicon / app icons — SVG for modern browsers, PNG fallback for iOS
+    '<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">',
+    '<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">',
+
+    // Theme color — matches favicon background so mobile address bar blends in
+    '<meta name="theme-color" content="#000000">'
   ];
 
   document.write(tags.join('\n'));

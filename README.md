@@ -1,4 +1,4 @@
-# My Space — Personal Portal
+# YSpace — Personal Portal
 
 A static, hand-crafted personal website. No frameworks, no build tools — just HTML, CSS, and vanilla JS.
 

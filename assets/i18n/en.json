@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "My Space",
+    "brand": "YSpace",
     "nav": {
       "home": "Home",
       "about": "About",
@@ -24,7 +24,7 @@
   },
   "home": {
     "meta": {
-      "title": "My Space — Personal Portal",
+      "title": "YSpace — Personal Portal",
       "description": "A personal portal for projects, blog, resume, and more."
     },
     "hero": {
@@ -34,43 +34,52 @@
       "ctaProjects": "View Projects →",
       "ctaAbout": "About Me"
     },
-    "status": {
-      "projects": "Projects",
-      "posts": "Blog Posts",
-      "since": "Since",
-      "curiosity": "Curiosity"
+    "now": {
+      "label": "Now",
+      "text": "Learning in public — one commit, one article at a time.",
+      "date": "May 2026"
     },
-    "features": {
-      "label": "Explore",
-      "title": "What you'll find here",
-      "desc": "A personal portal for sharing work, thoughts, and everything in between.",
-      "about": {
-        "title": "About",
-        "desc": "Get to know who I am, what drives me, and what I'm working on.",
-        "link": "Learn more →"
+    "status": {
+      "since": {
+        "kicker": "Since",
+        "enSub": "a decade in",
+        "zhSub": "十年在路上"
       },
-      "projects": {
-        "title": "Projects",
-        "desc": "A showcase of things I've built — from AI tools to this very portal.",
-        "link": "Browse projects →"
+      "truth": {
+        "kicker": "Truth",
+        "value": "Seeking",
+        "enSub": "still searching",
+        "zhSub": "在探索中"
       },
-      "blog": {
-        "title": "Blog",
-        "desc": "Thoughts on building, learning, and occasionally rambling about tech.",
-        "link": "Read posts →"
+      "craft": {
+        "kicker": "AI & Coding",
+        "value": "Learning",
+        "enSub": "an apprentice's mind",
+        "zhSub": "保持学徒心态"
       },
-      "resume": {
-        "title": "Resume",
-        "desc": "My professional background, skills, and experience — all in one place.",
-        "link": "View resume →"
+      "curiosity": {
+        "kicker": "Curiosity",
+        "enSub": "no ceiling",
+        "zhSub": "永不设限"
       }
     },
     "latest": {
-      "label": "Latest",
-      "title": "Recent writings",
+      "label": "Recent writings",
       "post1": "Launching a Personal Portal",
       "post2": "AI Explainer: Making AI Accessible",
       "all": "All Posts →"
+    },
+    "work": {
+      "label": "Selected work",
+      "ai": {
+        "title": "AI Explainer",
+        "desc": "An interactive tool that makes AI concepts approachable."
+      },
+      "portal": {
+        "title": "Personal Portal",
+        "desc": "The architecture and design behind this very site."
+      },
+      "all": "All Projects →"
     }
   }
 }
