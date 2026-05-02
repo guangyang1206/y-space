@@ -1,0 +1,51 @@
+<!-- Shared site header — loaded via data-include -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="dot pulse"></span><span data-i18n="common.brand">My Space</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/" data-i18n="common.nav.home">Home</a></li>
+        <li><a href="/about/" data-i18n="common.nav.about">About</a></li>
+        <li><a href="/resume/" data-i18n="common.nav.resume">Resume</a></li>
+        <li><a href="/projects/" data-i18n="common.nav.projects">Projects</a></li>
+        <li><a href="/blog/" data-i18n="common.nav.blog">Blog</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switcher">
+        <button class="lang-switcher__trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language" data-i18n="common.aria.lang" data-i18n-attr="aria-label">
+          <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="lang-switcher__label" data-i18n="common.lang.current">EN</span>
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="lang-switcher__menu" role="listbox">
+          <button class="lang-switcher__item" type="button" role="option" data-lang="en">
+            <span>English</span>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+          <button class="lang-switcher__item" type="button" role="option" data-lang="zh">
+            <span>中文</span>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" data-i18n="common.aria.theme" data-i18n-attr="aria-label"></button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" data-i18n="common.aria.menu" data-i18n-attr="aria-label">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav">
+  <a href="/" data-i18n="common.nav.home">Home</a>
+  <a href="/about/" data-i18n="common.nav.about">About</a>
+  <a href="/resume/" data-i18n="common.nav.resume">Resume</a>
+  <a href="/projects/" data-i18n="common.nav.projects">Projects</a>
+  <a href="/blog/" data-i18n="common.nav.blog">Blog</a>
+</nav>

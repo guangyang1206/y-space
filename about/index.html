@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — My Space</title>
-  <meta name="description" content="About me — background, interests, and what I'm up to.">
-  <link rel="stylesheet" href="../assets/css/global.css">
-  <script src="../assets/js/site.js"></script>
+  <title data-i18n="about.meta.title">About — My Space</title>
+  <meta name="description" content="About me — background, interests, and what I'm up to." data-i18n="about.meta.description" data-i18n-attr="content">
+  <script src="/assets/js/head-boot.js?v=20260502"></script>
   <style>
     .about-layout {
       display: grid;
@@ -128,29 +127,8 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="/" class="logo"><span class="dot pulse"></span>My Space</a>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/resume/">Resume</a></li>
-        <li><a href="/projects/">Projects</a></li>
-        <li><a href="/blog/">Blog</a></li>
-      </ul>
-    </nav>
-    <div style="display:flex;align-items:center;gap:8px">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
-      </button>
-    </div>
-  </div>
-</header>
-<nav class="mobile-nav">
-  <a href="/">Home</a><a href="/about/">About</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a>
-</nav>
+<!-- Shared header partial -->
+<div data-include="/assets/partials/header.html"></div>
 
 <main class="site-main">
   <section class="page-hero">
@@ -240,15 +218,8 @@
   </div>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <span>© 2025 My Space. Built with intention.</span>
-    <ul class="footer-links">
-      <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="mailto:hello@example.com">Email</a></li>
-    </ul>
-  </div>
-</footer>
+<!-- Shared footer partial -->
+<div data-include="/assets/partials/footer.html"></div>
 
 </body>
 </html>

@@ -2,12 +2,14 @@
  * site.js — Shared runtime for the personal portal
  */
 
-/* ── Theme Toggle ── */
+/* ── Theme Toggle ──
+ * Default: dark. The user's choice is remembered in localStorage and
+ * takes precedence over the default on subsequent visits.
+ */
 (function initTheme() {
   const saved = localStorage.getItem('theme');
-  if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
+  const theme = saved === 'light' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
 })();
 
 function toggleTheme() {
@@ -64,9 +66,59 @@ function setActiveNav() {
   });
 }
 
+/* ── HTML Partials (data-include) ──
+ * Usage in any page:
+ *   <div data-include="/assets/partials/header.html"></div>
+ * All placeholders are fetched in parallel, then i18n / theme / nav hooks
+ * are re-applied so injected DOM behaves identically to inline markup.
+ */
+function includePartials() {
+  const placeholders = Array.from(document.querySelectorAll('[data-include]'));
+  if (placeholders.length === 0) return Promise.resolve();
+
+  const jobs = placeholders.map(el => {
+    const url = el.getAttribute('data-include');
+    return fetch(url, { cache: 'no-cache' })
+      .then(r => {
+        if (!r.ok) throw new Error('Include failed: ' + url + ' (' + r.status + ')');
+        return r.text();
+      })
+      .then(html => {
+        // Replace the placeholder with the fetched fragment to avoid an
+        // extra wrapper element in the DOM.
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        const frag = document.createDocumentFragment();
+        while (tmp.firstChild) frag.appendChild(tmp.firstChild);
+        el.replaceWith(frag);
+      })
+      .catch(err => {
+        console.warn('[include]', err);
+        // Leave the placeholder in place so the page still renders.
+      });
+  });
+
+  return Promise.all(jobs);
+}
+
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
-  updateThemeIcon();
-  setActiveNav();
-  initScrollAnimations();
+  includePartials().then(() => {
+    // Re-run everything that depends on header/footer DOM
+    updateThemeIcon();
+    setActiveNav();
+    initScrollAnimations();
+
+    // Re-apply i18n to newly injected nodes and (re-)bind the language
+    // switcher click handlers — they live inside the injected header,
+    // so they did not exist when i18n.js first ran at DOMContentLoaded.
+    if (window.__i18n) {
+      if (typeof window.__i18n.bindSwitchers === 'function') {
+        window.__i18n.bindSwitchers();
+      }
+      if (window.__i18n.current) {
+        window.__i18n.setLang(window.__i18n.current);
+      }
+    }
+  });
 });

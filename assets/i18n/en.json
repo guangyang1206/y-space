@@ -1,0 +1,76 @@
+{
+  "common": {
+    "brand": "My Space",
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "resume": "Resume",
+      "projects": "Projects",
+      "blog": "Blog"
+    },
+    "aria": {
+      "theme": "Toggle theme",
+      "menu": "Menu",
+      "lang": "Change language"
+    },
+    "lang": {
+      "current": "EN"
+    },
+    "footer": {
+      "copyright": "© 2026 Yang Guang. All rights reserved.",
+      "github": "GitHub",
+      "email": "Email"
+    }
+  },
+  "home": {
+    "meta": {
+      "title": "My Space — Personal Portal",
+      "description": "A personal portal for projects, blog, resume, and more."
+    },
+    "hero": {
+      "quote": "He never grew up, but he never stopped growing. — Arthur C. Clarke",
+      "greeting": "Hello, I'm<br>YANG Guang",
+      "tagline": "I work at the intersection of websites, content, and AI products — the person on the team who makes the technical side happen.",
+      "ctaProjects": "View Projects →",
+      "ctaAbout": "About Me"
+    },
+    "status": {
+      "projects": "Projects",
+      "posts": "Blog Posts",
+      "since": "Since",
+      "curiosity": "Curiosity"
+    },
+    "features": {
+      "label": "Explore",
+      "title": "What you'll find here",
+      "desc": "A personal portal for sharing work, thoughts, and everything in between.",
+      "about": {
+        "title": "About",
+        "desc": "Get to know who I am, what drives me, and what I'm working on.",
+        "link": "Learn more →"
+      },
+      "projects": {
+        "title": "Projects",
+        "desc": "A showcase of things I've built — from AI tools to this very portal.",
+        "link": "Browse projects →"
+      },
+      "blog": {
+        "title": "Blog",
+        "desc": "Thoughts on building, learning, and occasionally rambling about tech.",
+        "link": "Read posts →"
+      },
+      "resume": {
+        "title": "Resume",
+        "desc": "My professional background, skills, and experience — all in one place.",
+        "link": "View resume →"
+      }
+    },
+    "latest": {
+      "label": "Latest",
+      "title": "Recent writings",
+      "post1": "Launching a Personal Portal",
+      "post2": "AI Explainer: Making AI Accessible",
+      "all": "All Posts →"
+    }
+  }
+}

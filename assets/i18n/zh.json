@@ -1,0 +1,76 @@
+{
+  "common": {
+    "brand": "我的空间",
+    "nav": {
+      "home": "首页",
+      "about": "关于",
+      "resume": "简历",
+      "projects": "项目",
+      "blog": "博客"
+    },
+    "aria": {
+      "theme": "切换主题",
+      "menu": "菜单",
+      "lang": "切换语言"
+    },
+    "lang": {
+      "current": "中"
+    },
+    "footer": {
+      "copyright": "© 2026 杨光. 保留所有权利.",
+      "github": "GitHub",
+      "email": "邮箱"
+    }
+  },
+  "home": {
+    "meta": {
+      "title": "我的空间 — 个人主页",
+      "description": "一个用于分享项目、博客、简历等内容的个人主页。"
+    },
+    "hero": {
+      "quote": "他从未长大，但也从未停止成长。— 亚瑟·克拉克",
+      "greeting": "你好，我是杨光",
+      "tagline": "我在网站、内容和AI产品的交叉方向工作 —— 团队里负责从技术角度帮助项目真正落地。",
+      "ctaProjects": "查看项目 →",
+      "ctaAbout": "关于我"
+    },
+    "status": {
+      "projects": "项目",
+      "posts": "博客文章",
+      "since": "始于",
+      "curiosity": "好奇心"
+    },
+    "features": {
+      "label": "探索",
+      "title": "这里有什么",
+      "desc": "一个用来分享作品、想法，以及介于二者之间一切内容的个人主页。",
+      "about": {
+        "title": "关于",
+        "desc": "了解我是谁、我在乎什么，以及我正在做什么。",
+        "link": "了解更多 →"
+      },
+      "projects": {
+        "title": "项目",
+        "desc": "我做过的一些事情 —— 从 AI 工具到这个主页本身。",
+        "link": "浏览项目 →"
+      },
+      "blog": {
+        "title": "博客",
+        "desc": "关于构建、学习，以及偶尔对技术的絮叨。",
+        "link": "阅读文章 →"
+      },
+      "resume": {
+        "title": "简历",
+        "desc": "我的职业背景、技能与经历 —— 集中在一处。",
+        "link": "查看简历 →"
+      }
+    },
+    "latest": {
+      "label": "最新",
+      "title": "近期写作",
+      "post1": "启动一个个人主页",
+      "post2": "AI Explainer：让 AI 更易懂",
+      "all": "全部文章 →"
+    }
+  }
+}

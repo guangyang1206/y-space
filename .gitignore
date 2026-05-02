@@ -30,6 +30,7 @@ pnpm-debug.log*
 *.tmp
 *.bak
 *.log
+tmp/
 
 # Build output (if added later)
 dist/
