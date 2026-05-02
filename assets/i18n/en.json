@@ -42,25 +42,21 @@
     "status": {
       "since": {
         "kicker": "Since",
-        "enSub": "a decade in",
-        "zhSub": "十年在路上"
+        "sub": "a decade in"
       },
       "truth": {
         "kicker": "Truth",
         "value": "Seeking",
-        "enSub": "still searching",
-        "zhSub": "在探索中"
+        "sub": "still searching"
       },
       "craft": {
         "kicker": "AI & Coding",
         "value": "Learning",
-        "enSub": "an apprentice's mind",
-        "zhSub": "保持学徒心态"
+        "sub": "an apprentice's mind"
       },
       "curiosity": {
         "kicker": "Curiosity",
-        "enSub": "no ceiling",
-        "zhSub": "永不设限"
+        "sub": "no ceiling"
       }
     },
     "latest": {

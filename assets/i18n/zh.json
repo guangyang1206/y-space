@@ -29,7 +29,7 @@
     },
     "hero": {
       "quote": "他从未长大，但也从未停止成长。— 亚瑟·克拉克",
-      "greeting": "你好，我是<br>杨光",
+      "greeting": "你好，我是杨光",
       "tagline": "我在网站、内容和 AI 产品的交叉方向工作 —— 团队里负责从技术角度帮助项目真正落地。",
       "ctaProjects": "查看项目 →",
       "ctaAbout": "关于我"
@@ -42,25 +42,21 @@
     "status": {
       "since": {
         "kicker": "始于",
-        "enSub": "a decade in",
-        "zhSub": "十年在路上"
+        "sub": "十年在路上"
       },
       "truth": {
         "kicker": "真理",
         "value": "探索中",
-        "enSub": "still searching",
-        "zhSub": "在探索中"
+        "sub": "在探索中"
       },
       "craft": {
         "kicker": "AI 与编程",
         "value": "学习中",
-        "enSub": "an apprentice's mind",
-        "zhSub": "保持学徒心态"
+        "sub": "保持学徒心态"
       },
       "curiosity": {
         "kicker": "好奇心",
-        "enSub": "no ceiling",
-        "zhSub": "永不设限"
+        "sub": "永不设限"
       }
     },
     "latest": {
