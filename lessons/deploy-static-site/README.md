@@ -22,6 +22,7 @@
 | 文件 | 说明 |
 |------|------|
 | `README.md` | 选题元数据和发布记录 |
+| `troubleshooting-log.md` | **完整排查日志**（所有脚本、指令、执行结果和分析过程） |
 | `wechat-article-mp.html` | 公众号专用版（纯内联样式） |
 | `article-full.html` | 网站全文版（深色科技风） |
 
