@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="legal.meta.title">Legal & Site Info — YSpace</title>
+  <meta name="description" content="Site owner, contact, ICP filing, copyright, and terms of use for YSpace." data-i18n="legal.meta.description" data-i18n-attr="content">
+  <meta name="robots" content="index, follow">
+  <script src="/assets/js/head-boot.js?v=20260502"></script>
+  <style>
+    .legal-layout {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .legal-section {
+      padding: var(--sp-6) 0;
+      border-top: 1px solid var(--color-border-light);
+    }
+    .legal-section:first-of-type { border-top: none; padding-top: var(--sp-4); }
+    .legal-section h2 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      margin-bottom: var(--sp-3);
+      color: var(--color-text);
+    }
+    .legal-section p {
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--sp-3);
+    }
+    .legal-kv {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: var(--sp-2) var(--sp-4);
+      font-size: 0.9375rem;
+      margin-top: var(--sp-3);
+    }
+    .legal-kv dt {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      align-self: center;
+    }
+    .legal-kv dd {
+      color: var(--color-text);
+      font-weight: 500;
+      margin: 0;
+    }
+    .legal-kv dd a {
+      color: var(--color-text);
+      border-bottom: 1px dashed var(--color-border);
+    }
+    .legal-kv dd a:hover {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+    .verify-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: var(--sp-2);
+      font-size: 0.875rem;
+      color: var(--color-accent);
+    }
+    .updated-line {
+      margin-top: var(--sp-8);
+      padding-top: var(--sp-5);
+      border-top: 1px solid var(--color-border-light);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .legal-kv { grid-template-columns: 1fr; gap: 2px var(--sp-4); }
+      .legal-kv dt { margin-top: var(--sp-3); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Shared header -->
+<div data-include="/assets/partials/header.html"></div>
+
+<main class="site-main">
+  <section class="page-hero">
+    <p class="section-label anim-in" data-i18n="legal.hero.kicker">Legal</p>
+    <h1 class="section-title anim-in" data-i18n="legal.hero.title">Site &amp; Legal Information</h1>
+    <p class="section-desc anim-in" data-i18n="legal.hero.desc">Ownership, filing, copyright, and a plain-language note on how this site is run.</p>
+  </section>
+
+  <div class="legal-layout">
+
+    <!-- Owner -->
+    <section class="legal-section scroll-reveal">
+      <h2 data-i18n="legal.sections.owner.heading">Site Owner</h2>
+      <dl class="legal-kv">
+        <dt data-i18n="legal.sections.owner.nameLabel">Operator</dt>
+        <dd data-i18n="legal.sections.owner.nameValue">Yang Guang</dd>
+        <dt data-i18n="legal.sections.owner.emailLabel">Contact</dt>
+        <dd><a href="mailto:guangyang1206@hotmail.com">guangyang1206@hotmail.com</a></dd>
+        <dt data-i18n="legal.sections.owner.locationLabel">Location</dt>
+        <dd data-i18n="legal.sections.owner.locationValue">Mainland China</dd>
+      </dl>
+    </section>
+
+    <!-- ICP Filing -->
+    <section class="legal-section scroll-reveal">
+      <h2 data-i18n="legal.sections.icp.heading">ICP Filing</h2>
+      <p data-i18n="legal.sections.icp.body">This site is filed with the Ministry of Industry and Information Technology (MIIT) of the People's Republic of China. You can verify the filing on the official MIIT portal.</p>
+      <dl class="legal-kv">
+        <dt data-i18n="legal.sections.icp.numberLabel">Filing number</dt>
+        <dd>粤ICP备2026038548号-1</dd>
+      </dl>
+      <a class="verify-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" data-i18n="legal.sections.icp.verifyLink">Verify on beian.miit.gov.cn →</a>
+    </section>
+
+    <!-- Copyright -->
+    <section class="legal-section scroll-reveal">
+      <h2 data-i18n="legal.sections.copyright.heading">Copyright</h2>
+      <p data-i18n="legal.sections.copyright.body">© 2026 Yang Guang. All text, code, and visuals on this site are original work unless otherwise credited. You are welcome to quote or reference with attribution; please do not republish in full without permission.</p>
+    </section>
+
+    <!-- Terms -->
+    <section class="legal-section scroll-reveal">
+      <h2 data-i18n="legal.sections.terms.heading">Terms of Use</h2>
+      <p data-i18n="legal.sections.terms.body">This is a personal website for sharing projects, writing, and experiments. Content is provided as-is, reflects the author's views at the time of writing, and may be updated or removed without notice. Nothing here constitutes professional advice.</p>
+    </section>
+
+    <!-- Privacy -->
+    <section class="legal-section scroll-reveal">
+      <h2 data-i18n="legal.sections.privacy.heading">Privacy</h2>
+      <p data-i18n="legal.sections.privacy.body">This site does not set tracking cookies and does not collect personal data. Language and theme preferences are stored locally in your browser only.</p>
+    </section>
+
+    <p class="updated-line" data-i18n="legal.sections.updated">Last updated: May 3, 2026</p>
+
+  </div>
+</main>
+
+<!-- Shared footer -->
+<div data-include="/assets/partials/footer.html"></div>
+
+</body>
+</html>

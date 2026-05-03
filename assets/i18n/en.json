@@ -19,7 +19,8 @@
     "footer": {
       "copyright": "© 2026 Yang Guang. All rights reserved.",
       "github": "GitHub",
-      "email": "Email"
+      "email": "Email",
+      "legal": "Legal"
     }
   },
   "home": {
@@ -121,6 +122,46 @@
       "github": "GitHub",
       "email": "Email",
       "x": "X (Twitter)"
+    }
+  },
+  "legal": {
+    "meta": {
+      "title": "Legal & Site Info — YSpace",
+      "description": "Site owner, contact, ICP filing, copyright, and terms of use for YSpace."
+    },
+    "hero": {
+      "kicker": "Legal",
+      "title": "Site & Legal Information",
+      "desc": "Ownership, filing, copyright, and a plain-language note on how this site is run."
+    },
+    "sections": {
+      "owner": {
+        "heading": "Site Owner",
+        "nameLabel": "Operator",
+        "nameValue": "Yang Guang",
+        "emailLabel": "Contact",
+        "locationLabel": "Location",
+        "locationValue": "Mainland China"
+      },
+      "icp": {
+        "heading": "ICP Filing",
+        "body": "This site is filed with the Ministry of Industry and Information Technology (MIIT) of the People's Republic of China. You can verify the filing on the official MIIT portal.",
+        "numberLabel": "Filing number",
+        "verifyLink": "Verify on beian.miit.gov.cn →"
+      },
+      "copyright": {
+        "heading": "Copyright",
+        "body": "© 2026 Yang Guang. All text, code, and visuals on this site are original work unless otherwise credited. You are welcome to quote or reference with attribution; please do not republish in full without permission."
+      },
+      "terms": {
+        "heading": "Terms of Use",
+        "body": "This is a personal website for sharing projects, writing, and experiments. Content is provided as-is, reflects the author's views at the time of writing, and may be updated or removed without notice. Nothing here constitutes professional advice."
+      },
+      "privacy": {
+        "heading": "Privacy",
+        "body": "This site does not set tracking cookies and does not collect personal data. Language and theme preferences are stored locally in your browser only."
+      },
+      "updated": "Last updated: May 3, 2026"
     }
   }
 }

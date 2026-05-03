@@ -19,7 +19,8 @@
     "footer": {
       "copyright": "© 2026 杨光. 保留所有权利.",
       "github": "GitHub",
-      "email": "邮箱"
+      "email": "邮箱",
+      "legal": "备案与法律"
     }
   },
   "home": {
@@ -121,6 +122,46 @@
       "github": "GitHub",
       "email": "邮箱",
       "x": "X（Twitter）"
+    }
+  },
+  "legal": {
+    "meta": {
+      "title": "法律与站点信息 — YSpace",
+      "description": "YSpace 的站长信息、联系方式、ICP 备案、版权与使用条款。"
+    },
+    "hero": {
+      "kicker": "法律信息",
+      "title": "站点与法律信息",
+      "desc": "关于所有权、备案、版权，以及这个站点是如何运作的简单说明。"
+    },
+    "sections": {
+      "owner": {
+        "heading": "站长信息",
+        "nameLabel": "运营者",
+        "nameValue": "杨光",
+        "emailLabel": "联系方式",
+        "locationLabel": "所在地区",
+        "locationValue": "中国大陆"
+      },
+      "icp": {
+        "heading": "ICP 备案信息",
+        "body": "本站已在中华人民共和国工业和信息化部完成 ICP 备案，您可以在工信部官方网站查询并核对本站的备案信息。",
+        "numberLabel": "备案号",
+        "verifyLink": "前往工信部查验 →"
+      },
+      "copyright": {
+        "heading": "版权声明",
+        "body": "© 2026 杨光。除另行注明外，本站文字、代码与设计均为原创。欢迎标注出处后引用或转述；未经同意请勿整篇转载。"
+      },
+      "terms": {
+        "heading": "使用条款",
+        "body": "本站为个人网站，用于记录项目、写作与实验。内容按当前状态提供，代表作者当下的看法，可能随时更新或下线。本站不构成任何专业建议。"
+      },
+      "privacy": {
+        "heading": "隐私说明",
+        "body": "本站不设置任何跟踪 Cookie，也不收集个人数据。语言与主题偏好仅保存在您的浏览器本地。"
+      },
+      "updated": "最近更新：2026 年 5 月 3 日"
     }
   }
 }
