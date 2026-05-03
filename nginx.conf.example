@@ -47,6 +47,21 @@ server {
         try_files $uri $uri/ =404;
     }
 
+    # ── SEO 文件（短缓存 + 强制正确 MIME）──
+    location = /robots.txt {
+        add_header Cache-Control "public, max-age=3600";
+        types { } default_type "text/plain; charset=utf-8";
+    }
+    location = /sitemap.xml {
+        add_header Cache-Control "public, max-age=3600";
+        types { } default_type "application/xml; charset=utf-8";
+    }
+
+    # ── 禁止抓取一次性工具目录 ──
+    location /tools/ {
+        add_header X-Robots-Tag "noindex, nofollow" always;
+    }
+
     # ── 缓存策略 ──
     # HTML 文件不缓存（每次获取最新版本）
     location ~* \.html$ {

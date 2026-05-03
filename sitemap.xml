@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://yeranyang.com/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yeranyang.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yeranyang.com/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yeranyang.com/"/>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/about/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yeranyang.com/about/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yeranyang.com/about/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yeranyang.com/about/"/>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/projects/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yeranyang.com/projects/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yeranyang.com/projects/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yeranyang.com/projects/"/>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/projects/ai-explainer/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/projects/personal-portal/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/blog/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yeranyang.com/blog/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yeranyang.com/blog/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yeranyang.com/blog/"/>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/blog/launching-a-personal-portal/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/legal/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yeranyang.com/legal/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yeranyang.com/legal/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yeranyang.com/legal/"/>
+  </url>
+
+</urlset>

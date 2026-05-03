@@ -1,0 +1,8 @@
+# robots.txt for YSpace (yeranyang.com)
+# Allow all well-behaved crawlers.
+
+User-agent: *
+Allow: /
+Disallow: /assets/partials/
+
+Sitemap: https://yeranyang.com/sitemap.xml

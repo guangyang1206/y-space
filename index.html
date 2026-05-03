@@ -5,6 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-i18n="home.meta.title">YSpace — Personal Portal</title>
   <meta name="description" content="A personal portal for projects, blog, resume, and more." data-i18n="home.meta.description" data-i18n-attr="content">
+
+  <!-- Structured data: Person + WebSite (home page only) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://yeranyang.com/#person",
+        "name": "Yang Guang",
+        "alternateName": "YANG Guang",
+        "url": "https://yeranyang.com/",
+        "image": "https://yeranyang.com/assets/images/avatar.png",
+        "sameAs": [
+          "https://github.com/guangyang1206",
+          "https://x.com/guangyang1206"
+        ],
+        "jobTitle": "Full-stack Developer",
+        "description": "Working at the intersection of websites, content, and AI products."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://yeranyang.com/#website",
+        "url": "https://yeranyang.com/",
+        "name": "YSpace",
+        "description": "A personal portal for projects, blog, resume, and more.",
+        "publisher": { "@id": "https://yeranyang.com/#person" },
+        "inLanguage": ["en", "zh-CN"]
+      }
+    ]
+  }
+  </script>
+
   <script src="/assets/js/head-boot.js?v=20260502"></script>
   <style>
     /* ── Home Hero ── */
