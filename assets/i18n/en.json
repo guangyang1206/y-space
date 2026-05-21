@@ -124,6 +124,227 @@
       "x": "X (Twitter)"
     }
   },
+  "access-control-models": {
+    "meta": {
+      "title": "Access Control Models Explained — YSpace",
+      "description": "A comprehensive guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, tradeoffs, analogies, and the right scenarios for each model.",
+      "date": "May 21, 2026",
+      "readTime": "12 min read"
+    },
+    "hero": {
+      "title": "Access Control Models Explained",
+      "titleShort": "Access Control Models",
+      "desc": "A comprehensive guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, tradeoffs, analogies, and the right scenarios for each model."
+    },
+    "common": {
+      "analogy": "Analogy:",
+      "pros": "Pros",
+      "cons": "Cons",
+      "bestFor": "Best for:"
+    },
+    "intro": {
+      "p1": "Access control is at the heart of every secure system. Whether you're building a document collaboration tool, a multi-tenant SaaS platform, or a government-grade secure system, choosing the right access control model is a decision that will shape your architecture for years to come.",
+      "p2": "This guide walks through six mainstream models — ACL, RBAC, ABAC, PBAC, DAC, and MAC — explaining what each one does well, where it falls short, and when to use it."
+    },
+    "models": {
+      "acl": {
+        "heading": "01 / ACL — Access Control List",
+        "fullName": "Access Control List · 访问控制列表",
+        "title": "The Whitelist Approach",
+        "core": {
+          "title": "Core Concept",
+          "desc": "Each resource carries an explicit list of who is allowed to access it. Think of it as a guest list taped to the door of a private event."
+        },
+        "analogy": "A whitelist posted on a meeting room door — only listed individuals may enter.",
+        "pros": {
+          "1": "Resource-level precision",
+          "2": "Simple to implement"
+        },
+        "cons": {
+          "1": "Fragmented, hard to manage at scale",
+          "2": "No role inheritance or grouping"
+        },
+        "scenario": "Document systems, collaboration platforms (Notion, Trello), any scenario where permissions are resource-specific."
+      },
+      "rbac": {
+        "heading": "02 / RBAC — Role-Based Access Control",
+        "fullName": "Role-Based Access Control · 基于角色的访问控制",
+        "title": "The Organizational Approach",
+        "core": {
+          "title": "Core Concept",
+          "desc": "Permissions are assigned to roles; users inherit permissions by being assigned a role. This is the model most enterprise systems grow into."
+        },
+        "analogy": "Employees gain access based on their job title — managers, staff, and guests each get a different set of keys.",
+        "pros": {
+          "1": "Clean structure, easy to reason about",
+          "2": "Easy to reuse and maintain"
+        },
+        "cons": {
+          "1": "Limited fine-grained control",
+          "2": "Not flexible for edge cases"
+        },
+        "scenario": "Enterprise back-office systems, HR/ERP/CMS systems, any organization with stable role definitions."
+      },
+      "abac": {
+        "heading": "03 / ABAC — Attribute-Based Access Control",
+        "fullName": "Attribute-Based Access Control · 基于属性的访问控制",
+        "title": "The Context-Aware Approach",
+        "core": {
+          "title": "Core Concept",
+          "desc": "Access decisions are evaluated dynamically based on attributes of the user, the resource, and the environment. This enables fine-grained, context-sensitive authorization."
+        },
+        "analogy": "Allow access if: department = Finance AND resource = Report AND time < 18:00.",
+        "pros": {
+          "1": "Highly flexible and expressive",
+          "2": "Dynamic, context-aware decisions"
+        },
+        "cons": {
+          "1": "Complex to configure and reason about",
+          "2": "Policies can be hard to test and debug"
+        },
+        "scenario": "Multi-tenant SaaS platforms, conditional access systems, scenarios requiring dynamic, attribute-driven decisions."
+      },
+      "pbac": {
+        "heading": "04 / PBAC — Policy-Based Access Control",
+        "fullName": "Policy-Based Access Control · 基于策略的访问控制",
+        "title": "The Centralized Policy Approach",
+        "core": {
+          "title": "Core Concept",
+          "desc": "Access control is governed by centrally managed, reusable policy rules — often written in a dedicated policy language. This enables auditability and consistent enforcement across systems."
+        },
+        "analogy": "Like an organization's internal policy handbook — every action must be justified by a written rule.",
+        "pros": {
+          "1": "Centralized, auditable control",
+          "2": "Integrates well with OPA, Casbin, and other policy engines"
+        },
+        "cons": {
+          "1": "High abstraction barrier",
+          "2": "Hard for non-developers to maintain"
+        },
+        "scenario": "Zero-trust architectures, multi-tenant systems, compliance platforms — anywhere centralized policy governance is required."
+      },
+      "dac": {
+        "heading": "05 / DAC — Discretionary Access Control",
+        "fullName": "Discretionary Access Control · 自主访问控制",
+        "title": "The Owner-Driven Approach",
+        "core": {
+          "title": "Core Concept",
+          "desc": "The owner of a resource decides who can access it, at their own discretion. This is the model behind file permissions in operating systems and sharing features in collaboration tools."
+        },
+        "analogy": "The file owner sets \"who can open this file\" — just like sharing a Google Doc with specific people.",
+        "pros": {
+          "1": "Intuitive for users",
+          "2": "Flexible and easy to grant access"
+        },
+        "cons": {
+          "1": "No centralized policy enforcement",
+          "2": "Risk of accidental over-exposure"
+        },
+        "scenario": "File sharing systems, OS file permissions (Linux), any scenario where resource owners should control access."
+      },
+      "mac": {
+        "heading": "06 / MAC — Mandatory Access Control",
+        "fullName": "Mandatory Access Control · 强制访问控制",
+        "title": "The Security-First Approach",
+        "core": {
+          "title": "Core Concept",
+          "desc": "The system enforces access based on security labels assigned to both users and resources — users cannot override these rules. This is the model used in high-security environments."
+        },
+        "analogy": "A \"Top Secret\" document can only be accessed by people with the matching clearance level — no exceptions.",
+        "pros": {
+          "1": "High security guarantees",
+          "2": "Not dependent on user behavior"
+        },
+        "cons": {
+          "1": "Inflexible by design",
+          "2": "Unsuitable for most business applications"
+        },
+        "scenario": "Military/government systems, financial core platforms — anywhere maximum security is the priority."
+      }
+    },
+    "comparison": {
+      "heading": "Quick Reference: Model Comparison",
+      "table": {
+        "model": "Model",
+        "control": "Control Method",
+        "granularity": "Granularity",
+        "flexibility": "Flexibility",
+        "complexity": "Mgmt Complexity",
+        "recommended": "Recommended For"
+      },
+      "data": {
+        "acl": {
+          "control": "Per-resource whitelist",
+          "granularity": "Fine",
+          "flexibility": "Medium",
+          "complexity": "Low",
+          "recommended": "Docs & Collaboration"
+        },
+        "rbac": {
+          "control": "Role-based inheritance",
+          "granularity": "Medium",
+          "flexibility": "Low",
+          "complexity": "Low",
+          "recommended": "Enterprise Systems"
+        },
+        "abac": {
+          "control": "Attribute rule evaluation",
+          "granularity": "Very Fine",
+          "flexibility": "High",
+          "complexity": "High",
+          "recommended": "SaaS Dynamic Authz"
+        },
+        "pbac": {
+          "control": "Centralized policy language",
+          "granularity": "Any",
+          "flexibility": "Very High",
+          "complexity": "Very High",
+          "recommended": "Compliance / Zero-Trust"
+        },
+        "dac": {
+          "control": "Owner discretion",
+          "granularity": "Simple",
+          "flexibility": "Low",
+          "complexity": "Low",
+          "recommended": "File Systems / Sharing"
+        },
+        "mac": {
+          "control": "Security label enforcement",
+          "granularity": "Strict tiers",
+          "flexibility": "High",
+          "complexity": "High",
+          "recommended": "Gov / Military / Finance"
+        }
+      }
+    },
+    "hybrid": {
+      "heading": "Hybrid Patterns: Mixing Models in Practice",
+      "intro": "In real-world engineering, no single model fits all requirements. The most effective systems layer multiple models to balance structure, flexibility, and security.",
+      "pattern1": "Role-based structure for most access, with fine-grained per-resource overrides via ACL. Common in document management and collaboration tools.",
+      "pattern2": "Roles define baseline permissions; attributes enforce dynamic, context-sensitive restrictions on top. Ideal for SaaS platforms with varying tenant rules.",
+      "pattern3": "Enterprise-grade combination for large platforms, zero-trust architectures, or multi-tenant systems requiring full auditability and policy governance."
+    },
+    "decision": {
+      "heading": "How to Choose: A Decision Guide",
+      "intro": "Still not sure which model fits your system? Answer these questions to narrow it down:",
+      "q1": "Are your user roles stable and clearly defined across the system?",
+      "q1 answer": "→ Choose RBAC",
+      "q2": "Do different resources need different access rules (per-file, per-record)?",
+      "q2 answer": "→ Choose ACL",
+      "q3": "Do you need dynamic, context-sensitive access (time, location, device)?",
+      "q3 answer": "→ Choose ABAC",
+      "q4": "Do you need centralized, auditable policies for compliance or zero-trust?",
+      "q4 answer": "→ Choose PBAC",
+      "q5": "Should individual resource owners control their own sharing and access?",
+      "q5 answer": "→ Choose DAC",
+      "q6": "Is the highest security priority — even at the cost of flexibility?",
+      "q6 answer": "→ Choose MAC"
+    },
+    "conclusion": "Access control is never one-size-fits-all. The best systems start with a clear understanding of their security requirements, user workflows, and growth trajectory — then pick the model (or combination of models) that fits. If you're designing a new system, take the time to map out your access patterns before writing a single line of authorization code. Your future self will thank you.",
+    "footer": {
+      "allPosts": "← All Posts"
+    }
+  },
   "legal": {
     "meta": {
       "title": "Legal & Site Info — YSpace",

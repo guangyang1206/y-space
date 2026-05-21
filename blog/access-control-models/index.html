@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="access-control-models.meta.title">Access Control Models Explained — YSpace</title>
+  <meta name="description" content="A comprehensive guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, tradeoffs, analogies, and the right scenarios for each model." data-i18n="access-control-models.meta.description" data-i18n-attr="content">
+
+  <!-- Article structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Access Control Models Explained",
+    "description": "A comprehensive guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, tradeoffs, analogies, and the right scenarios for each model.",
+    "author": { "@type": "Person", "name": "Yang Guang", "url": "https://yeranyang.com" },
+    "publisher": {
+      "@type": "Person",
+      "name": "Yang Guang",
+      "url": "https://yeranyang.com"
+    },
+    "datePublished": "2026-05-21",
+    "dateModified": "2026-05-21",
+    "url": "https://yeranyang.com/blog/access-control-models/",
+    "mainEntityOfPage": "https://yeranyang.com/blog/access-control-models/",
+    "image": "https://yeranyang.com/assets/images/og-cover.svg",
+    "inLanguage": "en"
+  }
+  </script>
+
+  <script src="/assets/js/head-boot.js?v=7"></script>
+  <style>
+    .article-header {
+      padding: var(--sp-10) 0 var(--sp-6);
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-4);
+    }
+    .breadcrumb a { color: var(--color-text-muted); }
+    .breadcrumb a:hover { color: var(--color-text); }
+    .breadcrumb svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-top: var(--sp-4);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+    }
+    .article-meta .dot-sep {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--color-text-faint);
+    }
+
+    .article-body {
+      max-width: 720px;
+    }
+
+    .model-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+      padding: var(--sp-4) 0;
+      margin: var(--sp-6) 0;
+      border-top: 1px solid var(--color-border-light);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .model-nav a {
+      padding: var(--sp-1) var(--sp-3);
+      border-radius: 4px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      background: var(--color-surface-2);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: all var(--duration) var(--ease-out);
+    }
+    .model-nav a:hover {
+      background: var(--color-accent);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .model-card {
+      padding: var(--sp-5);
+      margin: var(--sp-5) 0;
+      border: 1px solid var(--color-border-light);
+      border-radius: 8px;
+      background: var(--color-surface);
+    }
+    .model-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: var(--sp-1);
+    }
+    .model-card .model-acronym {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .model-card .model-name {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-3);
+    }
+    .model-card h4 {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      margin: var(--sp-4) 0 var(--sp-2);
+    }
+    .model-card p {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+    }
+    .model-card .analogy {
+      padding: var(--sp-3) var(--sp-4);
+      margin: var(--sp-3) 0;
+      background: var(--color-surface-2);
+      border-radius: 6px;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      border-left: 3px solid var(--color-accent);
+    }
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-4);
+      margin: var(--sp-3) 0;
+    }
+    .pros-cons ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pros-cons li {
+      position: relative;
+      padding-left: var(--sp-4);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin-bottom: var(--sp-2);
+    }
+    .pros-cons .pros li::before {
+      content: "+";
+      position: absolute;
+      left: 0;
+      color: #22c55e;
+      font-weight: 700;
+    }
+    .pros-cons .cons li::before {
+      content: "−";
+      position: absolute;
+      left: 0;
+      color: #ef4444;
+      font-weight: 700;
+    }
+    .scenario {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-top: var(--sp-2);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--sp-5) 0;
+      font-size: 0.875rem;
+    }
+    .comparison-table th {
+      padding: var(--sp-3);
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      border-bottom: 2px solid var(--color-border);
+      background: var(--color-surface-2);
+    }
+    .comparison-table td {
+      padding: var(--sp-3);
+      border-bottom: 1px solid var(--color-border-light);
+      color: var(--color-text-secondary);
+      vertical-align: top;
+    }
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    .comparison-table .model-name-cell {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .hybrid-pattern {
+      padding: var(--sp-4);
+      margin: var(--sp-3) 0;
+      border: 1px solid var(--color-border-light);
+      border-radius: 6px;
+      background: var(--color-surface);
+    }
+    .hybrid-pattern h4 {
+      font-size: 1rem;
+      margin-bottom: var(--sp-2);
+    }
+    .hybrid-pattern p {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .decision-tree {
+      counter-reset: question;
+    }
+    .decision-item {
+      counter-increment: question;
+      padding: var(--sp-4);
+      margin: var(--sp-3) 0;
+      border-left: 3px solid var(--color-accent);
+      background: var(--color-surface);
+      border-radius: 0 6px 6px 0;
+    }
+    .decision-item::before {
+      content: counter(question);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: var(--sp-2);
+    }
+    .decision-item p {
+      display: inline;
+      font-size: 0.9375rem;
+    }
+    .decision-item strong {
+      color: var(--color-accent);
+    }
+
+    .article-footer {
+      margin-top: var(--sp-8);
+      padding-top: var(--sp-6);
+      border-top: 1px solid var(--color-border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+    }
+    .article-nav-link {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+    .article-nav-link:hover { color: var(--color-text); }
+    .article-nav-label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .pros-cons {
+        grid-template-columns: 1fr;
+      }
+      .comparison-table {
+        font-size: 0.8125rem;
+      }
+      .comparison-table th,
+      .comparison-table td {
+        padding: var(--sp-2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Shared header partial -->
+<div data-include="/assets/partials/header.html"></div>
+
+<main class="site-main">
+
+  <header class="article-header">
+    <nav class="breadcrumb anim-in">
+      <a href="/blog/">Blog</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      <span style="color:var(--color-text)" data-i18n="access-control-models.hero.titleShort">Access Control Models</span>
+    </nav>
+    <h1 class="section-title anim-in" style="font-size:clamp(1.75rem,5vw,2.5rem)" data-i18n="access-control-models.hero.title">Access Control Models Explained</h1>
+    <p class="section-desc anim-in" data-i18n="access-control-models.hero.desc">A comprehensive guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, tradeoffs, analogies, and the right scenarios for each model.</p>
+    <div class="article-meta anim-in">
+      <span data-i18n="access-control-models.meta.date">May 21, 2026</span>
+      <span class="dot-sep"></span>
+      <span data-i18n="access-control-models.meta.readTime">12 min read</span>
+      <span class="dot-sep"></span>
+      <div class="tag-list">
+        <span class="badge">Security</span>
+        <span class="badge badge--green">Architecture</span>
+      </div>
+    </div>
+  </header>
+
+  <hr class="divider" style="margin-top:0">
+
+  <article class="article-body prose">
+
+    <p data-i18n="access-control-models.intro.p1">Access control is at the heart of every secure system. Whether you're building a document collaboration tool, a multi-tenant SaaS platform, or a government-grade secure system, choosing the right access control model is a decision that will shape your architecture for years to come.</p>
+
+    <p data-i18n="access-control-models.intro.p2">This guide walks through six mainstream models — <strong>ACL</strong>, <strong>RBAC</strong>, <strong>ABAC</strong>, <strong>PBAC</strong>, <strong>DAC</strong>, and <strong>MAC</strong> — explaining what each one does well, where it falls short, and when to use it.</p>
+
+    <div class="model-nav">
+      <a href="#acl">ACL</a>
+      <a href="#rbac">RBAC</a>
+      <a href="#abac">ABAC</a>
+      <a href="#pbac">PBAC</a>
+      <a href="#dac">DAC</a>
+      <a href="#mac">MAC</a>
+    </div>
+
+    <!-- ACL -->
+    <h2 id="acl" data-i18n="access-control-models.models.acl.heading">01 / ACL — Access Control List</h2>
+
+    <div class="model-card">
+      <div class="model-acronym">ACL</div>
+      <div class="model-name" data-i18n="access-control-models.models.acl.fullName">Access Control List · 访问控制列表</div>
+      <h3 data-i18n="access-control-models.models.acl.title">The Whitelist Approach</h3>
+
+      <h4 data-i18n="access-control-models.models.acl.core.title">Core Concept</h4>
+      <p data-i18n="access-control-models.models.acl.core.desc">Each resource carries an explicit list of who is allowed to access it. Think of it as a guest list taped to the door of a private event.</p>
+
+      <div class="analogy">
+        <strong data-i18n="access-control-models.common.analogy">Analogy:</strong> <span data-i18n="access-control-models.models.acl.analogy">A whitelist posted on a meeting room door — only listed individuals may enter.</span>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4 data-i18n="access-control-models.common.pros">Pros</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.acl.pros.1">Resource-level precision</li>
+            <li data-i18n="access-control-models.models.acl.pros.2">Simple to implement</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4 data-i18n="access-control-models.common.cons">Cons</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.acl.cons.1">Fragmented, hard to manage at scale</li>
+            <li data-i18n="access-control-models.models.acl.cons.2">No role inheritance or grouping</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <strong data-i18n="access-control-models.common.bestFor">Best for:</strong> <span data-i18n="access-control-models.models.acl.scenario">Document systems, collaboration platforms (Notion, Trello), any scenario where permissions are resource-specific.</span>
+      </div>
+    </div>
+
+    <!-- RBAC -->
+    <h2 id="rbac" data-i18n="access-control-models.models.rbac.heading">02 / RBAC — Role-Based Access Control</h2>
+
+    <div class="model-card">
+      <div class="model-acronym">RBAC</div>
+      <div class="model-name" data-i18n="access-control-models.models.rbac.fullName">Role-Based Access Control · 基于角色的访问控制</div>
+      <h3 data-i18n="access-control-models.models.rbac.title">The Organizational Approach</h3>
+
+      <h4 data-i18n="access-control-models.models.rbac.core.title">Core Concept</h4>
+      <p data-i18n="access-control-models.models.rbac.core.desc">Permissions are assigned to roles; users inherit permissions by being assigned a role. This is the model most enterprise systems grow into.</p>
+
+      <div class="analogy">
+        <strong data-i18n="access-control-models.common.analogy">Analogy:</strong> <span data-i18n="access-control-models.models.rbac.analogy">Employees gain access based on their job title — managers, staff, and guests each get a different set of keys.</span>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4 data-i18n="access-control-models.common.pros">Pros</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.rbac.pros.1">Clean structure, easy to reason about</li>
+            <li data-i18n="access-control-models.models.rbac.pros.2">Easy to reuse and maintain</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4 data-i18n="access-control-models.common.cons">Cons</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.rbac.cons.1">Limited fine-grained control</li>
+            <li data-i18n="access-control-models.models.rbac.cons.2">Not flexible for edge cases</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <strong data-i18n="access-control-models.common.bestFor">Best for:</strong> <span data-i18n="access-control-models.models.rbac.scenario">Enterprise back-office systems, HR/ERP/CMS systems, any organization with stable role definitions.</span>
+      </div>
+    </div>
+
+    <!-- ABAC -->
+    <h2 id="abac" data-i18n="access-control-models.models.abac.heading">03 / ABAC — Attribute-Based Access Control</h2>
+
+    <div class="model-card">
+      <div class="model-acronym">ABAC</div>
+      <div class="model-name" data-i18n="access-control-models.models.abac.fullName">Attribute-Based Access Control · 基于属性的访问控制</div>
+      <h3 data-i18n="access-control-models.models.abac.title">The Context-Aware Approach</h3>
+
+      <h4 data-i18n="access-control-models.models.abac.core.title">Core Concept</h4>
+      <p data-i18n="access-control-models.models.abac.core.desc">Access decisions are evaluated dynamically based on attributes of the user, the resource, and the environment. This enables fine-grained, context-sensitive authorization.</p>
+
+      <div class="analogy">
+        <strong data-i18n="access-control-models.common.analogy">Analogy:</strong> <span data-i18n="access-control-models.models.abac.analogy">Allow access if: department = Finance AND resource = Report AND time &lt; 18:00.</span>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4 data-i18n="access-control-models.common.pros">Pros</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.abac.pros.1">Highly flexible and expressive</li>
+            <li data-i18n="access-control-models.models.abac.pros.2">Dynamic, context-aware decisions</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4 data-i18n="access-control-models.common.cons">Cons</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.abac.cons.1">Complex to configure and reason about</li>
+            <li data-i18n="access-control-models.models.abac.cons.2">Policies can be hard to test and debug</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <strong data-i18n="access-control-models.common.bestFor">Best for:</strong> <span data-i18n="access-control-models.models.abac.scenario">Multi-tenant SaaS platforms, conditional access systems, scenarios requiring dynamic, attribute-driven decisions.</span>
+      </div>
+    </div>
+
+    <!-- PBAC -->
+    <h2 id="pbac" data-i18n="access-control-models.models.pbac.heading">04 / PBAC — Policy-Based Access Control</h2>
+
+    <div class="model-card">
+      <div class="model-acronym">PBAC</div>
+      <div class="model-name" data-i18n="access-control-models.models.pbac.fullName">Policy-Based Access Control · 基于策略的访问控制</div>
+      <h3 data-i18n="access-control-models.models.pbac.title">The Centralized Policy Approach</h3>
+
+      <h4 data-i18n="access-control-models.models.pbac.core.title">Core Concept</h4>
+      <p data-i18n="access-control-models.models.pbac.core.desc">Access control is governed by centrally managed, reusable policy rules — often written in a dedicated policy language. This enables auditability and consistent enforcement across systems.</p>
+
+      <div class="analogy">
+        <strong data-i18n="access-control-models.common.analogy">Analogy:</strong> <span data-i18n="access-control-models.models.pbac.analogy">Like an organization's internal policy handbook — every action must be justified by a written rule.</span>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4 data-i18n="access-control-models.common.pros">Pros</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.pbac.pros.1">Centralized, auditable control</li>
+            <li data-i18n="access-control-models.models.pbac.pros.2">Integrates well with OPA, Casbin, and other policy engines</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4 data-i18n="access-control-models.common.cons">Cons</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.pbac.cons.1">High abstraction barrier</li>
+            <li data-i18n="access-control-models.models.pbac.cons.2">Hard for non-developers to maintain</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <strong data-i18n="access-control-models.common.bestFor">Best for:</strong> <span data-i18n="access-control-models.models.pbac.scenario">Zero-trust architectures, multi-tenant systems, compliance platforms — anywhere centralized policy governance is required.</span>
+      </div>
+    </div>
+
+    <!-- DAC -->
+    <h2 id="dac" data-i18n="access-control-models.models.dac.heading">05 / DAC — Discretionary Access Control</h2>
+
+    <div class="model-card">
+      <div class="model-acronym">DAC</div>
+      <div class="model-name" data-i18n="access-control-models.models.dac.fullName">Discretionary Access Control · 自主访问控制</div>
+      <h3 data-i18n="access-control-models.models.dac.title">The Owner-Driven Approach</h3>
+
+      <h4 data-i18n="access-control-models.models.dac.core.title">Core Concept</h4>
+      <p data-i18n="access-control-models.models.dac.core.desc">The owner of a resource decides who can access it, at their own discretion. This is the model behind file permissions in operating systems and sharing features in collaboration tools.</p>
+
+      <div class="analogy">
+        <strong data-i18n="access-control-models.common.analogy">Analogy:</strong> <span data-i18n="access-control-models.models.dac.analogy">The file owner sets "who can open this file" — just like sharing a Google Doc with specific people.</span>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4 data-i18n="access-control-models.common.pros">Pros</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.dac.pros.1">Intuitive for users</li>
+            <li data-i18n="access-control-models.models.dac.pros.2">Flexible and easy to grant access</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4 data-i18n="access-control-models.common.cons">Cons</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.dac.cons.1">No centralized policy enforcement</li>
+            <li data-i18n="access-control-models.models.dac.cons.2">Risk of accidental over-exposure</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <strong data-i18n="access-control-models.common.bestFor">Best for:</strong> <span data-i18n="access-control-models.models.dac.scenario">File sharing systems, OS file permissions (Linux), any scenario where resource owners should control access.</span>
+      </div>
+    </div>
+
+    <!-- MAC -->
+    <h2 id="mac" data-i18n="access-control-models.models.mac.heading">06 / MAC — Mandatory Access Control</h2>
+
+    <div class="model-card">
+      <div class="model-acronym">MAC</div>
+      <div class="model-name" data-i18n="access-control-models.models.mac.fullName">Mandatory Access Control · 强制访问控制</div>
+      <h3 data-i18n="access-control-models.models.mac.title">The Security-First Approach</h3>
+
+      <h4 data-i18n="access-control-models.models.mac.core.title">Core Concept</h4>
+      <p data-i18n="access-control-models.models.mac.core.desc">The system enforces access based on security labels assigned to both users and resources — users cannot override these rules. This is the model used in high-security environments.</p>
+
+      <div class="analogy">
+        <strong data-i18n="access-control-models.common.analogy">Analogy:</strong> <span data-i18n="access-control-models.models.mac.analogy">A "Top Secret" document can only be accessed by people with the matching clearance level — no exceptions.</span>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4 data-i18n="access-control-models.common.pros">Pros</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.mac.pros.1">High security guarantees</li>
+            <li data-i18n="access-control-models.models.mac.pros.2">Not dependent on user behavior</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4 data-i18n="access-control-models.common.cons">Cons</h4>
+          <ul>
+            <li data-i18n="access-control-models.models.mac.cons.1">Inflexible by design</li>
+            <li data-i18n="access-control-models.models.mac.cons.2">Unsuitable for most business applications</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <strong data-i18n="access-control-models.common.bestFor">Best for:</strong> <span data-i18n="access-control-models.models.mac.scenario">Military/government systems, financial core platforms — anywhere maximum security is the priority.</span>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <h2 data-i18n="access-control-models.comparison.heading">Quick Reference: Model Comparison</h2>
+
+    <div style="overflow-x:auto; margin: var(--sp-5) 0;">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th data-i18n="access-control-models.comparison.table.model">Model</th>
+            <th data-i18n="access-control-models.comparison.table.control">Control Method</th>
+            <th data-i18n="access-control-models.comparison.table.granularity">Granularity</th>
+            <th data-i18n="access-control-models.comparison.table.flexibility">Flexibility</th>
+            <th data-i18n="access-control-models.comparison.table.complexity">Mgmt Complexity</th>
+            <th data-i18n="access-control-models.comparison.table.recommended">Recommended For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="model-name-cell">ACL</td>
+            <td data-i18n="access-control-models.comparison.data.acl.control">Per-resource whitelist</td>
+            <td data-i18n="access-control-models.comparison.data.acl.granularity">Fine</td>
+            <td data-i18n="access-control-models.comparison.data.acl.flexibility">Medium</td>
+            <td data-i18n="access-control-models.comparison.data.acl.complexity">Low</td>
+            <td data-i18n="access-control-models.comparison.data.acl.recommended">Docs & Collaboration</td>
+          </tr>
+          <tr>
+            <td class="model-name-cell">RBAC</td>
+            <td data-i18n="access-control-models.comparison.data.rbac.control">Role-based inheritance</td>
+            <td data-i18n="access-control-models.comparison.data.rbac.granularity">Medium</td>
+            <td data-i18n="access-control-models.comparison.data.rbac.flexibility">Low</td>
+            <td data-i18n="access-control-models.comparison.data.rbac.complexity">Low</td>
+            <td data-i18n="access-control-models.comparison.data.rbac.recommended">Enterprise Systems</td>
+          </tr>
+          <tr>
+            <td class="model-name-cell">ABAC</td>
+            <td data-i18n="access-control-models.comparison.data.abac.control">Attribute rule evaluation</td>
+            <td data-i18n="access-control-models.comparison.data.abac.granularity">Very Fine</td>
+            <td data-i18n="access-control-models.comparison.data.abac.flexibility">High</td>
+            <td data-i18n="access-control-models.comparison.data.abac.complexity">High</td>
+            <td data-i18n="access-control-models.comparison.data.abac.recommended">SaaS Dynamic Authz</td>
+          </tr>
+          <tr>
+            <td class="model-name-cell">PBAC</td>
+            <td data-i18n="access-control-models.comparison.data.pbac.control">Centralized policy language</td>
+            <td data-i18n="access-control-models.comparison.data.pbac.granularity">Any</td>
+            <td data-i18n="access-control-models.comparison.data.pbac.flexibility">Very High</td>
+            <td data-i18n="access-control-models.comparison.data.pbac.complexity">Very High</td>
+            <td data-i18n="access-control-models.comparison.data.pbac.recommended">Compliance / Zero-Trust</td>
+          </tr>
+          <tr>
+            <td class="model-name-cell">DAC</td>
+            <td data-i18n="access-control-models.comparison.data.dac.control">Owner discretion</td>
+            <td data-i18n="access-control-models.comparison.data.dac.granularity">Simple</td>
+            <td data-i18n="access-control-models.comparison.data.dac.flexibility">Low</td>
+            <td data-i18n="access-control-models.comparison.data.dac.complexity">Low</td>
+            <td data-i18n="access-control-models.comparison.data.dac.recommended">File Systems / Sharing</td>
+          </tr>
+          <tr>
+            <td class="model-name-cell">MAC</td>
+            <td data-i18n="access-control-models.comparison.data.mac.control">Security label enforcement</td>
+            <td data-i18n="access-control-models.comparison.data.mac.granularity">Strict tiers</td>
+            <td data-i18n="access-control-models.comparison.data.mac.flexibility">High</td>
+            <td data-i18n="access-control-models.comparison.data.mac.complexity">High</td>
+            <td data-i18n="access-control-models.comparison.data.mac.recommended">Gov / Military / Finance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Hybrid Patterns -->
+    <h2 data-i18n="access-control-models.hybrid.heading">Hybrid Patterns: Mixing Models in Practice</h2>
+
+    <p data-i18n="access-control-models.hybrid.intro">In real-world engineering, no single model fits all requirements. The most effective systems layer multiple models to balance structure, flexibility, and security.</p>
+
+    <div class="hybrid-pattern">
+      <h4>ACL + RBAC</h4>
+      <p data-i18n="access-control-models.hybrid.pattern1">Role-based structure for most access, with fine-grained per-resource overrides via ACL. Common in document management and collaboration tools.</p>
+    </div>
+
+    <div class="hybrid-pattern">
+      <h4>RBAC + ABAC</h4>
+      <p data-i18n="access-control-models.hybrid.pattern2">Roles define baseline permissions; attributes enforce dynamic, context-sensitive restrictions on top. Ideal for SaaS platforms with varying tenant rules.</p>
+    </div>
+
+    <div class="hybrid-pattern">
+      <h4>PBAC + ABAC + RBAC</h4>
+      <p data-i18n="access-control-models.hybrid.pattern3">Enterprise-grade combination for large platforms, zero-trust architectures, or multi-tenant systems requiring full auditability and policy governance.</p>
+    </div>
+
+    <!-- Decision Guide -->
+    <h2 data-i18n="access-control-models.decision.heading">How to Choose: A Decision Guide</h2>
+
+    <p data-i18n="access-control-models.decision.intro">Still not sure which model fits your system? Answer these questions to narrow it down:</p>
+
+    <div class="decision-tree">
+      <div class="decision-item">
+        <p><span data-i18n="access-control-models.decision.q1">Are your user roles stable and clearly defined across the system?</span> <strong data-i18n="access-control-models.decision.q1 answer">→ Choose RBAC</strong></p>
+      </div>
+
+      <div class="decision-item">
+        <p><span data-i18n="access-control-models.decision.q2">Do different resources need different access rules (per-file, per-record)?</span> <strong data-i18n="access-control-models.decision.q2 answer">→ Choose ACL</strong></p>
+      </div>
+
+      <div class="decision-item">
+        <p><span data-i18n="access-control-models.decision.q3">Do you need dynamic, context-sensitive access (time, location, device)?</span> <strong data-i18n="access-control-models.decision.q3 answer">→ Choose ABAC</strong></p>
+      </div>
+
+      <div class="decision-item">
+        <p><span data-i18n="access-control-models.decision.q4">Do you need centralized, auditable policies for compliance or zero-trust?</span> <strong data-i18n="access-control-models.decision.q4 answer">→ Choose PBAC</strong></p>
+      </div>
+
+      <div class="decision-item">
+        <p><span data-i18n="access-control-models.decision.q5">Should individual resource owners control their own sharing and access?</span> <strong data-i18n="access-control-models.decision.q5 answer">→ Choose DAC</strong></p>
+      </div>
+
+      <div class="decision-item">
+        <p><span data-i18n="access-control-models.decision.q6">Is the highest security priority — even at the cost of flexibility?</span> <strong data-i18n="access-control-models.decision.q6 answer">→ Choose MAC</strong></p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <p style="color:var(--color-text-muted); font-size:0.9375rem; line-height:1.7;" data-i18n="access-control-models.conclusion">Access control is never one-size-fits-all. The best systems start with a clear understanding of their security requirements, user workflows, and growth trajectory — then pick the model (or combination of models) that fits. If you're designing a new system, take the time to map out your access patterns before writing a single line of authorization code. Your future self will thank you.</p>
+
+  </article>
+
+  <div class="article-footer">
+    <div>
+      <a href="/blog/" class="btn btn--ghost" style="font-size:0.8125rem" data-i18n="access-control-models.footer.allPosts">← All Posts</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- Shared footer partial -->
+<div data-include="/assets/partials/footer.html"></div>
+
+</body>
+</html>

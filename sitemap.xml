@@ -64,6 +64,30 @@
   </url>
 
   <url>
+    <loc>https://yeranyang.com/blog/access-control-models/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/resume/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yeranyang.com/resume/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yeranyang.com/resume/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yeranyang.com/resume/"/>
+  </url>
+
+  <url>
+    <loc>https://yeranyang.com/tools/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://yeranyang.com/legal/</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>yearly</changefreq>
