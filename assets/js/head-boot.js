@@ -17,7 +17,7 @@
  * search-engine hints without duplicating boilerplate.
  */
 (function () {
-  var CACHE_BUST = 'v=7';
+  var CACHE_BUST = 'v=8';
   var SITE_ORIGIN = 'https://yeranyang.com';
 
   // ── Derive canonical path (strip query/hash, ensure trailing slash on dirs) ──

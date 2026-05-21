@@ -101,24 +101,59 @@ function includePartials() {
   return Promise.all(jobs);
 }
 
+// Helper: retry binding language switchers with a delay
+function retryBindSwitchers(attempts) {
+  attempts = attempts || 0;
+  if (attempts > 10) return; // max 10 attempts (5 seconds)
+  if (window.__i18n && typeof window.__i18n.bindSwitchers === 'function') {
+    var switchers = document.querySelectorAll('.lang-switcher');
+    if (switchers.length > 0) {
+      window.__i18n.bindSwitchers();
+      window.__i18n.setLang(window.__i18n.current || 'en');
+      return;
+    }
+  }
+  // Retry after 500ms
+  setTimeout(function() {
+    retryBindSwitchers(attempts + 1);
+  }, 500);
+}
+
 /* ── Init ── */
+function initAfterPartials() {
+  // Re-run everything that depends on header/footer DOM
+  updateThemeIcon();
+  setActiveNav();
+  initScrollAnimations();
+
+  // Re-apply i18n to newly injected nodes and (re-)bind the language
+  // switcher click handlers — they live inside the injected header,
+  // so they did not exist when i18n.js first ran at DOMContentLoaded.
+  if (window.__i18n) {
+    if (typeof window.__i18n.bindSwitchers === 'function') {
+      window.__i18n.bindSwitchers();
+    }
+    if (window.__i18n.current) {
+      window.__i18n.setLang(window.__i18n.current);
+    }
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   includePartials().then(() => {
-    // Re-run everything that depends on header/footer DOM
-    updateThemeIcon();
-    setActiveNav();
-    initScrollAnimations();
-
-    // Re-apply i18n to newly injected nodes and (re-)bind the language
-    // switcher click handlers — they live inside the injected header,
-    // so they did not exist when i18n.js first ran at DOMContentLoaded.
-    if (window.__i18n) {
-      if (typeof window.__i18n.bindSwitchers === 'function') {
-        window.__i18n.bindSwitchers();
-      }
-      if (window.__i18n.current) {
-        window.__i18n.setLang(window.__i18n.current);
-      }
-    }
+    initAfterPartials();
+  }).catch(() => {
+    // Even if partials fail, try to init
+    initAfterPartials();
   });
 });
+
+// Fallback: if DOMContentLoaded already fired (e.g. script loaded late),
+// run init directly.
+if (document.readyState !== 'loading') {
+  includePartials().then(() => {
+    initAfterPartials();
+  }).catch(() => {
+    initAfterPartials();
+  });
+}
