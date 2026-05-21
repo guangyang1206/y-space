@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从蓝盾 CI/CD 到本地脚本——部署个人静态网站的踩坑实录 | Yeran</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface-2: #1a1a1a;
+    --border: #222222;
+    --text: #ededed;
+    --text-secondary: #888888;
+    --text-muted: #666666;
+    --accent: #10b981;
+    --accent-dim: rgba(16, 233, 129, 0.1);
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  /* Header */
+  .article-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .article-header .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  .meta {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .meta span + span::before {
+    content: '·';
+    margin: 0 8px;
+  }
+
+  /* Content */
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 48px 0 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 32px 0 12px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+  }
+
+  strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    background: var(--surface-2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: var(--accent);
+  }
+
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 16px 0 24px;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .comment { color: var(--text-muted); }
+  .highlight { color: var(--accent); }
+  .error { color: var(--red); }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  td { color: var(--text-secondary); }
+  td strong { color: var(--text); }
+
+  /* Callout */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0 24px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .callout.warning {
+    border-left-color: var(--yellow);
+  }
+
+  .callout.danger {
+    border-left-color: var(--red);
+  }
+
+  .callout strong {
+    color: var(--text);
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  .badge.red {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--red);
+  }
+
+  /* Timeline */
+  .timeline {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 16px 0 24px;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 24px;
+    padding-bottom: 16px;
+    border-left: 2px solid var(--border);
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+    border-left-color: var(--accent);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .timeline-item:last-child::before {
+    background: var(--accent);
+  }
+
+  .timeline-item .step {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .timeline-item .desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  /* Footer */
+  .article-footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="article-header">
+    <div class="tag">DevOps · 实践经验</div>
+    <h1>从蓝盾 CI/CD 到本地脚本</h1>
+    <p class="subtitle">部署个人静态网站的踩坑实录——六轮排查，一条 ssh -v 终结</p>
+    <div class="meta">
+      <span>Yeran</span>
+      <span>2026-05-03</span>
+      <span>约 10 分钟</span>
+    </div>
+  </header>
+
+  <!-- 引言 -->
+  <p>上周折腾了一件事：给自己的个人网站搭一套自动部署。听起来很简单对吧？静态站点，rsync 同步到服务器，Nginx 一刷新就完事了。</p>
+
+  <p>结果我在 SSH 连接这一个环节上卡了整整一个晚上，排查了 6 轮，走过了从「应该很快搞定」到「要不算了」的完整心路历程。</p>
+
+  <p>今天把这个过程完整记录下来。不是教程，更像是一份<strong>排查手册</strong>——希望能帮到遇到类似问题的你。</p>
+
+  <!-- 背景 -->
+  <h2>📋 背景</h2>
+
+  <table>
+    <tr><th>项目</th><th>详情</th></tr>
+    <tr><td>站点类型</td><td>纯静态（HTML/CSS/JS，零构建依赖）</td></tr>
+    <tr><td>代码托管</td><td>工蜂（公司内部 Git）</td></tr>
+    <tr><td>服务器</td><td>腾讯云轻量应用服务器，Ubuntu 24.04，OpenSSH 9.6</td></tr>
+    <tr><td>CDN</td><td>EdgeOne 代理 HTTPS，回源到 Nginx 80 端口</td></tr>
+    <tr><td>目标</td><td>push 代码后自动部署到服务器</td></tr>
+  </table>
+
+  <!-- 初始方案 -->
+  <h2>🔧 初始方案：蓝盾 CI/CD 流水线</h2>
+
+  <p>思路很清晰：Git Push → 蓝盾触发 → SSH 到服务器 rsync 同步 → Nginx reload → 健康检查。</p>
+
+  <p>然后噩梦就开始了。</p>
+
+  <!-- 踩坑记录 -->
+  <h2>💥 六轮踩坑实录</h2>
+
+  <!-- 坑1 -->
+  <h3>坑 1：蓝盾变量系统不支持凭证类型</h3>
+
+  <p>蓝盾有凭证管理功能，我创建了一个 SSH 私钥凭证（ID: <code>deploy_ssh_key</code>）。但在经典模式流水线中，<strong>变量类型下拉框里只有字符串、文本框、布尔值</strong>——没有「凭证」选项。</p>
+
+  <p><span class="badge">解决</span> 用「文本框」变量替代，把 SSH 私钥内容直接粘贴为变量值，勾选「敏感」选项。</p>
+
+  <div class="callout">
+    💡 <strong>经验</strong>：不同蓝盾版本的功能差异很大。如果你用的是智研/经典模式，很多高级功能（如凭证引用）可能不可用。提前确认再动手。
+  </div>
+
+  <!-- 坑2 -->
+  <h3>坑 2：多行私钥被文本框变量吃掉换行符</h3>
+
+  <p>第一次运行流水线就报错了：</p>
+
+  <pre><code class="error">kex_exchange_identification: Connection closed by remote host
+rsync error: unexplained error (code 255)</code></pre>
+
+  <p>排查发现，蓝盾的文本框变量在注入到 Bash 脚本时，<strong>多行内容的换行符被破坏了</strong>。SSH 私钥是严格的 PEM 格式，每 64 字符必须换行，格式一破坏就完全无法使用。</p>
+
+  <p><span class="badge">解决</span> 把私钥做 Base64 编码后存入变量（变成单行），脚本中用 <code>base64 -d</code> 解码还原：</p>
+
+  <pre><code><span class="comment"># Mac 上编码私钥为单行</span>
+base64 < key.pem | tr -d '\n' | pbcopy
+
+<span class="comment"># 脚本中解码还原</span>
+echo <span class="highlight">"${deploy_ssh_key}"</span> | base64 -d > ~/.ssh/deploy_key
+chmod 600 ~/.ssh/deploy_key</code></pre>
+
+  <div class="callout">
+    💡 <strong>经验</strong>：CI/CD 系统中传递多行敏感内容，Base64 编码是最稳的方案。不要相信任何平台的「文本框」能完整保留换行符。
+  </div>
+
+  <!-- 坑3 -->
+  <h3>坑 3：服务器遭受 SSH 暴力破解攻击</h3>
+
+  <p>修复了密钥格式后，还是同一个错误。查看服务器的 <code>auth.log</code>：</p>
+
+  <pre><code><span class="error">Failed password for invalid user admin from 204.76.203.233</span>
+<span class="error">Failed password for root from 200.89.69.247</span>
+<span class="error">Connection reset by 113.250.184.183 [preauth]</span>
+<span class="error">Connection closed by 200.196.50.91 [preauth]</span>
+<span class="comment">... 平均每分钟都有陌生 IP 在尝试登录</span></code></pre>
+
+  <p>服务器 22 端口裸露在公网上，当时初步怀疑是攻击流量占满了 SSH 的 <code>MaxStartups</code> 并发连接限制，导致蓝盾构建机被「挤掉」了。</p>
+
+  <p><span class="badge">处理</span> 紧急做了三件事：</p>
+
+  <table>
+    <tr><th>措施</th><th>命令</th><th>作用</th></tr>
+    <tr><td>fail2ban</td><td><code>sudo apt install -y fail2ban</code></td><td>3 次错误自动封禁 IP</td></tr>
+    <tr><td>MaxStartups</td><td><code>MaxStartups 30:50:80</code></td><td>并发连接容量提升 3x</td></tr>
+    <tr><td>禁止密码</td><td><code>PasswordAuthentication no</code></td><td>暴力破解彻底失效</td></tr>
+  </table>
+
+  <div class="callout danger">
+    ⚠️ <strong>警告</strong>：任何公网服务器的 22 端口都会被扫描。如果你只用密钥登录，<strong>第一时间关掉密码认证</strong>。这不是可选项，而是必选项。
+  </div>
+
+  <!-- 坑4 -->
+  <h3>坑 4：加固后问题依旧——排除了所有服务端原因</h3>
+
+  <p>做完安全加固后，满怀信心地重新触发流水线……还是一样的错误。</p>
+
+  <p>这次进行了更深入的排查，<strong>逐一排除了所有服务端因素</strong>：</p>
+
+  <table>
+    <tr><th>排查项</th><th>结果</th></tr>
+    <tr><td>TCP 端口可达</td><td><span class="badge">✅</span></td></tr>
+    <tr><td>当前 SSH 连接数</td><td><span class="badge">✅</span> 只有 1 个</td></tr>
+    <tr><td>密钥格式</td><td><span class="badge">✅</span> PEM RSA，权限 600</td></tr>
+    <tr><td>hosts.deny / AllowUsers</td><td><span class="badge">✅</span> 无限制</td></tr>
+    <tr><td>Kex 算法</td><td><span class="badge">✅</span> 多种算法</td></tr>
+    <tr><td>authorized_keys</td><td><span class="badge">✅</span> 公钥已在</td></tr>
+  </table>
+
+  <p>所有服务端因素全部排除。问题一定出在<strong>客户端到服务器的网络链路上</strong>。</p>
+
+  <!-- 坑5 -->
+  <h3>坑 5：换到开发容器也一样</h3>
+
+  <p>放弃蓝盾后，我在 AnyDev 开发容器里写了个部署脚本直接执行——<strong>居然也报同一个错！</strong></p>
+
+  <p>但换了一个新开的 AnyDev 容器测试，<code>ssh -v</code> 开启详细日志后，SSH 协议握手竟然是成功的。这说明<strong>不同容器的网络出口可能不同</strong>。</p>
+
+  <!-- 坑6 -->
+  <h3 style="color: var(--red);">🎯 坑 6（真正原因）：企业网络的 SSH 代理拦截</h3>
+
+  <p>在报错的容器里用 <code>ssh -v</code>，真相终于浮出水面：</p>
+
+  <pre><code>debug1: Connecting to 139.199.72.245 port <span class="error">36000</span>.
+debug1: Connection established.
+debug1: kex_exchange_identification: banner line 0: <span class="error">HTTP/1.1 502 Server UnReachable</span>
+debug1: kex_exchange_identification: banner line 1: <span class="error">proxy-agent: VM-129-13-centos</span></code></pre>
+
+  <p><strong>两个致命问题同时暴露：</strong></p>
+
+  <p><strong>问题一：默认端口不是 22。</strong>容器的 SSH 客户端配置（<code>/etc/ssh/ssh_config.d/</code>）把默认端口改成了 36000——企业内部的 SSH 跳板端口。</p>
+
+  <p><strong>问题二：HTTP 代理拦截了 SSH 流量。</strong>容器的所有外网 SSH 连接都经过一个 HTTP 代理。这个代理只能理解 HTTP 协议，收到 SSH 握手包后直接返回了 <code>502 Server UnReachable</code>。</p>
+
+  <p>这就是 <code>kex_exchange_identification</code> 错误的真正原因——SSH 客户端期望收到 SSH 版本字符串（如 <code>SSH-2.0-OpenSSH_9.6</code>），结果收到的是 <code>HTTP/1.1 502</code>。</p>
+
+  <div class="callout warning">
+    🔑 <strong>核心教训</strong>：企业内网环境（CI/CD 构建机、云开发容器等）的网络出口通常都有 HTTP 代理，SSH 流量会被拦截。这个限制在服务端完全看不到——因为 SSH 连接压根没到服务器，在代理那一层就被挡了。
+  </div>
+
+  <!-- 最终方案 -->
+  <h2>✅ 最终方案：本地一键部署</h2>
+
+  <p>对于纯静态个人网站，最简单可靠的方案就是本地执行部署脚本：</p>
+
+  <pre><code><span class="comment">#!/bin/bash</span>
+set -e
+
+SERVER=<span class="highlight">"ubuntu@139.199.72.245"</span>
+KEY=<span class="highlight">"~/.ssh/light_server.pem"</span>
+
+<span class="comment"># 1. rsync 增量同步</span>
+rsync -avz --delete \
+  --exclude='.git' --exclude='deploy.sh' \
+  -e "ssh -i $KEY" ./ $SERVER:/var/www/my-space/
+
+<span class="comment"># 2. 重载 Nginx</span>
+ssh -i $KEY $SERVER 'sudo nginx -t && sudo systemctl reload nginx'
+
+<span class="comment"># 3. 健康检查</span>
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://yeranyang.com)
+echo "✅ 部署完成 (HTTP $HTTP_CODE)"</code></pre>
+
+  <p>配合一个 shell alias：</p>
+
+  <pre><code>alias deploy=<span class="highlight">"git push && ./deploy.sh"</span></code></pre>
+
+  <p>一条命令，push + 部署一步到位。</p>
+
+  <!-- 安全加固 -->
+  <h2>🛡️ 顺便完成的服务器安全加固</h2>
+
+  <p>虽然蓝盾方案没跑通，但排查过程中顺便把服务器安全加固了一遍。这些对任何公网服务器都是<strong>必备</strong>的：</p>
+
+  <pre><code><span class="comment"># 1. 安装 fail2ban</span>
+sudo apt install -y fail2ban
+
+<span class="comment"># 2. 配置规则：3 次失败封禁 1 小时</span>
+sudo tee /etc/fail2ban/jail.local > /dev/null << 'EOF'
+[sshd]
+enabled = true
+maxretry = 3
+bantime = 3600
+findtime = 600
+EOF
+sudo systemctl restart fail2ban
+
+<span class="comment"># 3. 禁止密码登录</span>
+sudo sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo systemctl restart sshd
+
+<span class="comment"># 4. 提升并发连接上限</span>
+sudo sed -i 's/^#MaxStartups.*/MaxStartups 30:50:80/' /etc/ssh/sshd_config
+sudo systemctl restart sshd</code></pre>
+
+  <div class="callout">
+    💡 <strong>关于 EdgeOne</strong>：它只代理 HTTP/HTTPS 流量（80/443 端口），SSH 的 22 端口仍然直接暴露在公网。SSH 安全只能靠服务端自身配置。
+  </div>
+
+  <!-- 总结 -->
+  <h2>📝 总结：五条经验</h2>
+
+  <p><strong>1. <code>ssh -v</code> 是排查一切 SSH 问题的第一步</strong></p>
+  <p>别猜。一个晚上的排查工作，一条 <code>ssh -v</code> 就能定位。它会告诉你连的是哪个端口、走没走代理、在哪一步断开的。</p>
+
+  <p><strong>2. 企业内网出口有代理，SSH 可能被拦截</strong></p>
+  <p>CI/CD 构建机、云开发容器等企业环境的外网流量通常经过 HTTP 代理。SSH 协议无法通过 HTTP 代理，会被直接拦截。服务端日志看到的只是 "Connection closed [preauth]"，完全看不出是代理拦截。</p>
+
+  <p><strong>3. CI/CD 传递多行密文用 Base64 编码</strong></p>
+  <p>SSH 私钥、证书等多行内容，在 CI/CD 变量中传递时几乎必然会丢失换行。Base64 编码转成单行是最稳妥的做法。</p>
+
+  <p><strong>4. 公网服务器的 SSH 安全是 Day 1 的事</strong></p>
+  <p>服务器上线后几乎立刻就会被扫描。关密码登录 + 装 fail2ban，应该写进服务器初始化脚本里。</p>
+
+  <p><strong>5. 简单场景用简单方案</strong></p>
+  <p>纯静态站点 + 个人项目，一个 <code>deploy.sh</code> 就够了。CI/CD 是好东西，但如果你的场景不需要多人协作、不需要构建流程、不需要自动化测试，一个 shell 脚本比一套流水线更合适。</p>
+
+  <!-- 排查路径 -->
+  <h2>🗺️ 排查路径全景图</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="step">第 1 轮</div>
+      <div class="desc">蓝盾凭证变量不可用 → 改用文本框</div>
+    </div>
+    <div class="timeline-item">
+      <div class="step">第 2 轮</div>
+      <div class="desc">SSH 私钥换行被吃 → Base64 编码</div>
+    </div>
+    <div class="timeline-item">
+      <div class="step">第 3 轮</div>
+      <div class="desc">密钥格式正确仍连不上 → 发现服务器遭暴力破解 → 安全加固</div>
+    </div>
+    <div class="timeline-item">
+      <div class="step">第 4 轮</div>
+      <div class="desc">加固后仍连不上 → 排除所有服务端因素</div>
+    </div>
+    <div class="timeline-item">
+      <div class="step">第 5 轮</div>
+      <div class="desc">换到开发容器也一样 → 怀疑网络链路</div>
+    </div>
+    <div class="timeline-item">
+      <div class="step">第 6 轮</div>
+      <div class="desc"><code>ssh -v</code> 一把定位：<strong style="color: var(--red);">HTTP 代理拦截了 SSH 流量</strong></div>
+    </div>
+    <div class="timeline-item">
+      <div class="step">最终</div>
+      <div class="desc">放弃 CI/CD → 本地脚本部署 → <span class="badge">完美运行 ✅</span></div>
+    </div>
+  </div>
+
+  <p>回过头看，这个问题的根因其实就一句话：<strong>企业内网的 HTTP 代理拦截了 SSH 协议</strong>。但因为错误信息太过笼统（<code>kex_exchange_identification: Connection closed by remote host</code>），很容易被引导到错误的排查方向。</p>
+
+  <p>下次遇到 SSH 连接问题，第一件事就是 <code>ssh -v</code>。</p>
+
+  <p>记住了。</p>
+
+  <!-- Footer -->
+  <footer class="article-footer">
+    <p>@Yeran · 只分享有用的</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

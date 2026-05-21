@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从蓝盾 CI/CD 到本地脚本——部署个人静态网站的踩坑实录</title>
+</head>
+<body style="margin:0; padding:0; background:#fff;">
+
+<!-- 正文区域 -->
+<section style="max-width:600px; margin:0 auto; padding:20px 16px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; color:#333; line-height:1.8; font-size:15px;">
+
+<!-- 标题 -->
+<h1 style="font-size:22px; font-weight:700; color:#1a1a1a; line-height:1.4; margin:0 0 8px 0; text-align:center;">从蓝盾 CI/CD 到本地脚本</h1>
+<p style="font-size:15px; color:#666; text-align:center; margin:0 0 24px 0;">部署个人静态网站的踩坑实录</p>
+
+<!-- 引言 -->
+<p style="font-size:15px; color:#555; margin:0 0 16px 0;">上周折腾了一件事：给自己的个人网站搭一套自动部署。听起来很简单对吧？静态站点，rsync 同步到服务器，Nginx 一刷新就完事了。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 16px 0;">结果我在 SSH 连接这一个环节上卡了整整一个晚上，排查了 6 轮，走过了从"应该很快搞定"到"要不算了"的完整心路历程。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 24px 0;">今天把这个过程完整记录下来，希望能帮到遇到类似问题的你。</p>
+
+<!-- 分割线 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;"><tr><td style="border-bottom:1px solid #e5e5e5;">&nbsp;</td></tr></table>
+
+<!-- 背景 -->
+<h2 style="font-size:18px; font-weight:700; color:#1a1a1a; margin:0 0 12px 0;">📋 背景</h2>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">项目</strong>：纯静态个人网站（HTML/CSS/JS，零构建依赖）</p>
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">代码托管</strong>：工蜂（公司内部 Git）</p>
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">服务器</strong>：腾讯云轻量应用服务器，Ubuntu，公网 IP</p>
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">域名 + CDN</strong>：EdgeOne 代理 HTTPS，回源到 Nginx 80 端口</p>
+<p style="font-size:15px; color:#555; margin:0 0 24px 0;"><strong style="color:#333;">目标</strong>：push 代码后自动部署到服务器</p>
+
+<!-- 分割线 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;"><tr><td style="border-bottom:1px solid #e5e5e5;">&nbsp;</td></tr></table>
+
+<!-- 方案选型 -->
+<h2 style="font-size:18px; font-weight:700; color:#1a1a1a; margin:0 0 12px 0;">🔧 方案一：蓝盾 CI/CD 流水线</h2>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">第一反应是用公司的蓝盾（BK-CI）。思路很清晰：</p>
+
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="margin:0 0 16px 0; border:1px solid #e5e5e5; border-collapse:collapse;">
+<tr style="background:#f8f8f8;">
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600;">阶段</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600;">内容</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">触发</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">监听 master 分支的 push 事件</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">构建&部署</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">SSH + rsync 同步文件到服务器</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">验证</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">curl 健康检查</td>
+</tr>
+</table>
+
+<p style="font-size:15px; color:#555; margin:0 0 24px 0;">看起来很简单吧？然后噩梦就开始了。</p>
+
+<!-- 分割线 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;"><tr><td style="border-bottom:1px solid #e5e5e5;">&nbsp;</td></tr></table>
+
+<!-- 踩坑记录 -->
+<h2 style="font-size:18px; font-weight:700; color:#1a1a1a; margin:0 0 16px 0;">💥 六轮踩坑实录</h2>
+
+<!-- 第一坑 -->
+<h3 style="font-size:16px; font-weight:700; color:#1a1a1a; margin:0 0 8px 0;">坑 1：蓝盾变量系统不支持凭证类型</h3>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">蓝盾有凭证管理功能，我创建了一个 SSH 私钥凭证。但在经典模式流水线中，<strong style="color:#333;">变量类型下拉框里只有字符串、文本框、布尔值</strong>——没有"凭证"选项。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#10b981;">解决</strong>：用「文本框」变量替代，把 SSH 私钥内容直接粘贴为变量值，勾选「敏感」选项。</p>
+
+<p style="font-size:14px; color:#888; margin:0 0 24px 0; padding:12px; background:#f8f9fa; border-left:3px solid #10b981;">💡 <strong>经验</strong>：不同蓝盾版本的功能差异很大。如果你用的是智研/经典模式，很多高级功能（如凭证引用）可能不可用。提前确认再动手。</p>
+
+<!-- 第二坑 -->
+<h3 style="font-size:16px; font-weight:700; color:#1a1a1a; margin:0 0 8px 0;">坑 2：多行私钥被文本框变量吃掉换行符</h3>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">第一次运行流水线就报错了：<code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">kex_exchange_identification: Connection closed by remote host</code></p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">排查发现，蓝盾的文本框变量在注入到 Bash 脚本时，<strong style="color:#333;">多行内容的换行符被破坏了</strong>。SSH 私钥是严格的 PEM 格式，每 64 字符必须换行，格式一破坏就无法使用。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#10b981;">解决</strong>：把私钥做 Base64 编码后存入变量（变成一行），脚本中用 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">base64 -d</code> 解码还原。</p>
+
+<table width="100%" cellpadding="12" cellspacing="0" border="0" style="margin:0 0 8px 0; background:#1a1a2e; border-radius:4px;">
+<tr><td style="font-family:'Courier New',monospace; font-size:13px; color:#a0e8a0; line-height:1.6;">
+# Mac 上编码<br>
+base64 &lt; key.pem | tr -d '\n' | pbcopy<br>
+<br>
+# 脚本中解码<br>
+echo "${deploy_ssh_key}" | base64 -d &gt; ~/.ssh/deploy_key
+</td></tr>
+</table>
+
+<p style="font-size:14px; color:#888; margin:0 0 24px 0; padding:12px; background:#f8f9fa; border-left:3px solid #10b981;">💡 <strong>经验</strong>：CI/CD 系统中传递多行敏感内容，Base64 编码是最稳的方案。不要相信任何平台的"文本框"能完整保留换行符。</p>
+
+<!-- 第三坑 -->
+<h3 style="font-size:16px; font-weight:700; color:#1a1a1a; margin:0 0 8px 0;">坑 3：服务器遭受 SSH 暴力破解攻击</h3>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">修复了密钥格式后，还是同一个错误。查看服务器的 auth.log，发现了一个可怕的事实：</p>
+
+<table width="100%" cellpadding="12" cellspacing="0" border="0" style="margin:0 0 12px 0; background:#1a1a2e; border-radius:4px;">
+<tr><td style="font-family:'Courier New',monospace; font-size:12px; color:#e0e0e0; line-height:1.6;">
+Failed password for invalid user admin from 204.76.203.233<br>
+Failed password for root from 200.89.69.247<br>
+Failed password for invalid user admin from 102.88.137.213<br>
+Connection reset by 113.250.184.183 [preauth]<br>
+Connection closed by 200.196.50.91 [preauth]<br>
+...</td></tr>
+</table>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">服务器 22 端口裸露在公网上，<strong style="color:#333;">平均每分钟都有陌生 IP 在尝试 SSH 登录</strong>。当时初步怀疑是攻击流量占满了 SSH 的 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">MaxStartups</code> 并发连接限制，导致蓝盾构建机被"挤掉"了。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#10b981;">处理</strong>：紧急做了三件事——</p>
+
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="margin:0 0 16px 0; border:1px solid #e5e5e5; border-collapse:collapse;">
+<tr style="background:#f8f8f8;">
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600;">措施</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600;">作用</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">安装 fail2ban</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">3 次密码错误自动封禁 IP 1 小时</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">MaxStartups 调至 30:50:80</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">并发连接容量提升 3 倍</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">PasswordAuthentication no</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">禁止密码登录，暴力破解彻底失效</td>
+</tr>
+</table>
+
+<p style="font-size:14px; color:#888; margin:0 0 24px 0; padding:12px; background:#f8f9fa; border-left:3px solid #e74c3c;">⚠️ <strong>警告</strong>：任何公网服务器的 22 端口都会被扫描。如果你只用密钥登录，第一时间关掉密码认证。这不是可选项，而是必选项。</p>
+
+<!-- 第四坑 -->
+<h3 style="font-size:16px; font-weight:700; color:#1a1a1a; margin:0 0 8px 0;">坑 4：加固后问题依旧——排除了所有服务端原因</h3>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">做完安全加固后，满怀信心地重新触发流水线……结果还是 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">kex_exchange_identification: Connection closed by remote host</code>。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">这次进行了更深入的排查：</p>
+
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="margin:0 0 16px 0; border:1px solid #e5e5e5; border-collapse:collapse;">
+<tr style="background:#f8f8f8;">
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600;">排查项</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600;">结果</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">TCP 端口可达？</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#10b981;">✅ 可达</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">当前 SSH 连接数</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#10b981;">✅ 只有 1 个（不是并发问题）</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">密钥格式</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#10b981;">✅ PEM RSA private key，权限 600</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">hosts.deny / AllowUsers</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#10b981;">✅ 无任何限制</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">Kex 算法兼容</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#10b981;">✅ 服务器支持多种算法</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#555;">authorized_keys</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#10b981;">✅ 公钥已在</td>
+</tr>
+</table>
+
+<p style="font-size:15px; color:#555; margin:0 0 24px 0;">所有服务端因素全部排除。问题一定出在<strong style="color:#333;">客户端（蓝盾构建机）到服务器的网络链路上</strong>。</p>
+
+<!-- 第五坑 -->
+<h3 style="font-size:16px; font-weight:700; color:#1a1a1a; margin:0 0 8px 0;">坑 5：换到开发容器也一样——怀疑网络层面问题</h3>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">放弃蓝盾后，我在 AnyDev 开发容器里写了个部署脚本直接执行——<strong style="color:#333;">居然也报同一个错！</strong></p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">关键转折点来了。用 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">ssh -v</code> 开启详细日志模式，真相终于浮出水面：</p>
+
+<table width="100%" cellpadding="12" cellspacing="0" border="0" style="margin:0 0 12px 0; background:#1a1a2e; border-radius:4px;">
+<tr><td style="font-family:'Courier New',monospace; font-size:12px; color:#e0e0e0; line-height:1.6;">
+debug1: Connecting to 139.199.72.245 port <span style="color:#ff6b6b;">36000</span>.<br>
+debug1: Connection established.<br>
+debug1: kex_exchange_identification: banner line 0: <span style="color:#ff6b6b;">HTTP/1.1 502 Server UnReachable</span><br>
+debug1: kex_exchange_identification: banner line 1: <span style="color:#ff6b6b;">proxy-agent: VM-129-13-centos</span>
+</td></tr>
+</table>
+
+<p style="font-size:15px; color:#555; margin:0 0 24px 0;"><strong style="color:#333;">两个致命问题同时暴露：</strong></p>
+
+<!-- 第六坑（真正原因） -->
+<h3 style="font-size:16px; font-weight:700; color:#c0392b; margin:0 0 8px 0;">🎯 坑 6（真正原因）：企业网络的 SSH 代理拦截</h3>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">问题一：默认端口不是 22</strong></p>
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">开发容器的 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">/etc/ssh/ssh_config.d/</code> 中有配置把 SSH 默认端口改成了 36000。这是企业内部的 SSH 跳板端口。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">问题二：HTTP 代理拦截了 SSH 流量</strong></p>
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">容器的所有外网 SSH 连接都经过一个 HTTP 代理（proxy-agent）。这个代理只能理解 HTTP 协议，<strong style="color:#333;">收到 SSH 握手包后直接返回了 502 Server UnReachable</strong>。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">这就是 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">kex_exchange_identification</code> 错误的真正原因——SSH 客户端期望收到 SSH 版本字符串（如 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#555;">SSH-2.0-OpenSSH_9.6</code>），结果收到的是 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">HTTP/1.1 502</code>。</p>
+
+<p style="font-size:14px; color:#888; margin:0 0 24px 0; padding:12px; background:#fef3cd; border-left:3px solid #ffc107;">🔑 <strong>核心教训</strong>：企业内网环境（蓝盾构建机、AnyDev 开发容器等）的网络出口通常都有 HTTP 代理，SSH 流量会被拦截。这个限制在服务端完全看不到——因为 SSH 连接压根没到服务器，在代理那一层就被挡了。</p>
+
+<!-- 分割线 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;"><tr><td style="border-bottom:1px solid #e5e5e5;">&nbsp;</td></tr></table>
+
+<!-- 最终方案 -->
+<h2 style="font-size:18px; font-weight:700; color:#1a1a1a; margin:0 0 12px 0;">✅ 最终方案：本地 Mac 一键部署</h2>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">对于纯静态个人网站，最简单可靠的方案就是本地执行部署脚本：</p>
+
+<table width="100%" cellpadding="12" cellspacing="0" border="0" style="margin:0 0 16px 0; background:#1a1a2e; border-radius:4px;">
+<tr><td style="font-family:'Courier New',monospace; font-size:13px; color:#a0e8a0; line-height:1.6;">
+#!/bin/bash<br>
+set -e<br>
+<br>
+SERVER="ubuntu@139.199.72.245"<br>
+KEY="~/.ssh/light_server.pem"<br>
+<br>
+<span style="color:#888;"># 1. rsync 同步</span><br>
+rsync -avz --delete \<br>
+&nbsp;&nbsp;--exclude='.git' --exclude='deploy.sh' \<br>
+&nbsp;&nbsp;-e "ssh -i $KEY" ./ $SERVER:/var/www/my-space/<br>
+<br>
+<span style="color:#888;"># 2. 重载 Nginx</span><br>
+ssh -i $KEY $SERVER 'sudo nginx -t &amp;&amp; sudo systemctl reload nginx'<br>
+<br>
+<span style="color:#888;"># 3. 健康检查</span><br>
+curl -s -o /dev/null -w "%{http_code}" https://yeranyang.com
+</td></tr>
+</table>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">配合一个 shell alias，实现 push + 部署一条命令搞定：</p>
+
+<table width="100%" cellpadding="12" cellspacing="0" border="0" style="margin:0 0 24px 0; background:#1a1a2e; border-radius:4px;">
+<tr><td style="font-family:'Courier New',monospace; font-size:13px; color:#a0e8a0; line-height:1.6;">
+alias deploy="git push &amp;&amp; ./deploy.sh"
+</td></tr>
+</table>
+
+<!-- 分割线 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;"><tr><td style="border-bottom:1px solid #e5e5e5;">&nbsp;</td></tr></table>
+
+<!-- 安全加固清单 -->
+<h2 style="font-size:18px; font-weight:700; color:#1a1a1a; margin:0 0 12px 0;">🛡️ 顺便完成的服务器安全加固</h2>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;">虽然蓝盾方案没跑通，但排查过程中顺便把服务器安全加固了一遍。这些对任何公网服务器都是必备的：</p>
+
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="margin:0 0 16px 0; border:1px solid #e5e5e5; border-collapse:collapse;">
+<tr style="background:#f8f8f8;">
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600; width:30%;">配置</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600;">命令</td>
+<td style="border:1px solid #e5e5e5; font-size:14px; color:#333; font-weight:600; width:30%;">说明</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:13px; color:#555;">fail2ban</td>
+<td style="border:1px solid #e5e5e5; font-size:12px; color:#555; font-family:monospace;">sudo apt install -y fail2ban</td>
+<td style="border:1px solid #e5e5e5; font-size:13px; color:#555;">自动封禁暴力破解 IP</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:13px; color:#555;">禁止密码登录</td>
+<td style="border:1px solid #e5e5e5; font-size:12px; color:#555; font-family:monospace;">PasswordAuthentication no</td>
+<td style="border:1px solid #e5e5e5; font-size:13px; color:#555;">只允许密钥认证</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e5e5; font-size:13px; color:#555;">MaxStartups</td>
+<td style="border:1px solid #e5e5e5; font-size:12px; color:#555; font-family:monospace;">MaxStartups 30:50:80</td>
+<td style="border:1px solid #e5e5e5; font-size:13px; color:#555;">提升并发认证连接上限</td>
+</tr>
+</table>
+
+<p style="font-size:14px; color:#888; margin:0 0 24px 0; padding:12px; background:#f8f9fa; border-left:3px solid #10b981;">💡 <strong>关于 EdgeOne</strong>：它只代理 HTTP/HTTPS 流量（80/443 端口），SSH 的 22 端口仍然直接暴露在公网，EdgeOne 保护不了。SSH 安全只能靠服务端自身配置。</p>
+
+<!-- 分割线 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;"><tr><td style="border-bottom:1px solid #e5e5e5;">&nbsp;</td></tr></table>
+
+<!-- 总结 -->
+<h2 style="font-size:18px; font-weight:700; color:#1a1a1a; margin:0 0 12px 0;">📝 总结：踩坑经验清单</h2>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">1. ssh -v 是排查一切 SSH 问题的第一步</strong></p>
+<p style="font-size:15px; color:#555; margin:0 0 16px 0;">别猜，开 verbose 模式看详细日志。一个晚上的排查工作，一条 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">ssh -v</code> 就能定位。它会告诉你连的是哪个端口、走没走代理、在哪一步断开的。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">2. 企业内网出口有代理，SSH 可能被拦截</strong></p>
+<p style="font-size:15px; color:#555; margin:0 0 16px 0;">蓝盾构建机、AnyDev 开发容器等企业环境的外网流量通常经过 HTTP 代理。SSH 协议无法通过 HTTP 代理，会被直接拦截。服务端日志看到的只是 "Connection closed [preauth]"，完全看不出是代理拦截。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">3. CI/CD 传递多行密文用 Base64 编码</strong></p>
+<p style="font-size:15px; color:#555; margin:0 0 16px 0;">SSH 私钥、证书等多行内容，在 CI/CD 变量中传递时几乎必然会丢失换行。Base64 编码转成单行是最稳妥的做法。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">4. 公网服务器的 SSH 安全是 Day 1 的事</strong></p>
+<p style="font-size:15px; color:#555; margin:0 0 16px 0;">服务器上线后几乎立刻就会被扫描。关密码登录 + 装 fail2ban，这两件事应该写进服务器初始化脚本里，而不是等出了问题再补。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 12px 0;"><strong style="color:#333;">5. 简单场景用简单方案</strong></p>
+<p style="font-size:15px; color:#555; margin:0 0 24px 0;">纯静态站点 + 个人项目，一个 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">deploy.sh</code> 就够了。CI/CD 是好东西，但如果你的场景不需要多人协作、不需要构建流程、不需要自动化测试，一个 shell 脚本可能比一套流水线更合适。</p>
+
+<!-- 分割线 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;"><tr><td style="border-bottom:1px solid #e5e5e5;">&nbsp;</td></tr></table>
+
+<!-- 排查路径图 -->
+<h2 style="font-size:18px; font-weight:700; color:#1a1a1a; margin:0 0 12px 0;">🗺️ 附：排查路径全景图</h2>
+
+<table width="100%" cellpadding="12" cellspacing="0" border="0" style="margin:0 0 24px 0; background:#f8f9fa; border-radius:4px; border:1px solid #e5e5e5;">
+<tr><td style="font-size:14px; color:#555; line-height:2;">
+<span style="color:#888;">①</span> 蓝盾凭证变量不可用 → 改用文本框<br>
+<span style="color:#888;">②</span> SSH 私钥换行被吃 → Base64 编码<br>
+<span style="color:#888;">③</span> 密钥格式正确仍连不上 → 检查服务器日志发现暴力破解<br>
+<span style="color:#888;">④</span> 安全加固后仍连不上 → 排除所有服务端因素<br>
+<span style="color:#888;">⑤</span> 换到开发容器也一样 → 怀疑网络链路<br>
+<span style="color:#888;">⑥</span> <code style="font-size:13px; background:#e8e8e8; padding:2px 4px; border-radius:2px;">ssh -v</code> 一把定位：<strong style="color:#c0392b;">HTTP 代理拦截了 SSH 流量</strong><br>
+<span style="color:#888;">⑦</span> 放弃 CI/CD → 本地脚本部署 → 完美运行 ✅
+</td></tr>
+</table>
+
+<!-- 结尾 -->
+<p style="font-size:15px; color:#555; margin:0 0 16px 0;">回过头看，这个问题的根因其实就一句话：<strong style="color:#333;">企业内网的 HTTP 代理拦截了 SSH 协议</strong>。但因为错误信息（<code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">kex_exchange_identification: Connection closed by remote host</code>）太过笼统，很容易被引导到错误的排查方向。</p>
+
+<p style="font-size:15px; color:#555; margin:0 0 24px 0;">下次遇到 SSH 连接问题，第一件事就是 <code style="font-size:13px; background:#f0f0f0; padding:2px 6px; border-radius:3px; color:#d63384;">ssh -v</code>。记住了。</p>
+
+<!-- 底部签名 -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0 0 0;"><tr><td style="border-top:1px solid #e5e5e5; padding-top:16px;">
+<p style="font-size:13px; color:#999; margin:0; text-align:center;">@Yeran · 只分享有用的</p>
+</td></tr></table>
+
+</section>
+</body>
+</html>
