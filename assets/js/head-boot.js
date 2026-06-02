@@ -17,7 +17,7 @@
  * search-engine hints without duplicating boilerplate.
  */
 (function () {
-  var CACHE_BUST = 'v=8';
+  var CACHE_BUST = 'v=15';
   var SITE_ORIGIN = 'https://yeranyang.com';
 
   // ── Derive canonical path (strip query/hash, ensure trailing slash on dirs) ──
@@ -49,7 +49,12 @@
     '<link rel="stylesheet" href="/assets/css/global.css?' + CACHE_BUST + '">',
 
     // ── Runtime scripts — load in <head> so i18n fires before first paint ──
+    // The "<\/script>" escape is intentional: when this JS is inlined into
+    // an HTML <script> block, an unescaped "</script>" inside a string
+    // would prematurely close the surrounding tag.
+    // eslint-disable-next-line no-useless-escape
     '<script src="/assets/js/i18n.js?' + CACHE_BUST + '"><\/script>',
+    // eslint-disable-next-line no-useless-escape
     '<script src="/assets/js/site.js?' + CACHE_BUST + '"><\/script>',
 
     // ── Favicon / app icons ──

@@ -1,0 +1,24 @@
+# EditorConfig — https://editorconfig.org
+# Enforces consistent indentation, line endings, and charsets across editors.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Shell scripts: bash idiomatic 4-space, but our deploy-mac.sh uses 2 — keep 2.
+[*.sh]
+indent_size = 2
+
+# Markdown — preserve trailing whitespace (used for line breaks).
+[*.md]
+trim_trailing_whitespace = false
+
+# Makefiles require literal tabs.
+[Makefile]
+indent_style = tab

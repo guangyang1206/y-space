@@ -101,22 +101,28 @@ function includePartials() {
   return Promise.all(jobs);
 }
 
-// Helper: retry binding language switchers with a delay
+// Retry binding language switchers until the header partial is in the DOM.
+// IMPORTANT: do NOT call setLang with a hardcoded fallback here — i18n.js
+// already detects language from URL/localStorage/navigator on its own boot.
+// Forcing setLang('en') would overwrite the user's saved choice every time
+// a partial finishes loading.
 function retryBindSwitchers(attempts) {
   attempts = attempts || 0;
-  if (attempts > 10) return; // max 10 attempts (5 seconds)
-  if (window.__i18n && typeof window.__i18n.bindSwitchers === 'function') {
-    var switchers = document.querySelectorAll('.lang-switcher');
-    if (switchers.length > 0) {
-      window.__i18n.bindSwitchers();
-      window.__i18n.setLang(window.__i18n.current || 'en');
-      return;
+  if (attempts > 20) return; // max 20 attempts (~10 seconds)
+  var ready = window.__i18n && typeof window.__i18n.bindSwitchers === 'function';
+  var switchers = document.querySelectorAll('.lang-switcher');
+  if (ready && switchers.length > 0) {
+    // Bind click handlers (idempotent — i18n.js flags bound nodes).
+    window.__i18n.bindSwitchers();
+    // If i18n.js has already resolved the language, re-apply the dict so
+    // newly-injected header/footer text gets translated. If not yet
+    // resolved, i18n.js's own boot() will apply it once fetch resolves.
+    if (window.__i18n.current) {
+      window.__i18n.setLang(window.__i18n.current);
     }
+    return;
   }
-  // Retry after 500ms
-  setTimeout(function() {
-    retryBindSwitchers(attempts + 1);
-  }, 500);
+  setTimeout(function () { retryBindSwitchers(attempts + 1); }, 250);
 }
 
 /* ── Init ── */
@@ -126,17 +132,8 @@ function initAfterPartials() {
   setActiveNav();
   initScrollAnimations();
 
-  // Re-apply i18n to newly injected nodes and (re-)bind the language
-  // switcher click handlers — they live inside the injected header,
-  // so they did not exist when i18n.js first ran at DOMContentLoaded.
-  if (window.__i18n) {
-    if (typeof window.__i18n.bindSwitchers === 'function') {
-      window.__i18n.bindSwitchers();
-    }
-    if (window.__i18n.current) {
-      window.__i18n.setLang(window.__i18n.current);
-    }
-  }
+  // Bind language switchers with retry — partial may still be loading.
+  retryBindSwitchers(0);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

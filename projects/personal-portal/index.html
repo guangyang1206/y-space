@@ -63,29 +63,29 @@
 <main class="site-main">
   <section style="padding:var(--sp-10) 0 var(--sp-6)">
     <nav class="breadcrumb anim-in">
-      <a href="/projects/">Projects</a>
+      <a href="/projects/" data-i18n="personal-portal.breadcrumb.projects">Projects</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-      <span style="color:var(--color-text)">Personal Portal</span>
+      <span style="color:var(--color-text)" data-i18n="personal-portal.breadcrumb.current">Personal Portal</span>
     </nav>
-    <h1 class="section-title anim-in" style="font-size:clamp(2rem,5vw,2.75rem)">Personal Portal</h1>
-    <p class="section-desc anim-in">The architecture and design decisions behind this very website.</p>
+    <h1 class="section-title anim-in" style="font-size:clamp(2rem,5vw,2.75rem)" data-i18n="personal-portal.hero.title">Personal Portal</h1>
+    <p class="section-desc anim-in" data-i18n="personal-portal.hero.desc">The architecture and design decisions behind this website.</p>
     <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-4)" class="anim-in">
-      <span class="badge badge--purple">Meta</span>
-      <span class="badge">Design System</span>
-      <span class="badge badge--green">Static</span>
+      <span class="badge badge--purple" data-i18n="personal-portal.tags.meta">Meta</span>
+      <span class="badge" data-i18n="personal-portal.tags.designSystem">Design System</span>
+      <span class="badge badge--green" data-i18n="personal-portal.tags.static">Static</span>
     </div>
   </section>
 
   <hr class="divider">
 
   <article class="prose">
-    <h2>Overview</h2>
-    <p>
+    <h2 data-i18n="personal-portal.overview.heading">Overview</h2>
+    <p data-i18n="personal-portal.overview.p1">
       This portal is a static, hand-crafted personal website designed to be deployed on any 
       lightweight server. No build tools, no JavaScript frameworks — just vanilla HTML, CSS, 
       and a sprinkle of JS for theme switching and scroll animations.
     </p>
-    <p>
+    <p data-i18n="personal-portal.overview.p2">
       The design system is inspired by the 
       <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank">awesome-design-md</a> 
       collection, specifically the Vercel design language: shadow-as-border technique, aggressive 
@@ -93,35 +93,35 @@
       shadow system for depth.
     </p>
 
-    <h2>Site Structure</h2>
-    <p>The portal follows a clean, flat URL structure:</p>
+    <h2 data-i18n="personal-portal.structure.heading">Site Structure</h2>
+    <p data-i18n="personal-portal.structure.intro">The portal follows a clean, flat URL structure:</p>
   </article>
 
   <div class="sitemap-tree scroll-reveal">
 <pre>my-space/
-├── <a href="/">index.html</a>                          ← Portal Home
-├── <a href="/about/">about/index.html</a>                   ← About Me
-├── <a href="/resume/">resume/index.html</a>                  ← Online Resume
-├── <a href="/projects/">projects/index.html</a>                ← Project Gallery
-│   ├── <a href="/projects/ai-explainer/">ai-explainer/index.html</a>        ← AI Explainer (migrated)
-│   └── <a href="/projects/personal-portal/">personal-portal/index.html</a>     ← This page
-├── <a href="/blog/">blog/index.html</a>                    ← Blog List
-│   └── <a href="/blog/launching-a-personal-portal/">launching-a-personal-portal/</a>   ← Sample article
+├── <a href="/">index.html</a>                          ← <span data-i18n="personal-portal.tree.home">Portal Home</span>
+├── <a href="/about/">about/index.html</a>                   ← <span data-i18n="personal-portal.tree.about">About Me</span>
+├── <a href="/resume/">resume/index.html</a>                  ← <span data-i18n="personal-portal.tree.resume">Online Resume</span>
+├── <a href="/projects/">projects/index.html</a>                ← <span data-i18n="personal-portal.tree.projects">Project Gallery</span>
+│   ├── <a href="/projects/ai-explainer/">ai-explainer/index.html</a>        ← <span data-i18n="personal-portal.tree.aiExplainer">AI Explainer (migrated)</span>
+│   └── <a href="/projects/personal-portal/">personal-portal/index.html</a>     ← <span data-i18n="personal-portal.tree.thisPage">This page</span>
+├── <a href="/blog/">blog/index.html</a>                    ← <span data-i18n="personal-portal.tree.blog">Blog List</span>
+│   └── <a href="/blog/launching-a-personal-portal/">launching-a-personal-portal/</a>   ← <span data-i18n="personal-portal.tree.sample">Sample article</span>
 ├── assets/
-│   ├── css/global.css                 ← Design tokens & components
-│   └── js/site.js                     ← Theme, nav, scroll animations
-├── DESIGN.md                          ← Design system reference
+│   ├── css/global.css                 ← <span data-i18n="personal-portal.tree.css">Design tokens & components</span>
+│   └── js/site.js                     ← <span data-i18n="personal-portal.tree.js">Theme, nav, scroll animations</span>
+├── DESIGN.md                          ← <span data-i18n="personal-portal.tree.designMd">Design system reference</span>
 └── README.md</pre>
   </div>
 
   <article class="prose">
-    <h2>Architecture Decisions</h2>
+    <h2 data-i18n="personal-portal.arch.heading">Architecture Decisions</h2>
   </article>
 
   <div style="margin-top:var(--sp-4)">
     <div class="card arch-card scroll-reveal">
-      <h4>📦 Zero Dependencies</h4>
-      <p>
+      <h4 data-i18n="personal-portal.arch.zeroDeps.title">📦 Zero Dependencies</h4>
+      <p data-i18n="personal-portal.arch.zeroDeps.desc">
         No npm, no webpack, no React. Every page is a self-contained HTML file that links 
         to shared CSS and JS. This means instant deployment — just copy the folder to any 
         static server (Nginx, Caddy, GitHub Pages, S3, etc.).
@@ -129,8 +129,8 @@
     </div>
 
     <div class="card arch-card scroll-reveal">
-      <h4>🎨 DESIGN.md Driven</h4>
-      <p>
+      <h4 data-i18n="personal-portal.arch.designMd.title">🎨 DESIGN.md Driven</h4>
+      <p data-i18n="personal-portal.arch.designMd.desc">
         The visual language follows the DESIGN.md format from Google Stitch / awesome-design-md. 
         All tokens (colors, spacing, shadows, typography) are defined as CSS custom properties 
         in a single file, making the design system easy to modify and maintain.
@@ -138,8 +138,8 @@
     </div>
 
     <div class="card arch-card scroll-reveal">
-      <h4>🌓 Dark Mode</h4>
-      <p>
+      <h4 data-i18n="personal-portal.arch.darkMode.title">🌓 Dark Mode</h4>
+      <p data-i18n="personal-portal.arch.darkMode.desc">
         Theme switching is handled via a <code>data-theme</code> attribute on the root element, 
         with CSS custom properties swapping colors. Preference is persisted in localStorage 
         and respects the system's <code>prefers-color-scheme</code>.
@@ -147,16 +147,16 @@
     </div>
 
     <div class="card arch-card scroll-reveal">
-      <h4>📱 Responsive</h4>
-      <p>
+      <h4 data-i18n="personal-portal.arch.responsive.title">📱 Responsive</h4>
+      <p data-i18n="personal-portal.arch.responsive.desc">
         Every page uses CSS Grid and Flexbox with fluid sizing. A single breakpoint at 768px 
         handles the mobile ↔ desktop transition, with a mobile nav overlay for smaller screens.
       </p>
     </div>
 
     <div class="card arch-card scroll-reveal">
-      <h4>♿ Accessibility</h4>
-      <p>
+      <h4 data-i18n="personal-portal.arch.a11y.title">♿ Accessibility</h4>
+      <p data-i18n="personal-portal.arch.a11y.desc">
         Semantic HTML throughout (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, 
         <code>&lt;article&gt;</code>), ARIA labels on interactive elements, keyboard-navigable, 
         and respects <code>prefers-reduced-motion</code>.
@@ -164,8 +164,8 @@
     </div>
 
     <div class="card arch-card scroll-reveal">
-      <h4>🔗 Extensible</h4>
-      <p>
+      <h4 data-i18n="personal-portal.arch.extensible.title">🔗 Extensible</h4>
+      <p data-i18n="personal-portal.arch.extensible.desc">
         Adding a new page is as simple as creating a new folder with an <code>index.html</code>, 
         linking the shared CSS/JS, and adding a nav entry. No build step, no config files. 
         The flat URL structure means clean permalinks out of the box.
@@ -174,13 +174,13 @@
   </div>
 
   <article class="prose" style="margin-top:var(--sp-6)">
-    <h2>Deployment</h2>
-    <p>
+    <h2 data-i18n="personal-portal.deploy.heading">Deployment</h2>
+    <p data-i18n="personal-portal.deploy.desc">
       Copy the <code>my-space/</code> directory to your server's web root. For Nginx, point 
       the root to the folder and ensure <code>index.html</code> is served for directory requests. 
       That's it.
     </p>
-    <pre><code># Example Nginx config
+    <pre><code># <span data-i18n="personal-portal.deploy.codeComment">Example Nginx config</span>
 server {
     listen 80;
     server_name example.com;
@@ -194,7 +194,7 @@ server {
   </article>
 
   <div style="margin-top:var(--sp-8)">
-    <a href="/projects/" class="btn btn--ghost">← Back to Projects</a>
+    <a href="/projects/" class="btn btn--ghost" data-i18n="personal-portal.cta.back">← Back to Projects</a>
   </div>
 </main>
 

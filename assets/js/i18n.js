@@ -90,8 +90,8 @@
       } else if (el.tagName === 'TITLE') {
         document.title = val;
       } else {
-        // Support simple <br> inside translated text
-        if (typeof val === 'string' && val.indexOf('<br>') !== -1) {
+        // Support trusted inline markup used by the local i18n dictionaries.
+        if (typeof val === 'string' && /<\/?(?:a|br|code|em|strong)\b/i.test(val)) {
           el.innerHTML = val;
         } else {
           el.textContent = val;

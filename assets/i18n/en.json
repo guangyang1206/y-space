@@ -26,18 +26,18 @@
   "home": {
     "meta": {
       "title": "YSpace — Personal Portal",
-      "description": "A personal portal for projects, blog, resume, and more."
+      "description": "A personal space for projects, writing, resume, and ongoing exploration."
     },
     "hero": {
       "quote": "He never grew up, but he never stopped growing. — Arthur C. Clarke",
       "greeting": "Hello, I'm<br>YANG Guang",
-      "tagline": "I work at the intersection of websites, content, and AI products — the person on the team who makes the technical side happen.",
+      "tagline": "I work where websites, content, and AI products meet — turning ideas into technical reality.",
       "ctaProjects": "View Projects →",
       "ctaAbout": "About Me"
     },
     "now": {
       "label": "Now",
-      "text": "Learning in public — one commit, one article at a time.",
+      "text": "Learning in public — one commit and one article at a time.",
       "date": "May 2026"
     },
     "status": {
@@ -46,18 +46,18 @@
         "sub": "a decade in"
       },
       "truth": {
-        "kicker": "Truth",
-        "value": "Seeking",
-        "sub": "still searching"
+        "kicker": "Quest",
+        "value": "Exploring",
+        "sub": "still looking for answers"
       },
       "craft": {
         "kicker": "AI & Coding",
         "value": "Learning",
-        "sub": "an apprentice's mind"
+        "sub": "with an apprentice's mind"
       },
       "curiosity": {
         "kicker": "Curiosity",
-        "sub": "no ceiling"
+        "sub": "no upper bound"
       }
     },
     "latest": {
@@ -70,11 +70,11 @@
       "label": "Selected work",
       "ai": {
         "title": "AI Explainer",
-        "desc": "An interactive tool that makes AI concepts approachable."
+        "desc": "An interactive tool for making AI concepts easier to understand."
       },
       "portal": {
         "title": "Personal Portal",
-        "desc": "The architecture and design behind this very site."
+        "desc": "The architecture and design decisions behind this site."
       },
       "all": "All Projects →"
     }
@@ -82,41 +82,65 @@
   "about": {
     "meta": {
       "title": "About — YSpace",
-      "description": "About me — background, interests, and what I'm working on."
+      "description": "A short introduction to my background, interests, and current explorations."
     },
     "hero": {
       "kicker": "About",
-      "title": "A little about me",
+      "title": "A short introduction",
       "desc": "Developer, tinkerer, lifelong learner — here's the short version."
     },
     "sidebar": {
-      "location": { "label": "Location", "value": "Earth, mostly" },
-      "focus":    { "label": "Focus",    "value": "AI · Full-stack Development" },
-      "education":{ "label": "Education","value": "M.Sc. · Mostly self-taught" },
-      "status":   { "label": "Status",   "value": "Deep seeking" }
+      "location": {
+        "label": "Location",
+        "value": "Mostly on Earth"
+      },
+      "focus": {
+        "label": "Focus",
+        "value": "AI · Full-stack Development"
+      },
+      "education": {
+        "label": "Education",
+        "value": "M.Sc. · Mostly self-taught"
+      },
+      "status": {
+        "label": "Status",
+        "value": "Exploring deeply"
+      }
     },
     "who": {
       "heading": "Who I am",
-      "p1": "Hi, I'm Yang Guang — a developer who enjoys building things that live on the web. Whether it's a web app, a small CLI tool, or an AI experiment, if it involves code I'm probably curious about it.",
-      "p2": "I come from a full-stack background. Over the years I've quietly shipped corporate sites, content platforms, and data products, often moving things forward through collaboration. What I really care about isn't just the code — it's how content flows, how ideas travel, and how AI can actually fit into the way teams work day to day.",
-      "p3": "I started with curiosity and a text editor. That curiosity has slowly grown into a quiet appreciation for clean architecture, thoughtful design, and making technology feel a bit more human."
+      "p1": "Hi, I'm Yang Guang — a developer who enjoys building things for the web. Whether it's a web app, a small tool, or an AI experiment, if it involves code, I'm probably curious about it.",
+      "p2": "I come from a full-stack background. Over the years, I've shipped corporate sites, content platforms, and data products, often helping teams move ideas forward through collaboration. Beyond the code itself, I care about how content flows, how ideas travel, and how AI can fit into everyday team workflows in practical ways.",
+      "p3": "I started with curiosity and a text editor. Over time, that curiosity grew into an appreciation for clean architecture, thoughtful design, and technology that feels a little more human."
     },
     "doing": {
       "heading": "What I do",
-      "p1": "I build full-stack applications, explore AI tooling, and write down what I learn along the way. These days I'm focused on making complex ideas easier to understand — through small tools, clear writing, and honest examples."
+      "p1": "I build full-stack applications, explore AI tools, and write down what I learn along the way. These days, I'm focused on making complex ideas easier to understand through small tools, clear writing, and honest examples."
     },
     "interests": {
       "heading": "Interests",
-      "ai":     { "title": "AI & Machine Learning", "desc": "Making AI easier to understand" },
-      "design": { "title": "Design Systems",        "desc": "Where code meets craft" },
-      "writing":{ "title": "Technical Writing",     "desc": "Plain words for complex ideas" },
-      "oss":    { "title": "Open Source",           "desc": "Building in the open" }
+      "ai": {
+        "title": "AI & Machine Learning",
+        "desc": "Making AI easier to understand"
+      },
+      "design": {
+        "title": "Design Systems",
+        "desc": "Where code meets craft"
+      },
+      "writing": {
+        "title": "Technical Writing",
+        "desc": "Plain words for complex ideas"
+      },
+      "oss": {
+        "title": "Open Source",
+        "desc": "Building in the open"
+      }
     },
     "site": {
       "heading": "About this site",
-      "p1": "This site is a static, hand-crafted portal — plain HTML, CSS, and JavaScript, with no frameworks or build tools. It's meant to stay fast, light, and easy to host almost anywhere. The design language borrows from",
+      "p1": "This site is a static, hand-crafted portal — plain HTML, CSS, and JavaScript, with no frameworks or build tools. It's designed to stay fast, lightweight, and easy to host almost anywhere. The design language borrows from",
       "p1_link": "awesome-design-md",
-      "p1_tail": ", and leans on the spirit of Vercel's visual system."
+      "p1_tail": ", with a visual tone inspired by Vercel's system."
     },
     "social": {
       "github": "GitHub",
@@ -127,14 +151,14 @@
   "access-control-models": {
     "meta": {
       "title": "Access Control Models Explained — YSpace",
-      "description": "A comprehensive guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, tradeoffs, analogies, and the right scenarios for each model.",
+      "description": "A practical guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, trade-offs, analogies, and where each model fits best.",
       "date": "May 21, 2026",
       "readTime": "12 min read"
     },
     "hero": {
       "title": "Access Control Models Explained",
       "titleShort": "Access Control Models",
-      "desc": "A comprehensive guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, tradeoffs, analogies, and the right scenarios for each model."
+      "desc": "A practical guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, trade-offs, analogies, and where each model fits best."
     },
     "common": {
       "analogy": "Analogy:",
@@ -143,17 +167,17 @@
       "bestFor": "Best for:"
     },
     "intro": {
-      "p1": "Access control is at the heart of every secure system. Whether you're building a document collaboration tool, a multi-tenant SaaS platform, or a government-grade secure system, choosing the right access control model is a decision that will shape your architecture for years to come.",
-      "p2": "This guide walks through six mainstream models — ACL, RBAC, ABAC, PBAC, DAC, and MAC — explaining what each one does well, where it falls short, and when to use it."
+      "p1": "Access control sits at the center of every secure system. Whether you're building a document collaboration tool, a multi-tenant SaaS platform, or a high-security environment, the model you choose can shape your architecture for years.",
+      "p2": "This guide walks through six common models — ACL, RBAC, ABAC, PBAC, DAC, and MAC — explaining what each one does well, where it falls short, and when to use it."
     },
     "models": {
       "acl": {
         "heading": "01 / ACL — Access Control List",
         "fullName": "Access Control List · 访问控制列表",
-        "title": "The Whitelist Approach",
+        "title": "The Per-Resource Whitelist",
         "core": {
           "title": "Core Concept",
-          "desc": "Each resource carries an explicit list of who is allowed to access it. Think of it as a guest list taped to the door of a private event."
+          "desc": "Each resource keeps an explicit list of who is allowed to access it. Think of it as a guest list taped to the door of a private event."
         },
         "analogy": "A whitelist posted on a meeting room door — only listed individuals may enter.",
         "pros": {
@@ -161,7 +185,7 @@
           "2": "Simple to implement"
         },
         "cons": {
-          "1": "Fragmented, hard to manage at scale",
+          "1": "Fragmented and hard to manage at scale",
           "2": "No role inheritance or grouping"
         },
         "scenario": "Document systems, collaboration platforms (Notion, Trello), any scenario where permissions are resource-specific."
@@ -169,10 +193,10 @@
       "rbac": {
         "heading": "02 / RBAC — Role-Based Access Control",
         "fullName": "Role-Based Access Control · 基于角色的访问控制",
-        "title": "The Organizational Approach",
+        "title": "The Organizational Model",
         "core": {
           "title": "Core Concept",
-          "desc": "Permissions are assigned to roles; users inherit permissions by being assigned a role. This is the model most enterprise systems grow into."
+          "desc": "Permissions are assigned to roles, and users inherit permissions through the roles they hold. This is the model many enterprise systems eventually grow into."
         },
         "analogy": "Employees gain access based on their job title — managers, staff, and guests each get a different set of keys.",
         "pros": {
@@ -200,7 +224,7 @@
         },
         "cons": {
           "1": "Complex to configure and reason about",
-          "2": "Policies can be hard to test and debug"
+          "2": "Policies can be difficult to test and debug"
         },
         "scenario": "Multi-tenant SaaS platforms, conditional access systems, scenarios requiring dynamic, attribute-driven decisions."
       },
@@ -218,10 +242,10 @@
           "2": "Integrates well with OPA, Casbin, and other policy engines"
         },
         "cons": {
-          "1": "High abstraction barrier",
+          "1": "Steep learning curve",
           "2": "Hard for non-developers to maintain"
         },
-        "scenario": "Zero-trust architectures, multi-tenant systems, compliance platforms — anywhere centralized policy governance is required."
+        "scenario": "Zero-trust architectures, multi-tenant systems, and compliance platforms — anywhere centralized policy governance is required."
       },
       "dac": {
         "heading": "05 / DAC — Discretionary Access Control",
@@ -238,7 +262,7 @@
         },
         "cons": {
           "1": "No centralized policy enforcement",
-          "2": "Risk of accidental over-exposure"
+          "2": "Risk of accidental over-sharing"
         },
         "scenario": "File sharing systems, OS file permissions (Linux), any scenario where resource owners should control access."
       },
@@ -304,16 +328,16 @@
         "dac": {
           "control": "Owner discretion",
           "granularity": "Simple",
-          "flexibility": "Low",
+          "flexibility": "High",
           "complexity": "Low",
           "recommended": "File Systems / Sharing"
         },
         "mac": {
           "control": "Security label enforcement",
           "granularity": "Strict tiers",
-          "flexibility": "High",
+          "flexibility": "Low",
           "complexity": "High",
-          "recommended": "Gov / Military / Finance"
+          "recommended": "High-Security / Finance"
         }
       }
     },
@@ -337,12 +361,364 @@
       "q4 answer": "→ Choose PBAC",
       "q5": "Should individual resource owners control their own sharing and access?",
       "q5 answer": "→ Choose DAC",
-      "q6": "Is the highest security priority — even at the cost of flexibility?",
+      "q6": "Is security the top priority, even at the cost of flexibility?",
       "q6 answer": "→ Choose MAC"
     },
-    "conclusion": "Access control is never one-size-fits-all. The best systems start with a clear understanding of their security requirements, user workflows, and growth trajectory — then pick the model (or combination of models) that fits. If you're designing a new system, take the time to map out your access patterns before writing a single line of authorization code. Your future self will thank you.",
+    "conclusion": "Access control is never one-size-fits-all. Strong systems start with a clear understanding of their security requirements, user workflows, and growth trajectory — then choose the model, or combination of models, that fits. If you're designing a new system, map out your access patterns before writing a single line of authorization code. Your future self will thank you.",
     "footer": {
       "allPosts": "← All Posts"
+    }
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog — YSpace",
+      "description": "Notes and essays on building, learning, and working with technology."
+    },
+    "hero": {
+      "label": "Blog",
+      "title": "Writing & Thinking",
+      "desc": "Occasional notes on building, learning, and working with technology."
+    },
+    "posts": {
+      "accessControl": {
+        "title": "Access Control Models Explained",
+        "desc": "A practical guide to ACL, RBAC, ABAC, PBAC, DAC, and MAC — covering core concepts, trade-offs, and use cases."
+      },
+      "launching": {
+        "title": "Launching a Personal Portal",
+        "desc": "Why I decided to build a personal website from scratch, and the design decisions that shaped it."
+      },
+      "aiExplainer": {
+        "title": "Making AI Accessible: The Explainer Project",
+        "desc": "A deep dive into the AI Explainer project — goals, approach, and what I learned along the way."
+      }
+    },
+    "tags": {
+      "security": "Security",
+      "architecture": "Architecture",
+      "meta": "Meta",
+      "design": "Design",
+      "ai": "AI",
+      "education": "Education"
+    }
+  },
+  "projects": {
+    "meta": {
+      "title": "Projects — YSpace",
+      "description": "Project portfolio — things I've built and worked on."
+    },
+    "hero": {
+      "label": "Projects",
+      "title": "Things I've built",
+      "desc": "A collection of projects, experiments, and side quests — some useful, some just for fun."
+    },
+    "items": {
+      "aiExplainer": {
+        "title": "AI Explainer",
+        "desc": "An interactive educational page that makes complex AI concepts easier to understand through clear visuals and plain language."
+      },
+      "personalPortal": {
+        "title": "Personal Portal",
+        "desc": "This site — a static, hand-crafted personal portal with a design system inspired by Vercel. No frameworks, just HTML/CSS/JS."
+      },
+      "comingSoon": {
+        "title": "Coming Soon",
+        "desc": "More projects are on the way. Stay tuned for new experiments and builds.",
+        "status": "TBD"
+      }
+    },
+    "tags": {
+      "ai": "AI",
+      "education": "Education",
+      "meta": "Meta",
+      "design": "Design",
+      "upcoming": "Upcoming"
+    },
+    "cta": {
+      "view": "View →"
+    }
+  },
+  "launching-a-personal-portal": {
+    "meta": {
+      "title": "Launching a Personal Portal — YSpace",
+      "description": "Why I decided to build a personal website from scratch, and the design decisions that shaped it.",
+      "date": "April 12, 2025",
+      "readTime": "5 min read"
+    },
+    "breadcrumb": {
+      "blog": "Blog",
+      "current": "Launching a Personal Portal"
+    },
+    "hero": {
+      "title": "Launching a Personal Portal",
+      "desc": "Why I decided to build a personal website from scratch, and the design decisions that shaped it."
+    },
+    "tags": {
+      "meta": "Meta",
+      "design": "Design"
+    },
+    "intro": {
+      "p1": "Every developer eventually asks themselves: <em>should I build a personal website?</em> The answer is almost always yes — but the follow-up question is harder: <em>how?</em>",
+      "p2": "There are countless options. Static site generators like Hugo, Jekyll, or Astro. Full frameworks like Next.js or Nuxt. Managed platforms like Notion, Super, or Hashnode. Each has trade-offs, and each pushes you toward a particular set of decisions.",
+      "p3": "I chose none of them."
+    },
+    "vanilla": {
+      "heading": "The Case for Vanilla",
+      "intro": "This site is built with plain HTML, CSS, and a small amount of vanilla JavaScript. No build step, no node_modules, no configuration files. Here's why:",
+      "point1": "<strong>Simplicity</strong> — Every page is a self-contained HTML file. There's no extra mental model beyond \"edit a file, refresh the browser.\"",
+      "point2": "<strong>Portability</strong> — The entire site can be deployed by copying a folder to any web server. Nginx, Caddy, Apache, S3, GitHub Pages — anything that serves static files.",
+      "point3": "<strong>Longevity</strong> — HTML is remarkably durable. There are no dependency updates, no breaking changes, and no \"this worked last week\" surprises. The site should work in 10 years much like it does today.",
+      "point4": "<strong>Performance</strong> — Zero JavaScript frameworks means no framework runtime overhead. The entire site loads in milliseconds."
+    },
+    "design": {
+      "heading": "Finding a Design Language",
+      "p1": "The hardest part of building a personal site isn't the code — it's the design. I discovered the <a href=\"https://github.com/VoltAgent/awesome-design-md\" target=\"_blank\">awesome-design-md</a> collection, which provides ready-to-use design systems extracted from real websites in the DESIGN.md format.",
+      "p2": "I chose a design system inspired by Vercel's visual language, which emphasizes:",
+      "point1": "<strong>Shadow-as-border</strong> — Using <code>box-shadow: 0 0 0 1px rgba(0,0,0,0.08)</code> instead of CSS borders, creating softer, more refined edges",
+      "point2": "<strong>Bold letter-spacing</strong> — Negative tracking at display sizes (-2.4px at 48px) creates a compressed, engineered feel",
+      "point3": "<strong>Three-weight type system</strong> — 400 for reading, 500 for interaction, 600 for headings. No more, no less.",
+      "point4": "<strong>Achromatic palette</strong> — Grays from #171717 to #ffffff form the foundation, with accent colors used sparingly and functionally"
+    },
+    "structure": {
+      "heading": "Structure That Scales",
+      "p1": "The portal uses a flat, directory-based URL structure where each page lives in its own folder with an <code>index.html</code>. This gives clean URLs (<code>/about/</code> instead of <code>/about.html</code>) and makes the hierarchy self-documenting.",
+      "p2": "Adding a new page is simple:",
+      "step1": "Create a new directory (e.g., <code>/blog/new-post/</code>)",
+      "step2": "Copy any existing page as a template",
+      "step3": "Edit the content",
+      "step4": "Add a link in the parent list page",
+      "p3": "No build step, no frontmatter, no routing config. Just files in folders."
+    },
+    "darkmode": {
+      "heading": "Dark Mode Done Right",
+      "p1": "The theme system uses CSS custom properties with a <code>data-theme</code> attribute on the <code>&lt;html&gt;</code> element. All colors, shadows, and surfaces are defined as variables that swap when the theme changes. The preference respects the OS setting on first visit and persists in <code>localStorage</code> after manual toggle."
+    },
+    "next": {
+      "heading": "What's Next",
+      "p1": "This is just the beginning. The portal is designed to grow incrementally — new projects, posts, and sections can be added without touching existing code. Some ideas for the future:",
+      "idea1": "RSS feed for blog posts",
+      "idea2": "Search functionality with a lightweight client-side index",
+      "idea3": "More interactive project demos",
+      "idea4": "A /uses page documenting my tools and setup",
+      "idea5": "Reading list / bookmarks page"
+    },
+    "quote": "\"The best time to plant a tree was twenty years ago. The second best time is now.\"",
+    "outro": "If you've been putting off building your own corner of the internet — start today. It doesn't have to be complex. It just has to be yours.",
+    "footer": {
+      "allPosts": "← All Posts",
+      "nextLabel": "Next",
+      "nextLink": "AI Explainer →"
+    }
+  },
+  "personal-portal": {
+    "meta": {
+      "title": "Personal Portal — YSpace",
+      "description": "About this personal portal site — architecture and design decisions."
+    },
+    "breadcrumb": {
+      "projects": "Projects",
+      "current": "Personal Portal"
+    },
+    "hero": {
+      "title": "Personal Portal",
+      "desc": "The architecture and design decisions behind this website."
+    },
+    "tags": {
+      "meta": "Meta",
+      "designSystem": "Design System",
+      "static": "Static"
+    },
+    "overview": {
+      "heading": "Overview",
+      "p1": "This portal is a static, hand-crafted personal website designed to run on almost any lightweight server. No build tools, no JavaScript frameworks — just vanilla HTML, CSS, and a little JS for theme switching and scroll animations.",
+      "p2": "The design system is inspired by the <a href=\"https://github.com/VoltAgent/awesome-design-md\" target=\"_blank\">awesome-design-md</a> collection, specifically Vercel's visual language: shadow-as-border, bold negative letter-spacing, an achromatic palette with functional accent colors, and a multi-layer shadow system for depth."
+    },
+    "structure": {
+      "heading": "Site Structure",
+      "intro": "The portal follows a clean, flat URL structure:"
+    },
+    "tree": {
+      "home": "Portal Home",
+      "about": "About Me",
+      "resume": "Online Resume",
+      "projects": "Project Gallery",
+      "aiExplainer": "AI Explainer (migrated)",
+      "thisPage": "This page",
+      "blog": "Blog List",
+      "sample": "Sample article",
+      "css": "Design tokens & components",
+      "js": "Theme, nav, scroll animations",
+      "designMd": "Design system reference"
+    },
+    "arch": {
+      "heading": "Architecture Decisions",
+      "zeroDeps": {
+        "title": "📦 Zero Dependencies",
+        "desc": "No npm, no webpack, no React. Every page is a self-contained HTML file that links to shared CSS and JS. Deployment is immediate: copy the folder to any static server (Nginx, Caddy, GitHub Pages, S3, etc.)."
+      },
+      "designMd": {
+        "title": "🎨 DESIGN.md Driven",
+        "desc": "The visual language follows the DESIGN.md format from Google Stitch / awesome-design-md. All tokens (colors, spacing, shadows, typography) are defined as CSS custom properties in a single file, making the design system easy to modify and maintain."
+      },
+      "darkMode": {
+        "title": "🌓 Dark Mode",
+        "desc": "Theme switching is handled via a <code>data-theme</code> attribute on the root element, with CSS custom properties swapping colors. Preference is persisted in localStorage and respects the system's <code>prefers-color-scheme</code>."
+      },
+      "responsive": {
+        "title": "📱 Responsive",
+        "desc": "Every page uses CSS Grid and Flexbox with fluid sizing. A single breakpoint at 768px handles the mobile ↔ desktop transition, with a mobile nav overlay for smaller screens."
+      },
+      "a11y": {
+        "title": "♿ Accessibility",
+        "desc": "Semantic HTML throughout (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>), ARIA labels on interactive elements, keyboard navigation, and support for <code>prefers-reduced-motion</code>."
+      },
+      "extensible": {
+        "title": "🔗 Extensible",
+        "desc": "Adding a new page is as simple as creating a new folder with an <code>index.html</code>, linking the shared CSS/JS, and adding a nav entry. No build step, no config files. The flat URL structure means clean permalinks out of the box."
+      }
+    },
+    "deploy": {
+      "heading": "Deployment",
+      "desc": "Copy the <code>my-space/</code> directory to your server's web root. For Nginx, point the root to the folder and ensure <code>index.html</code> is served for directory requests. That's it.",
+      "codeComment": "Example Nginx config"
+    },
+    "cta": {
+      "back": "← Back to Projects"
+    }
+  },
+  "ai-explainer": {
+    "meta": {
+      "title": "AI Explainer — YSpace",
+      "description": "An interactive educational project that explains AI concepts clearly."
+    },
+    "breadcrumb": {
+      "projects": "Projects",
+      "current": "AI Explainer"
+    },
+    "hero": {
+      "title": "AI Explainer",
+      "desc": "Making complex AI concepts easier to understand through clear visuals and plain language — an interactive learning experience."
+    },
+    "tags": {
+      "education": "Education",
+      "aiMl": "AI / ML",
+      "interactive": "Interactive"
+    },
+    "what": {
+      "heading": "What is AI Explainer?",
+      "p1": "AI Explainer grew out of a simple goal: make artificial intelligence understandable for more people, not just engineers and researchers. It takes complex ideas like neural networks, transformer architectures, and reinforcement learning, then breaks them into visual explanations that are easier to digest."
+    },
+    "why": {
+      "heading": "Why this matters",
+      "p1": "AI is reshaping every industry, yet most people still experience it as a black box. Understanding the basics of how AI works supports better decisions, reduces unnecessary fear, and encourages more thoughtful use of these powerful tools."
+    },
+    "quote": "\"The best way to predict the future is to understand the present.\"",
+    "demo": {
+      "heading": "🧠 Explore Core Concepts",
+      "intro": "Click on any concept below to learn more. These are the building blocks of modern AI.",
+      "expand": "Click to expand →"
+    },
+    "concepts": {
+      "nn": {
+        "title": "Neural Networks",
+        "short": "Computing systems loosely inspired by biological brains.",
+        "detail": "Neural networks consist of layers of interconnected nodes (neurons). Each connection has a weight that adjusts during training. Data flows through input layers, gets transformed by hidden layers, and produces output. Deep learning uses networks with many hidden layers to learn increasingly abstract representations."
+      },
+      "tx": {
+        "title": "Transformers",
+        "short": "The architecture behind ChatGPT and modern LLMs.",
+        "detail": "Transformers use a mechanism called self-attention to weigh the importance of different parts of the input. Unlike earlier sequence models, they can process all positions simultaneously, making them highly parallelizable and effective at capturing long-range dependencies in data."
+      },
+      "sl": {
+        "title": "Supervised Learning",
+        "short": "Teaching machines by showing labeled examples.",
+        "detail": "In supervised learning, the model learns from labeled training data — pairs of inputs and correct outputs. The model learns to map inputs to outputs by minimizing prediction errors. Common tasks include classification (spam detection) and regression (price prediction)."
+      },
+      "rl": {
+        "title": "Reinforcement Learning",
+        "short": "Learning through trial, error, and rewards.",
+        "detail": "Reinforcement learning agents learn by interacting with an environment, receiving rewards or penalties for actions. Over time, they learn policies that maximize cumulative rewards. This approach powered breakthroughs like AlphaGo and is used in robotics, game AI, and RLHF for LLM alignment."
+      },
+      "nlp": {
+        "title": "Natural Language Processing",
+        "short": "How machines understand and generate human language.",
+        "detail": "NLP encompasses tasks like text classification, translation, summarization, and question-answering. Modern NLP relies on pre-trained language models (like GPT, BERT) that learn language patterns from massive text corpora, then fine-tune on specific tasks."
+      },
+      "cv": {
+        "title": "Computer Vision",
+        "short": "Giving machines the ability to see and understand images.",
+        "detail": "Computer vision uses deep learning (especially CNNs and Vision Transformers) to interpret visual data. Applications include image classification, object detection, facial recognition, medical imaging analysis, and autonomous driving."
+      }
+    },
+    "tech": {
+      "heading": "Technical Details",
+      "p1": "This project is a static web page built with vanilla HTML, CSS, and JavaScript — no framework dependencies. The interactive concept cards use simple DOM manipulation for expand/collapse behavior, and the design follows the site's Vercel-inspired system."
+    },
+    "next": {
+      "heading": "What's next",
+      "p1": "Future iterations will include animated diagrams showing how data flows through neural networks, interactive parameter-tuning demos, and a cross-referenced glossary of AI terms."
+    },
+    "cta": {
+      "back": "← Back to Projects"
+    }
+  },
+  "resume": {
+    "meta": {
+      "title": "Resume — YSpace",
+      "description": "Online resume — experience, skills, and education."
+    },
+    "hero": {
+      "label": "Resume",
+      "title": "Professional Background",
+      "desc": "Experience, skills, and education at a glance.",
+      "download": "Download PDF"
+    },
+    "sections": {
+      "experience": "Experience",
+      "education": "Education",
+      "skills": "Skills"
+    },
+    "exp": {
+      "senior": {
+        "period": "2023 — Present",
+        "role": "Senior Developer",
+        "org": "Example Corp",
+        "bullet1": "Led architecture redesign of the core platform, improving performance by 40%",
+        "bullet2": "Built and maintained internal tooling for the engineering team",
+        "bullet3": "Mentored junior developers and conducted code reviews"
+      },
+      "fullstack": {
+        "period": "2021 — 2023",
+        "role": "Full-Stack Developer",
+        "org": "Startup Inc.",
+        "bullet1": "Developed customer-facing features end-to-end from design to deployment",
+        "bullet2": "Integrated AI/ML APIs for intelligent recommendation features",
+        "bullet3": "Reduced page load times by 60% through code-splitting and optimization"
+      },
+      "junior": {
+        "period": "2019 — 2021",
+        "role": "Junior Developer",
+        "org": "Agency Studio",
+        "bullet1": "Built responsive websites and web applications for diverse clients",
+        "bullet2": "Collaborated with designers to translate Figma mockups into pixel-perfect code"
+      }
+    },
+    "edu": {
+      "bachelor": {
+        "period": "2015 — 2019",
+        "degree": "Bachelor of Computer Science",
+        "school": "University of Somewhere",
+        "desc": "Focus on Software Engineering and Artificial Intelligence. Graduated with honors."
+      }
+    },
+    "skills": {
+      "languages": "Languages",
+      "frontend": "Frontend",
+      "backend": "Backend & Infra",
+      "aiMl": "AI / ML"
+    },
+    "tags": {
+      "leadership": "Leadership"
     }
   },
   "legal": {

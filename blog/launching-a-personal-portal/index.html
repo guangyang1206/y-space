@@ -99,20 +99,20 @@
 
   <header class="article-header">
     <nav class="breadcrumb anim-in">
-      <a href="/blog/">Blog</a>
+      <a href="/blog/" data-i18n="launching-a-personal-portal.breadcrumb.blog">Blog</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-      <span style="color:var(--color-text)">Launching a Personal Portal</span>
+      <span style="color:var(--color-text)" data-i18n="launching-a-personal-portal.breadcrumb.current">Launching a Personal Portal</span>
     </nav>
-    <h1 class="section-title anim-in" style="font-size:clamp(1.75rem,5vw,2.5rem)">Launching a Personal Portal</h1>
-    <p class="section-desc anim-in">Why I decided to build a personal website from scratch, and the design decisions that shaped it.</p>
+    <h1 class="section-title anim-in" style="font-size:clamp(1.75rem,5vw,2.5rem)" data-i18n="launching-a-personal-portal.hero.title">Launching a Personal Portal</h1>
+    <p class="section-desc anim-in" data-i18n="launching-a-personal-portal.hero.desc">Why I decided to build a personal website from scratch, and the design decisions that shaped it.</p>
     <div class="article-meta anim-in">
-      <span>April 12, 2025</span>
+      <span data-i18n="launching-a-personal-portal.meta.date">April 12, 2025</span>
       <span class="dot-sep"></span>
-      <span>5 min read</span>
+      <span data-i18n="launching-a-personal-portal.meta.readTime">5 min read</span>
       <span class="dot-sep"></span>
       <div class="tag-list">
-        <span class="badge badge--purple">Meta</span>
-        <span class="badge">Design</span>
+        <span class="badge badge--purple" data-i18n="launching-a-personal-portal.tags.meta">Meta</span>
+        <span class="badge" data-i18n="launching-a-personal-portal.tags.design">Design</span>
       </div>
     </div>
   </header>
@@ -121,108 +121,108 @@
 
   <article class="article-body prose">
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.intro.p1">
       Every developer eventually asks themselves: <em>should I build a personal website?</em> 
       The answer is almost always yes — but the follow-up question is harder: <em>how?</em>
     </p>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.intro.p2">
       There are countless options. Static site generators like Hugo, Jekyll, or Astro. 
       Full frameworks like Next.js or Nuxt. Managed platforms like Notion, Super, or Hashnode. 
       Each has trade-offs, and each pushes you toward a particular set of decisions.
     </p>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.intro.p3">
       I chose none of them.
     </p>
 
-    <h2>The Case for Vanilla</h2>
+    <h2 data-i18n="launching-a-personal-portal.vanilla.heading">The Case for Vanilla</h2>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.vanilla.intro">
       This site is built with plain HTML, CSS, and a small amount of vanilla JavaScript. 
       No build step, no node_modules, no configuration files. Here's why:
     </p>
 
     <ul>
-      <li><strong>Simplicity</strong> — Every page is a self-contained HTML file. There's no mental model to learn beyond "edit a file, refresh the browser."</li>
-      <li><strong>Portability</strong> — The entire site can be deployed by copying a folder to any web server. Nginx, Caddy, Apache, S3, GitHub Pages — anything that serves static files.</li>
-      <li><strong>Longevity</strong> — HTML doesn't break. There are no dependency updates, no breaking changes, no "this worked last week." The site will work in 10 years exactly as it does today.</li>
-      <li><strong>Performance</strong> — Zero JavaScript frameworks means zero KB of framework runtime. The entire site loads in milliseconds.</li>
+      <li data-i18n="launching-a-personal-portal.vanilla.point1"><strong>Simplicity</strong> — Every page is a self-contained HTML file. There's no mental model to learn beyond "edit a file, refresh the browser."</li>
+      <li data-i18n="launching-a-personal-portal.vanilla.point2"><strong>Portability</strong> — The entire site can be deployed by copying a folder to any web server. Nginx, Caddy, Apache, S3, GitHub Pages — anything that serves static files.</li>
+      <li data-i18n="launching-a-personal-portal.vanilla.point3"><strong>Longevity</strong> — HTML doesn't break. There are no dependency updates, no breaking changes, no "this worked last week." The site will work in 10 years exactly as it does today.</li>
+      <li data-i18n="launching-a-personal-portal.vanilla.point4"><strong>Performance</strong> — Zero JavaScript frameworks means zero KB of framework runtime. The entire site loads in milliseconds.</li>
     </ul>
 
-    <h2>Finding a Design Language</h2>
+    <h2 data-i18n="launching-a-personal-portal.design.heading">Finding a Design Language</h2>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.design.p1">
       The hardest part of building a personal site isn't the code — it's the design. I 
       discovered the <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank">awesome-design-md</a> 
       collection, which provides ready-to-use design systems extracted from real websites 
       in the DESIGN.md format.
     </p>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.design.p2">
       I chose a design system inspired by Vercel's visual language, which emphasizes:
     </p>
 
     <ul>
-      <li><strong>Shadow-as-border</strong> — Using <code>box-shadow: 0 0 0 1px rgba(0,0,0,0.08)</code> instead of CSS borders, creating softer, more refined edges</li>
-      <li><strong>Aggressive letter-spacing</strong> — Negative tracking at display sizes (-2.4px at 48px) creates that compressed, engineered feel</li>
-      <li><strong>Three-weight type system</strong> — 400 for reading, 500 for interaction, 600 for headings. No more, no less.</li>
-      <li><strong>Achromatic palette</strong> — Grays from #171717 to #ffffff are the foundation, with accent colors used sparingly and functionally</li>
+      <li data-i18n="launching-a-personal-portal.design.point1"><strong>Shadow-as-border</strong> — Using <code>box-shadow: 0 0 0 1px rgba(0,0,0,0.08)</code> instead of CSS borders, creating softer, more refined edges</li>
+      <li data-i18n="launching-a-personal-portal.design.point2"><strong>Aggressive letter-spacing</strong> — Negative tracking at display sizes (-2.4px at 48px) creates that compressed, engineered feel</li>
+      <li data-i18n="launching-a-personal-portal.design.point3"><strong>Three-weight type system</strong> — 400 for reading, 500 for interaction, 600 for headings. No more, no less.</li>
+      <li data-i18n="launching-a-personal-portal.design.point4"><strong>Achromatic palette</strong> — Grays from #171717 to #ffffff are the foundation, with accent colors used sparingly and functionally</li>
     </ul>
 
-    <h2>Structure That Scales</h2>
+    <h2 data-i18n="launching-a-personal-portal.structure.heading">Structure That Scales</h2>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.structure.p1">
       The portal uses a flat, directory-based URL structure where each page lives in its own 
       folder with an <code>index.html</code>. This gives clean URLs (<code>/about/</code> instead 
       of <code>/about.html</code>) and makes the hierarchy self-documenting.
     </p>
 
-    <p>
-      Adding a new page is dead simple:
+    <p data-i18n="launching-a-personal-portal.structure.p2">
+      Adding a new page is simple:
     </p>
 
     <ol>
-      <li>Create a new directory (e.g., <code>/blog/new-post/</code>)</li>
-      <li>Copy any existing page as a template</li>
-      <li>Edit the content</li>
-      <li>Add a link in the parent list page</li>
+      <li data-i18n="launching-a-personal-portal.structure.step1">Create a new directory (e.g., <code>/blog/new-post/</code>)</li>
+      <li data-i18n="launching-a-personal-portal.structure.step2">Copy any existing page as a template</li>
+      <li data-i18n="launching-a-personal-portal.structure.step3">Edit the content</li>
+      <li data-i18n="launching-a-personal-portal.structure.step4">Add a link in the parent list page</li>
     </ol>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.structure.p3">
       No build step, no frontmatter, no routing config. Just files in folders.
     </p>
 
-    <h2>Dark Mode Done Right</h2>
+    <h2 data-i18n="launching-a-personal-portal.darkmode.heading">Dark Mode Done Right</h2>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.darkmode.p1">
       The theme system uses CSS custom properties with a <code>data-theme</code> attribute 
       on the <code>&lt;html&gt;</code> element. All colors, shadows, and surfaces are defined 
       as variables that swap when the theme changes. The preference respects the OS setting 
       on first visit and persists in <code>localStorage</code> after manual toggle.
     </p>
 
-    <h2>What's Next</h2>
+    <h2 data-i18n="launching-a-personal-portal.next.heading">What's Next</h2>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.next.p1">
       This is just the beginning. The portal is designed to grow incrementally — new projects, 
       new blog posts, new sections can be added without touching existing code. Some ideas 
       for the future:
     </p>
 
     <ul>
-      <li>RSS feed for blog posts</li>
-      <li>Search functionality with a lightweight client-side index</li>
-      <li>More interactive project demos</li>
-      <li>A /uses page documenting my tools and setup</li>
-      <li>Reading list / bookmarks page</li>
+      <li data-i18n="launching-a-personal-portal.next.idea1">RSS feed for blog posts</li>
+      <li data-i18n="launching-a-personal-portal.next.idea2">Search functionality with a lightweight client-side index</li>
+      <li data-i18n="launching-a-personal-portal.next.idea3">More interactive project demos</li>
+      <li data-i18n="launching-a-personal-portal.next.idea4">A /uses page documenting my tools and setup</li>
+      <li data-i18n="launching-a-personal-portal.next.idea5">Reading list / bookmarks page</li>
     </ul>
 
-    <blockquote>
+    <blockquote data-i18n="launching-a-personal-portal.quote">
       "The best time to plant a tree was twenty years ago. The second best time is now."
     </blockquote>
 
-    <p>
+    <p data-i18n="launching-a-personal-portal.outro">
       If you've been putting off building your own corner of the internet — start today. 
       It doesn't have to be complex. It just has to be yours.
     </p>
@@ -231,11 +231,11 @@
 
   <div class="article-footer">
     <div>
-      <a href="/blog/" class="btn btn--ghost" style="font-size:0.8125rem">← All Posts</a>
+      <a href="/blog/" class="btn btn--ghost" style="font-size:0.8125rem" data-i18n="launching-a-personal-portal.footer.allPosts">← All Posts</a>
     </div>
     <div style="text-align:right">
-      <span class="article-nav-label">Next</span>
-      <a href="/projects/ai-explainer/" class="article-nav-link">AI Explainer →</a>
+      <span class="article-nav-label" data-i18n="launching-a-personal-portal.footer.nextLabel">Next</span>
+      <a href="/projects/ai-explainer/" class="article-nav-link" data-i18n="launching-a-personal-portal.footer.nextLink">AI Explainer →</a>
     </div>
   </div>
 

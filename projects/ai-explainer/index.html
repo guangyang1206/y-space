@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-i18n="ai-explainer.meta.title">AI Explainer — YSpace</title>
-  <meta name="description" content="An interactive AI science popularization project." data-i18n="ai-explainer.meta.description" data-i18n-attr="content">
+  <meta name="description" content="An interactive educational project that explains AI concepts clearly." data-i18n="ai-explainer.meta.description" data-i18n-attr="content">
   <script src="/assets/js/head-boot.js?v=20260502"></script>
   <style>
     .project-detail-hero {
@@ -106,104 +106,104 @@
 <main class="site-main">
   <section class="project-detail-hero">
     <nav class="breadcrumb anim-in">
-      <a href="/projects/">Projects</a>
+      <a href="/projects/" data-i18n="ai-explainer.breadcrumb.projects">Projects</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-      <span style="color:var(--color-text)">AI Explainer</span>
+      <span style="color:var(--color-text)" data-i18n="ai-explainer.breadcrumb.current">AI Explainer</span>
     </nav>
-    <h1 class="section-title anim-in" style="font-size:clamp(2rem,5vw,2.75rem)">AI Explainer</h1>
-    <p class="section-desc anim-in">Making complex AI concepts accessible through clear visuals and simple language. An interactive educational experience.</p>
+    <h1 class="section-title anim-in" style="font-size:clamp(2rem,5vw,2.75rem)" data-i18n="ai-explainer.hero.title">AI Explainer</h1>
+    <p class="section-desc anim-in" data-i18n="ai-explainer.hero.desc">Making complex AI concepts accessible through clear visuals and simple language. An interactive educational experience.</p>
     <div class="project-header-meta anim-in">
-      <span class="badge badge--green">Education</span>
-      <span class="badge">AI / ML</span>
-      <span class="badge badge--purple">Interactive</span>
+      <span class="badge badge--green" data-i18n="ai-explainer.tags.education">Education</span>
+      <span class="badge" data-i18n="ai-explainer.tags.aiMl">AI / ML</span>
+      <span class="badge badge--purple" data-i18n="ai-explainer.tags.interactive">Interactive</span>
     </div>
   </section>
 
   <hr class="divider">
 
   <article class="prose">
-    <h2>What is AI Explainer?</h2>
-    <p>
+    <h2 data-i18n="ai-explainer.what.heading">What is AI Explainer?</h2>
+    <p data-i18n="ai-explainer.what.p1">
       AI Explainer is a project born out of the desire to make Artificial Intelligence understandable 
       for everyone — not just engineers and researchers. The project takes complex concepts like neural 
       networks, transformer architectures, and reinforcement learning, and breaks them down into 
       digestible, visual explanations.
     </p>
 
-    <h2>Why this matters</h2>
-    <p>
+    <h2 data-i18n="ai-explainer.why.heading">Why this matters</h2>
+    <p data-i18n="ai-explainer.why.p1">
       AI is reshaping every industry, yet most people interact with it as a black box. Understanding 
       the basics of how AI works empowers better decision-making, reduces fear, and encourages more 
       thoughtful adoption of these powerful tools.
     </p>
 
-    <blockquote>
+    <blockquote data-i18n="ai-explainer.quote">
       "The best way to predict the future is to understand the present."
     </blockquote>
   </article>
 
   <!-- Interactive Demo -->
   <section class="demo-area scroll-reveal">
-    <h3>🧠 Explore Core Concepts</h3>
-    <p>Click on any concept below to learn more. These are the building blocks of modern AI.</p>
+    <h3 data-i18n="ai-explainer.demo.heading">🧠 Explore Core Concepts</h3>
+    <p data-i18n="ai-explainer.demo.intro">Click on any concept below to learn more. These are the building blocks of modern AI.</p>
 
     <div class="concept-grid">
       <div class="card concept-card" onclick="this.classList.toggle('expanded')">
         <span class="concept-icon">🔮</span>
-        <h4>Neural Networks</h4>
-        <p>Computing systems loosely inspired by biological brains.</p>
-        <span class="expand-hint">click to expand →</span>
-        <div class="concept-detail">
+        <h4 data-i18n="ai-explainer.concepts.nn.title">Neural Networks</h4>
+        <p data-i18n="ai-explainer.concepts.nn.short">Computing systems loosely inspired by biological brains.</p>
+        <span class="expand-hint" data-i18n="ai-explainer.demo.expand">Click to expand →</span>
+        <div class="concept-detail" data-i18n="ai-explainer.concepts.nn.detail">
           Neural networks consist of layers of interconnected nodes (neurons). Each connection has a weight that adjusts during training. Data flows through input layers, gets transformed by hidden layers, and produces output. Deep learning uses networks with many hidden layers to learn increasingly abstract representations.
         </div>
       </div>
 
       <div class="card concept-card" onclick="this.classList.toggle('expanded')">
         <span class="concept-icon">🔄</span>
-        <h4>Transformers</h4>
-        <p>The architecture behind ChatGPT and modern LLMs.</p>
-        <span class="expand-hint">click to expand →</span>
-        <div class="concept-detail">
+        <h4 data-i18n="ai-explainer.concepts.tx.title">Transformers</h4>
+        <p data-i18n="ai-explainer.concepts.tx.short">The architecture behind ChatGPT and modern LLMs.</p>
+        <span class="expand-hint" data-i18n="ai-explainer.demo.expand">Click to expand →</span>
+        <div class="concept-detail" data-i18n="ai-explainer.concepts.tx.detail">
           Transformers use a mechanism called "self-attention" to weigh the importance of different parts of the input. Unlike earlier sequence models, they can process all positions simultaneously, making them highly parallelizable and effective at capturing long-range dependencies in data.
         </div>
       </div>
 
       <div class="card concept-card" onclick="this.classList.toggle('expanded')">
         <span class="concept-icon">🎯</span>
-        <h4>Supervised Learning</h4>
-        <p>Teaching machines by showing labeled examples.</p>
-        <span class="expand-hint">click to expand →</span>
-        <div class="concept-detail">
+        <h4 data-i18n="ai-explainer.concepts.sl.title">Supervised Learning</h4>
+        <p data-i18n="ai-explainer.concepts.sl.short">Teaching machines by showing labeled examples.</p>
+        <span class="expand-hint" data-i18n="ai-explainer.demo.expand">Click to expand →</span>
+        <div class="concept-detail" data-i18n="ai-explainer.concepts.sl.detail">
           In supervised learning, the model learns from labeled training data — pairs of inputs and correct outputs. The model learns to map inputs to outputs by minimizing prediction errors. Common tasks include classification (spam detection) and regression (price prediction).
         </div>
       </div>
 
       <div class="card concept-card" onclick="this.classList.toggle('expanded')">
         <span class="concept-icon">🎮</span>
-        <h4>Reinforcement Learning</h4>
-        <p>Learning through trial, error, and rewards.</p>
-        <span class="expand-hint">click to expand →</span>
-        <div class="concept-detail">
+        <h4 data-i18n="ai-explainer.concepts.rl.title">Reinforcement Learning</h4>
+        <p data-i18n="ai-explainer.concepts.rl.short">Learning through trial, error, and rewards.</p>
+        <span class="expand-hint" data-i18n="ai-explainer.demo.expand">Click to expand →</span>
+        <div class="concept-detail" data-i18n="ai-explainer.concepts.rl.detail">
           Reinforcement learning agents learn by interacting with an environment, receiving rewards or penalties for actions. Over time, they learn policies that maximize cumulative rewards. This approach powered breakthroughs like AlphaGo and is used in robotics, game AI, and RLHF for LLM alignment.
         </div>
       </div>
 
       <div class="card concept-card" onclick="this.classList.toggle('expanded')">
         <span class="concept-icon">💬</span>
-        <h4>Natural Language Processing</h4>
-        <p>How machines understand and generate human language.</p>
-        <span class="expand-hint">click to expand →</span>
-        <div class="concept-detail">
+        <h4 data-i18n="ai-explainer.concepts.nlp.title">Natural Language Processing</h4>
+        <p data-i18n="ai-explainer.concepts.nlp.short">How machines understand and generate human language.</p>
+        <span class="expand-hint" data-i18n="ai-explainer.demo.expand">Click to expand →</span>
+        <div class="concept-detail" data-i18n="ai-explainer.concepts.nlp.detail">
           NLP encompasses tasks like text classification, translation, summarization, and question-answering. Modern NLP relies on pre-trained language models (like GPT, BERT) that learn language patterns from massive text corpora, then fine-tune on specific tasks.
         </div>
       </div>
 
       <div class="card concept-card" onclick="this.classList.toggle('expanded')">
         <span class="concept-icon">👁️</span>
-        <h4>Computer Vision</h4>
-        <p>Giving machines the ability to "see" and understand images.</p>
-        <span class="expand-hint">click to expand →</span>
-        <div class="concept-detail">
+        <h4 data-i18n="ai-explainer.concepts.cv.title">Computer Vision</h4>
+        <p data-i18n="ai-explainer.concepts.cv.short">Giving machines the ability to "see" and understand images.</p>
+        <span class="expand-hint" data-i18n="ai-explainer.demo.expand">Click to expand →</span>
+        <div class="concept-detail" data-i18n="ai-explainer.concepts.cv.detail">
           Computer vision uses deep learning (especially CNNs and Vision Transformers) to interpret visual data. Applications include image classification, object detection, facial recognition, medical imaging analysis, and autonomous driving.
         </div>
       </div>
@@ -211,22 +211,22 @@
   </section>
 
   <article class="prose">
-    <h2>Technical Details</h2>
-    <p>
+    <h2 data-i18n="ai-explainer.tech.heading">Technical Details</h2>
+    <p data-i18n="ai-explainer.tech.p1">
       This project is built as a static web page using vanilla HTML, CSS, and JavaScript — 
       no framework dependencies. The interactive concept cards use simple DOM manipulation 
       for expand/collapse behavior, and the design follows the site's Vercel-inspired design system.
     </p>
 
-    <h3>What's next</h3>
-    <p>
+    <h3 data-i18n="ai-explainer.next.heading">What's next</h3>
+    <p data-i18n="ai-explainer.next.p1">
       Future iterations will include animated diagrams showing data flow through neural networks, 
       interactive parameter tuning demos, and a glossary of AI terms with cross-referencing.
     </p>
   </article>
 
   <div style="margin-top:var(--sp-8)">
-    <a href="/projects/" class="btn btn--ghost">← Back to Projects</a>
+    <a href="/projects/" class="btn btn--ghost" data-i18n="ai-explainer.cta.back">← Back to Projects</a>
   </div>
 </main>
 

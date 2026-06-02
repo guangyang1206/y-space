@@ -49,6 +49,17 @@ python3 -m http.server 8080
 - **JavaScript** — Vanilla ES6+, no dependencies
 - **Fonts** — Space Grotesk + JetBrains Mono (via Google Fonts)
 
+## Quality
+
+The site is linted with HTMLHint, Stylelint, ESLint, and a tiny custom
+JSON validator. Lint runs **automatically before every deploy** — see
+[CONTRIBUTING.md](./CONTRIBUTING.md) for setup and conventions.
+
+```bash
+npm install   # one-time
+npm run lint  # check everything
+```
+
 ## License
 
 MIT
