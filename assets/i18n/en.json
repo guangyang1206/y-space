@@ -46,8 +46,8 @@
         "sub": "a decade in"
       },
       "truth": {
-        "kicker": "Quest",
-        "value": "Exploring",
+        "kicker": "Truth",
+        "value": "Seeking",
         "sub": "still looking for answers"
       },
       "craft": {
@@ -104,13 +104,13 @@
       },
       "status": {
         "label": "Status",
-        "value": "Exploring deeply"
+        "value": "Deep seeking"
       }
     },
     "who": {
       "heading": "Who I am",
       "p1": "Hi, I'm Yang Guang — a developer who enjoys building things for the web. Whether it's a web app, a small tool, or an AI experiment, if it involves code, I'm probably curious about it.",
-      "p2": "I come from a full-stack background. Over the years, I've shipped corporate sites, content platforms, and data products, often helping teams move ideas forward through collaboration. Beyond the code itself, I care about how content flows, how ideas travel, and how AI can fit into everyday team workflows in practical ways.",
+      "p2": "I come from a full-stack background, and these days I spend most of my time around AI — building LLM-powered apps and knowledge-base Q&A experiments. Along the way, I've also shipped corporate sites, content platforms, and data products, often helping teams move ideas forward through collaboration. Beyond the code itself, I care about how content flows, how ideas travel, and how AI can fit into everyday team workflows in practical ways.",
       "p3": "I started with curiosity and a text editor. Over time, that curiosity grew into an appreciation for clean architecture, thoughtful design, and technology that feels a little more human."
     },
     "doing": {
@@ -665,60 +665,111 @@
   "resume": {
     "meta": {
       "title": "Resume — YSpace",
-      "description": "Online resume — experience, skills, and education."
+      "description": "Yang Guang's resume — AI digital applications, platform delivery, full-stack development, and project management."
     },
     "hero": {
       "label": "Resume",
-      "title": "Professional Background",
-      "desc": "Experience, skills, and education at a glance.",
-      "download": "Download PDF"
+      "title": "Yang Guang",
+      "desc": "AI digital applications & platform delivery · LLM applications · full-stack development · PMP",
+      "download": "Contact Me"
+    },
+    "contact": {
+      "location": "Shenzhen, China",
+      "email": "guangyang1206@hotmail.com",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
     },
     "sections": {
+      "summary": "Profile",
+      "capabilities": "Core Capabilities",
       "experience": "Experience",
       "education": "Education",
-      "skills": "Skills"
+      "skills": "Skills",
+      "honors": "Honors & Additional Info"
     },
-    "exp": {
-      "senior": {
-        "period": "2023 — Present",
-        "role": "Senior Developer",
-        "org": "Example Corp",
-        "bullet1": "Led architecture redesign of the core platform, improving performance by 40%",
-        "bullet2": "Built and maintained internal tooling for the engineering team",
-        "bullet3": "Mentored junior developers and conducted code reviews"
+    "summary": {
+      "p1": "Senior Manager of Global Communications, PMP-certified, with a full-stack development background. I mainly help plan and deliver technology-related projects within the team, bridging business understanding, technical implementation, and project coordination.",
+      "p2": "In recent years I've focused on the practical use of LLMs, exploring and experimenting with AI coding, agentic AI, and knowledge-base Q&A, and trying to bring these capabilities into the team's everyday work."
+    },
+    "capabilities": {
+      "ai": {
+        "title": "AI Applications & Platforms",
+        "desc": "AI coding, agentic AI, knowledge-base Q&A, and the related digital platforms and business systems"
       },
       "fullstack": {
-        "period": "2021 — 2023",
-        "role": "Full-Stack Developer",
-        "org": "Startup Inc.",
-        "bullet1": "Developed customer-facing features end-to-end from design to deployment",
-        "bullet2": "Integrated AI/ML APIs for intelligent recommendation features",
-        "bullet3": "Reduced page load times by 60% through code-splitting and optimization"
+        "title": "Full-Stack Development",
+        "desc": "Java/Spring Boot, Python/FastAPI, Vue.js, React, Next.js, TypeScript/JavaScript"
       },
-      "junior": {
-        "period": "2019 — 2021",
-        "role": "Junior Developer",
-        "org": "Agency Studio",
-        "bullet1": "Built responsive websites and web applications for diverse clients",
-        "bullet2": "Collaborated with designers to translate Figma mockups into pixel-perfect code"
+      "cloud": {
+        "title": "Cloud & Engineering",
+        "desc": "Tencent Cloud, AWS, Docker, basic Kubernetes deployment, Git, CI/CD, RESTful APIs, microservices, Kafka"
+      },
+      "delivery": {
+        "title": "Product & Project Delivery",
+        "desc": "Requirement breakdown, product planning, technical selection, PoC validation, budget planning, cross-team coordination, launch operations"
+      }
+    },
+    "exp": {
+      "tencent": {
+        "period": "2020.09 — Present",
+        "role": "Senior Manager, Global Communications · Technology Projects & Platform Delivery",
+        "org": "Tencent Technology (Shenzhen) Co., Ltd.",
+        "bullet1": "Plan and deliver technology-related projects within the team, covering websites, content platforms, and internal business systems, from development coordination through launch.",
+        "bullet2": "Explore practical AI applications across content operations, review, and knowledge-management scenarios, from research and validation to early implementation."
+      },
+      "webank": {
+        "period": "2019.12 — 2020.09",
+        "role": "Web Frontend Developer · Full-Stack Developer",
+        "org": "WeBank",
+        "bullet1": "Developed and maintained the Fintech Portal website, contributing frontend and full-stack engineering work for enterprise fintech platforms.",
+        "bullet2": "Worked on cross-border clearing and settlement projects and the Ozone sandbox admin console, gaining experience in fintech platforms and complex business collaboration."
+      },
+      "epam": {
+        "period": "2018.03 — 2019.12",
+        "role": "Software Engineer · Full-Stack Developer · Technical Lead",
+        "org": "EPAM Systems",
+        "bullet1": "Contributed to international projects including Credit Suisse trade management systems, HKEX-related projects, and the Burberry portal website.",
+        "bullet2": "Served as technical lead for an EPAM Hiring Event, designing and running the technical assessment process.",
+        "bullet3": "Developed WeChat ecosystem projects including official-account web pages and mini-programs, building experience across multiple web product formats."
+      },
+      "fdm": {
+        "period": "2016.03 — 2018.03",
+        "role": "IT Consultant · Backend Developer · Scrum Master",
+        "org": "FDM Group",
+        "bullet1": "Worked on backend development, agile collaboration, and project delivery support, building experience in enterprise software development, cross-team collaboration, and Scrum Master practices."
       }
     },
     "edu": {
-      "bachelor": {
-        "period": "2015 — 2019",
-        "degree": "Bachelor of Computer Science",
-        "school": "University of Somewhere",
-        "desc": "Focus on Software Engineering and Artificial Intelligence. Graduated with honors."
+      "edinburgh": {
+        "period": "2014.09 — 2015.09",
+        "degree": "MSc · Signal Processing and Communications",
+        "school": "The University of Edinburgh",
+        "desc": "Class Representative · Excellent dissertation"
+      },
+      "xauat": {
+        "period": "2010.09 — 2014.07",
+        "degree": "BEng · Building Electrical and Intelligent Engineering",
+        "school": "Xi'an University of Architecture and Technology",
+        "desc": "Ranked 1st in major · Outstanding Graduate · National Scholarship"
       }
     },
     "skills": {
-      "languages": "Languages",
+      "ai": "AI & LLM",
+      "platform": "Platforms & Delivery",
       "frontend": "Frontend",
-      "backend": "Backend & Infra",
-      "aiMl": "AI / ML"
+      "backend": "Backend & Cloud"
+    },
+    "honors": {
+      "item1": "EPAM Hackathon 2nd Prize; Mathematical Contest in Modeling (MCM) 1st Prize; National Scholarship; Baosteel Scholarship.",
+      "item2": "Utility model patent: Solar Smart Curtain, patent no. ZL 2014 2 0488714.7.",
+      "item3": "Fluent English; IELTS 7.0.",
+      "item4": "Former vice chair of University of Edinburgh Shenzhen Alumni Association; former council member of CSSA Edinburgh; former vice chair of Shaanxi Students' Federation and president of Xi'an University of Architecture and Technology Student Union."
     },
     "tags": {
-      "leadership": "Leadership"
+      "pmp": "PMP",
+      "ai": "AI Applications",
+      "platform": "Platform Delivery",
+      "delivery": "Project Delivery"
     }
   },
   "legal": {

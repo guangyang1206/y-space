@@ -12,11 +12,20 @@
       justify-content: space-between;
       align-items: flex-end;
       flex-wrap: wrap;
-      gap: var(--sp-3);
+      gap: var(--sp-4);
     }
     .resume-download {
       margin-bottom: var(--sp-3);
     }
+    .resume-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2) var(--sp-4);
+      margin-top: var(--sp-4);
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+    .resume-contact a { color: var(--color-text-secondary); }
 
     .resume-section {
       margin-top: var(--sp-8);
@@ -32,13 +41,36 @@
       padding-bottom: var(--sp-2);
       border-bottom: 1px solid var(--color-border-light);
     }
+    .resume-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-4);
+    }
+    .resume-summary p,
+    .capability-card p {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .capability-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--sp-3);
+    }
+    .capability-card {
+      padding: var(--sp-4);
+    }
+    .capability-card h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: var(--sp-2);
+    }
 
-    /* Timeline entry */
     .timeline-entry {
       display: grid;
       grid-template-columns: 160px 1fr;
       gap: var(--sp-5);
-      padding: var(--sp-4) 0;
+      padding: var(--sp-5) 0;
       border-bottom: 1px solid var(--color-border-light);
     }
     .timeline-entry:last-child { border-bottom: none; }
@@ -59,24 +91,26 @@
       color: var(--color-text-secondary);
       margin-bottom: var(--sp-2);
     }
-    .timeline-body p {
-      font-size: 0.9375rem;
-      color: var(--color-text-secondary);
-      line-height: 1.65;
-      margin-bottom: var(--sp-2);
-    }
-    .timeline-body ul {
-      padding-left: var(--sp-4);
-      margin-bottom: var(--sp-2);
-    }
-    .timeline-body li {
+    .timeline-body p,
+    .timeline-body li,
+    .honor-list li {
       font-size: 0.9375rem;
       color: var(--color-text-secondary);
       line-height: 1.65;
       margin-bottom: var(--sp-1);
     }
+    .timeline-body ul,
+    .honor-list {
+      padding-left: var(--sp-4);
+      margin-bottom: var(--sp-3);
+    }
+    .timeline-subtitle {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin: var(--sp-3) 0 var(--sp-2);
+    }
 
-    /* Skills */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -106,9 +140,10 @@
     }
 
     @media (max-width: 768px) {
+      .resume-summary,
       .timeline-entry {
         grid-template-columns: 1fr;
-        gap: var(--sp-1);
+        gap: var(--sp-2);
       }
     }
   </style>
@@ -123,103 +158,157 @@
     <div class="resume-header-row">
       <div>
         <p class="section-label anim-in" data-i18n="resume.hero.label">Resume</p>
-        <h1 class="section-title anim-in" data-i18n="resume.hero.title">Professional Background</h1>
-        <p class="section-desc anim-in" data-i18n="resume.hero.desc">Experience, skills, and education at a glance.</p>
+        <h1 class="section-title anim-in" data-i18n="resume.hero.title">Yang Guang</h1>
+        <p class="section-desc anim-in" data-i18n="resume.hero.desc">AI digital applications &amp; platform delivery · LLM applications · full-stack development · PMP</p>
+        <div class="resume-contact anim-in">
+          <span data-i18n="resume.contact.location">Shenzhen, China</span>
+          <a href="mailto:guangyang1206@hotmail.com" data-i18n="resume.contact.email">guangyang1206@hotmail.com</a>
+          <a href="https://linkedin.com/in/guang-yang-profile" target="_blank" rel="noopener" data-i18n="resume.contact.linkedin">LinkedIn</a>
+          <a href="https://github.com/guangyang1206" target="_blank" rel="noopener" data-i18n="resume.contact.github">GitHub</a>
+        </div>
       </div>
       <div class="resume-download anim-in">
-        <a href="#" class="btn btn--ghost" style="font-size:0.8125rem">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span data-i18n="resume.hero.download">Download PDF</span>
+        <a href="mailto:guangyang1206@hotmail.com" class="btn btn--ghost" style="font-size:0.8125rem">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+          <span data-i18n="resume.hero.download">Contact Me</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Experience -->
+  <section class="resume-section">
+    <h2 class="resume-section-title" data-i18n="resume.sections.summary">Profile</h2>
+    <div class="resume-summary">
+      <p class="scroll-reveal" data-i18n="resume.summary.p1">Senior Manager of Global Communications, PMP-certified, with a full-stack development background. I mainly help plan and deliver technology-related projects within the team, bridging business understanding, technical implementation, and project coordination.</p>
+      <p class="scroll-reveal" data-i18n="resume.summary.p2">In recent years I've focused on the practical use of LLMs, exploring and experimenting with AI coding, agentic AI, and knowledge-base Q&amp;A, and trying to bring these capabilities into the team's everyday work.</p>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title" data-i18n="resume.sections.capabilities">Core Capabilities</h2>
+    <div class="capability-grid">
+      <div class="card capability-card scroll-reveal">
+        <h3 data-i18n="resume.capabilities.ai.title">AI Applications &amp; Platforms</h3>
+        <p data-i18n="resume.capabilities.ai.desc">AI coding, agentic AI, knowledge-base Q&amp;A, and the related digital platforms and business systems</p>
+      </div>
+      <div class="card capability-card scroll-reveal">
+        <h3 data-i18n="resume.capabilities.fullstack.title">Full-Stack Development</h3>
+        <p data-i18n="resume.capabilities.fullstack.desc">Java/Spring Boot, Python/FastAPI, Vue.js, React, Next.js, TypeScript/JavaScript</p>
+      </div>
+      <div class="card capability-card scroll-reveal">
+        <h3 data-i18n="resume.capabilities.cloud.title">Cloud &amp; Engineering</h3>
+        <p data-i18n="resume.capabilities.cloud.desc">Tencent Cloud, AWS, Docker, basic Kubernetes deployment, Git, CI/CD, RESTful APIs, microservices, Kafka</p>
+      </div>
+      <div class="card capability-card scroll-reveal">
+        <h3 data-i18n="resume.capabilities.delivery.title">Product &amp; Project Delivery</h3>
+        <p data-i18n="resume.capabilities.delivery.desc">Requirement breakdown, product planning, technical selection, PoC validation, budget planning, cross-team coordination, launch operations</p>
+      </div>
+    </div>
+  </section>
+
   <section class="resume-section">
     <h2 class="resume-section-title" data-i18n="resume.sections.experience">Experience</h2>
 
     <div class="timeline-entry scroll-reveal">
-      <div class="timeline-period" data-i18n="resume.exp.senior.period">2023 — Present</div>
+      <div class="timeline-period" data-i18n="resume.exp.tencent.period">2020.09 — Present</div>
       <div class="timeline-body">
-        <h3 data-i18n="resume.exp.senior.role">Senior Developer</h3>
-        <div class="org" data-i18n="resume.exp.senior.org">Example Corp</div>
+        <h3 data-i18n="resume.exp.tencent.role">Senior Manager, Global Communications · Technology Projects &amp; Platform Delivery</h3>
+        <div class="org" data-i18n="resume.exp.tencent.org">Tencent Technology (Shenzhen) Co., Ltd.</div>
         <ul>
-          <li data-i18n="resume.exp.senior.bullet1">Led architecture redesign of the core platform, improving performance by 40%</li>
-          <li data-i18n="resume.exp.senior.bullet2">Built and maintained internal tooling for the engineering team</li>
-          <li data-i18n="resume.exp.senior.bullet3">Mentored junior developers and conducted code reviews</li>
+          <li data-i18n="resume.exp.tencent.bullet1">Plan and deliver technology-related projects within the team, covering websites, content platforms, and internal business systems, from development coordination through launch.</li>
+          <li data-i18n="resume.exp.tencent.bullet2">Explore practical AI applications across content operations, review, and knowledge-management scenarios, from research and validation to early implementation.</li>
         </ul>
         <div class="tag-list">
-          <span class="badge">TypeScript</span>
-          <span class="badge">React</span>
-          <span class="badge">Node.js</span>
-          <span class="badge badge--green" data-i18n="resume.tags.leadership">Leadership</span>
+          <span class="badge badge--green" data-i18n="resume.tags.pmp">PMP</span>
+          <span class="badge" data-i18n="resume.tags.ai">AI Applications</span>
+          <span class="badge badge--purple" data-i18n="resume.tags.platform">Platform Delivery</span>
         </div>
       </div>
     </div>
 
     <div class="timeline-entry scroll-reveal">
-      <div class="timeline-period" data-i18n="resume.exp.fullstack.period">2021 — 2023</div>
+      <div class="timeline-period" data-i18n="resume.exp.webank.period">2019.12 — 2020.09</div>
       <div class="timeline-body">
-        <h3 data-i18n="resume.exp.fullstack.role">Full-Stack Developer</h3>
-        <div class="org" data-i18n="resume.exp.fullstack.org">Startup Inc.</div>
+        <h3 data-i18n="resume.exp.webank.role">Web Frontend Developer · Full-Stack Developer</h3>
+        <div class="org" data-i18n="resume.exp.webank.org">WeBank</div>
         <ul>
-          <li data-i18n="resume.exp.fullstack.bullet1">Developed customer-facing features end-to-end from design to deployment</li>
-          <li data-i18n="resume.exp.fullstack.bullet2">Integrated AI/ML APIs for intelligent recommendation features</li>
-          <li data-i18n="resume.exp.fullstack.bullet3">Reduced page load times by 60% through code-splitting and optimization</li>
+          <li data-i18n="resume.exp.webank.bullet1">Developed and maintained the Fintech Portal website, contributing frontend and full-stack engineering work for enterprise fintech platforms.</li>
+          <li data-i18n="resume.exp.webank.bullet2">Worked on cross-border clearing and settlement projects and the Ozone sandbox admin console, gaining experience in fintech platforms and complex business collaboration.</li>
         </ul>
-        <div class="tag-list">
-          <span class="badge">Python</span>
-          <span class="badge">Vue.js</span>
-          <span class="badge">PostgreSQL</span>
-        </div>
       </div>
     </div>
 
     <div class="timeline-entry scroll-reveal">
-      <div class="timeline-period" data-i18n="resume.exp.junior.period">2019 — 2021</div>
+      <div class="timeline-period" data-i18n="resume.exp.epam.period">2018.03 — 2019.12</div>
       <div class="timeline-body">
-        <h3 data-i18n="resume.exp.junior.role">Junior Developer</h3>
-        <div class="org" data-i18n="resume.exp.junior.org">Agency Studio</div>
+        <h3 data-i18n="resume.exp.epam.role">Software Engineer · Full-Stack Developer · Technical Lead</h3>
+        <div class="org" data-i18n="resume.exp.epam.org">EPAM Systems</div>
         <ul>
-          <li data-i18n="resume.exp.junior.bullet1">Built responsive websites and web applications for diverse clients</li>
-          <li data-i18n="resume.exp.junior.bullet2">Collaborated with designers to translate Figma mockups into pixel-perfect code</li>
+          <li data-i18n="resume.exp.epam.bullet1">Contributed to international projects including Credit Suisse trade management systems, HKEX-related projects, and the Burberry portal website.</li>
+          <li data-i18n="resume.exp.epam.bullet2">Served as technical lead for an EPAM Hiring Event, designing and running the technical assessment process.</li>
+          <li data-i18n="resume.exp.epam.bullet3">Developed WeChat ecosystem projects including official-account web pages and mini-programs, building experience across multiple web product formats.</li>
         </ul>
-        <div class="tag-list">
-          <span class="badge">HTML/CSS</span>
-          <span class="badge">JavaScript</span>
-          <span class="badge">WordPress</span>
-        </div>
+      </div>
+    </div>
+
+    <div class="timeline-entry scroll-reveal">
+      <div class="timeline-period" data-i18n="resume.exp.fdm.period">2016.03 — 2018.03</div>
+      <div class="timeline-body">
+        <h3 data-i18n="resume.exp.fdm.role">IT Consultant · Backend Developer · Scrum Master</h3>
+        <div class="org" data-i18n="resume.exp.fdm.org">FDM Group</div>
+        <ul>
+          <li data-i18n="resume.exp.fdm.bullet1">Worked on backend development, agile collaboration, and project delivery support, building experience in enterprise software development, cross-team collaboration, and Scrum Master practices.</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Education -->
   <section class="resume-section">
     <h2 class="resume-section-title" data-i18n="resume.sections.education">Education</h2>
 
     <div class="timeline-entry scroll-reveal">
-      <div class="timeline-period" data-i18n="resume.edu.bachelor.period">2015 — 2019</div>
+      <div class="timeline-period" data-i18n="resume.edu.edinburgh.period">2014.09 — 2015.09</div>
       <div class="timeline-body">
-        <h3 data-i18n="resume.edu.bachelor.degree">Bachelor of Computer Science</h3>
-        <div class="org" data-i18n="resume.edu.bachelor.school">University of Somewhere</div>
-        <p data-i18n="resume.edu.bachelor.desc">Focus on Software Engineering and Artificial Intelligence. Graduated with honors.</p>
+        <h3 data-i18n="resume.edu.edinburgh.degree">MSc · Signal Processing and Communications</h3>
+        <div class="org" data-i18n="resume.edu.edinburgh.school">The University of Edinburgh</div>
+        <p data-i18n="resume.edu.edinburgh.desc">Class Representative · Excellent dissertation</p>
+      </div>
+    </div>
+
+    <div class="timeline-entry scroll-reveal">
+      <div class="timeline-period" data-i18n="resume.edu.xauat.period">2010.09 — 2014.07</div>
+      <div class="timeline-body">
+        <h3 data-i18n="resume.edu.xauat.degree">BEng · Building Electrical and Intelligent Engineering</h3>
+        <div class="org" data-i18n="resume.edu.xauat.school">Xi'an University of Architecture and Technology</div>
+        <p data-i18n="resume.edu.xauat.desc">Ranked 1st in major · Outstanding Graduate · National Scholarship</p>
       </div>
     </div>
   </section>
 
-  <!-- Skills -->
   <section class="resume-section">
     <h2 class="resume-section-title" data-i18n="resume.sections.skills">Skills</h2>
     <div class="skills-grid">
       <div class="card skill-group scroll-reveal">
-        <h4 data-i18n="resume.skills.languages">Languages</h4>
+        <h4 data-i18n="resume.skills.ai">AI &amp; LLM</h4>
         <div class="skill-tags">
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">Go</span>
-          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">LLM</span>
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">Agent / MCP</span>
+          <span class="skill-tag">Vector DB</span>
+          <span class="skill-tag">Embedding</span>
+          <span class="skill-tag">Prompt Engineering</span>
+          <span class="skill-tag">AI Coding</span>
+        </div>
+      </div>
+      <div class="card skill-group scroll-reveal">
+        <h4 data-i18n="resume.skills.platform">Platforms &amp; Delivery</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">CMS</span>
+          <span class="skill-tag">Portal</span>
+          <span class="skill-tag">PMP</span>
+          <span class="skill-tag">Product Planning</span>
+          <span class="skill-tag">Operations</span>
         </div>
       </div>
       <div class="card skill-group scroll-reveal">
@@ -227,31 +316,32 @@
         <div class="skill-tags">
           <span class="skill-tag">React</span>
           <span class="skill-tag">Vue.js</span>
-          <span class="skill-tag">HTML/CSS</span>
-          <span class="skill-tag">Tailwind</span>
           <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">HTML/CSS</span>
         </div>
       </div>
       <div class="card skill-group scroll-reveal">
-        <h4 data-i18n="resume.skills.backend">Backend & Infra</h4>
+        <h4 data-i18n="resume.skills.backend">Backend &amp; Cloud</h4>
         <div class="skill-tags">
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Java/Spring Boot</span>
+          <span class="skill-tag">Python/FastAPI</span>
+          <span class="skill-tag">Tencent Cloud</span>
+          <span class="skill-tag">AWS</span>
           <span class="skill-tag">Docker</span>
-          <span class="skill-tag">Linux</span>
-          <span class="skill-tag">CI/CD</span>
-        </div>
-      </div>
-      <div class="card skill-group scroll-reveal">
-        <h4 data-i18n="resume.skills.aiMl">AI / ML</h4>
-        <div class="skill-tags">
-          <span class="skill-tag">LLM APIs</span>
-          <span class="skill-tag">RAG</span>
-          <span class="skill-tag">Prompt Eng.</span>
-          <span class="skill-tag">Hugging Face</span>
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title" data-i18n="resume.sections.honors">Honors &amp; Additional Info</h2>
+    <ul class="honor-list scroll-reveal">
+      <li data-i18n="resume.honors.item1">EPAM Hackathon 2nd Prize; Mathematical Contest in Modeling (MCM) 1st Prize; National Scholarship; Baosteel Scholarship.</li>
+      <li data-i18n="resume.honors.item2">Utility model patent: Solar Smart Curtain, patent no. ZL 2014 2 0488714.7.</li>
+      <li data-i18n="resume.honors.item3">Fluent English; IELTS 7.0.</li>
+      <li data-i18n="resume.honors.item4">Former vice chair of University of Edinburgh Shenzhen Alumni Association; former council member of CSSA Edinburgh; former vice chair of Shaanxi Students' Federation and president of Xi'an University of Architecture and Technology Student Union.</li>
+    </ul>
   </section>
 </main>
 
