@@ -13,7 +13,7 @@ echo "========== 开始部署 my-space =========="
 echo "📦 同步文件..."
 rsync -avz --delete \
   --exclude='.git' \
-  --exclude='.gongfeng-ci.yml' \
+  --exclude='.github' \
   --exclude='deploy.sh' \
   --exclude='*.md' \
   --exclude='node_modules' \

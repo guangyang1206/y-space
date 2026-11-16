@@ -1,0 +1,90 @@
+# =====================================================
+#  Deploy y-space to Tencent Cloud Lighthouse
+# =====================================================
+#  Trigger: push to master (or manual workflow_dispatch)
+#  Flow:    lint → rsync over SSH → reload nginx → purge EdgeOne cache
+#
+#  Repository secrets (Settings → Secrets and variables → Actions → Secrets):
+#    DEPLOY_SSH_KEY_B64        base64 of the server's SSH private key
+#                              macOS: base64 -i key.pem | pbcopy
+#                              Linux: base64 -w 0 key.pem
+#    TENCENTCLOUD_SECRET_ID    CAM sub-account key (teo:CreatePurgeTask only)
+#    TENCENTCLOUD_SECRET_KEY   CAM sub-account secret
+#
+#  Repository variables (same page → Variables tab):
+#    EDGEONE_ZONE_ID           EdgeOne zone id, e.g. zone-xxxxxxxx
+#    PURGE_HOSTS               optional, comma separated, default yeranyang.com
+#
+#  Server IP / user / path come from deploy-mac.sh defaults; they can be
+#  overridden with SERVER_IP / SERVER_USER / DEPLOY_PATH variables.
+#
+#  If the purge step fails, the files are already live on the origin — only
+#  the edge cache is stale. Re-run this workflow after fixing the credentials.
+# =====================================================
+name: Deploy y-space
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # This repo gitignores package-lock.json, so npm ci is not available.
+      - name: Install lint tooling
+        run: npm install --no-audit --no-fund
+
+      - name: Restore SSH private key
+        env:
+          DEPLOY_SSH_KEY_B64: ${{ secrets.DEPLOY_SSH_KEY_B64 }}
+        run: |
+          if [ -z "$DEPLOY_SSH_KEY_B64" ]; then
+            echo "::error::Secret DEPLOY_SSH_KEY_B64 is not configured"
+            exit 1
+          fi
+          install -m 600 /dev/null "$RUNNER_TEMP/deploy_key"
+          printf '%s' "$DEPLOY_SSH_KEY_B64" | base64 -d > "$RUNNER_TEMP/deploy_key"
+          chmod 600 "$RUNNER_TEMP/deploy_key"
+
+      - name: Deploy (lint → rsync → reload nginx → health check)
+        env:
+          SSH_KEY: ${{ runner.temp }}/deploy_key
+        run: bash deploy-mac.sh
+
+      - name: Purge EdgeOne cache
+        env:
+          TENCENTCLOUD_SECRET_ID: ${{ secrets.TENCENTCLOUD_SECRET_ID }}
+          TENCENTCLOUD_SECRET_KEY: ${{ secrets.TENCENTCLOUD_SECRET_KEY }}
+          EDGEONE_ZONE_ID: ${{ vars.EDGEONE_ZONE_ID }}
+          PURGE_HOSTS: ${{ vars.PURGE_HOSTS }}
+        run: |
+          python3 -m pip install --quiet tencentcloud-sdk-python
+          python3 scripts/purge-edgeone.py
+
+      - name: Verify site after purge
+        run: |
+          sleep 5
+          CODE=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 https://yeranyang.com/)
+          echo "https://yeranyang.com/ → HTTP ${CODE}"
+          if [ "$CODE" != "200" ]; then
+            echo "::error::Site check failed"
+            exit 1
+          fi

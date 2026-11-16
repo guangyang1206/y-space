@@ -59,6 +59,18 @@ The deploy script also excludes development-only files (`package.json`,
 config files, `node_modules`, lint configs, etc.) from rsync — production
 only ever sees the actual static assets.
 
+### Automatic deploy (GitHub Actions)
+
+Pushes to `master` trigger [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml):
+lint → rsync over SSH → `nginx reload` → EdgeOne cache purge. The workflow
+reuses `deploy-mac.sh` with `SSH_KEY` supplied by a secret, and supports a
+manual run via `workflow_dispatch`.
+
+Required repository secrets: `DEPLOY_SSH_KEY_B64` (base64-encoded private key),
+`TENCENTCLOUD_SECRET_ID`, `TENCENTCLOUD_SECRET_KEY`. Required repository
+variable: `EDGEONE_ZONE_ID`. Optional variable: `PURGE_HOSTS` (defaults to
+`yeranyang.com`). Use a CAM sub-account restricted to `teo:CreatePurgeTask`.
+
 ## Conventions
 
 - **Indentation**: 2 spaces (enforced by `.editorconfig`)

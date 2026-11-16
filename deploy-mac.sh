@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 
-# ===== 配置 =====
-SERVER_IP="139.199.72.245"
-SERVER_USER="ubuntu"
-SSH_KEY="/Users/yangguang/Downloads/Files Download/YSpace/light_server_for_claw.pem"
-DEPLOY_PATH="/var/www/my-space"
+# ===== 配置（可用环境变量覆盖，供 GitHub Actions 复用）=====
+SERVER_IP="${SERVER_IP:-139.199.72.245}"
+SERVER_USER="${SERVER_USER:-ubuntu}"
+SSH_KEY="${SSH_KEY:-/Users/yangguang/Downloads/Files Download/YSpace/light_server_for_claw.pem}"
+DEPLOY_PATH="${DEPLOY_PATH:-/var/www/my-space}"
+SITE_URL="${SITE_URL:-https://yeranyang.com}"
 
 echo "========== 开始部署 my-space =========="
 
@@ -28,7 +29,7 @@ fi
 echo "📦 同步文件..."
 rsync -avz --delete \
   --exclude='.git' \
-  --exclude='.gongfeng-ci.yml' \
+  --exclude='.github' \
   --exclude='deploy.sh' \
   --exclude='*.md' \
   --exclude='node_modules' \
@@ -48,20 +49,20 @@ echo "✅ 文件同步完成"
 
 # 2. 服务器上设置权限并重载 Nginx
 echo "🔄 重载 Nginx..."
-ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << 'REMOTE'
-sudo chown -R ubuntu:ubuntu /var/www/my-space
-sudo chmod -R 755 /var/www/my-space
+ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << REMOTE
+sudo chown -R ${SERVER_USER}:${SERVER_USER} ${DEPLOY_PATH}
+sudo chmod -R 755 ${DEPLOY_PATH}
 sudo nginx -t && sudo systemctl reload nginx
 echo "✅ Nginx 重载完成"
 REMOTE
 
-# 3. 健康检查
+# 3. 健康检查（经 EdgeOne；内容是否为最新版由后续缓存刷新保证）
 echo "🏥 健康检查..."
 sleep 2
-HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://yeranyang.com)
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE_URL}")
 if [ "$HTTP_CODE" = "200" ]; then
     echo "✅ 部署成功！(HTTP ${HTTP_CODE})"
-    echo "🌐 网站地址: https://yeranyang.com"
+    echo "🌐 网站地址: ${SITE_URL}"
 else
     echo "⚠️  HTTP 状态码: ${HTTP_CODE}（可能是 CDN 缓存延迟，稍等再试）"
 fi
