@@ -13,6 +13,7 @@ const path = require('path');
 
 const IGNORE_DIRS = new Set([
   'node_modules',
+  'dist',
   '.git',
   '.playwright-cli',
   '.codebuddy',

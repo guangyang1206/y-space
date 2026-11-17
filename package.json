@@ -6,9 +6,11 @@
   "homepage": "https://yeranyang.com",
   "license": "MIT",
   "scripts": {
+    "build": "npm run lint && node scripts/build-dist.js",
+    "build:dist": "node scripts/build-dist.js",
     "lint": "npm run lint:json && npm run lint:html && npm run lint:css && npm run lint:js",
     "lint:json": "node scripts/lint-json.js",
-    "lint:html": "htmlhint \"**/*.html\" --ignore \"node_modules/**,assets/partials/**,lessons/**\"",
+    "lint:html": "htmlhint \"**/*.html\" --ignore \"node_modules/**,dist/**,assets/partials/**,lessons/**\"",
     "lint:css": "stylelint \"assets/css/**/*.css\"",
     "lint:js": "eslint \"assets/js/**/*.js\"",
     "lint:fix": "npm run lint:css -- --fix && npm run lint:js -- --fix"

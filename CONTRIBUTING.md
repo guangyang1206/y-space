@@ -71,6 +71,24 @@ Required repository secrets: `DEPLOY_SSH_KEY_B64` (base64-encoded private key),
 variable: `EDGEONE_ZONE_ID`. Optional variable: `PURGE_HOSTS` (defaults to
 `yeranyang.com`). Use a CAM sub-account restricted to `teo:CreatePurgeTask`.
 
+### EdgeOne Pages (migration in progress, branch `edgeone-pages`)
+
+EdgeOne Pages builds and deploys straight from the connected GitHub repo, and
+invalidates its edge cache on every new deployment — no server, SSH key or
+purge API needed. Settings live in [`edgeone.json`](./edgeone.json):
+
+- `npm run build` = `npm run lint` + `scripts/build-dist.js`, so a lint failure
+  blocks the deploy.
+- `build-dist.js` copies a **whitelist** of site paths into `dist/` (skipping
+  `*.md` and dotfiles). When you add a new top-level page directory, add it to
+  `INCLUDE` in that script, or it will not be published.
+- `edgeone.json` also sets the security headers and `X-Robots-Tag` for `/tools/`.
+
+```bash
+npm run build:dist                         # build without lint
+cd dist && python3 -m http.server 8080     # preview exactly what ships
+```
+
 ## Conventions
 
 - **Indentation**: 2 spaces (enforced by `.editorconfig`)
@@ -93,7 +111,8 @@ my-space/
 │   └── partials/            ← Shared header / footer fragments
 ├── lessons/                 ← Long-form Chinese articles (single-language, lint-skipped)
 ├── tools/                   ← Internal utilities (lint-skipped)
-├── scripts/                 ← Repo tooling (e.g. lint-json.js)
+├── scripts/                 ← Repo tooling (lint-json.js, build-dist.js, …)
+├── edgeone.json             ← EdgeOne Pages build + header config
 ├── deploy-mac.sh            ← One-shot deploy from local Mac
 └── nginx.conf.example       ← Reference server config
 ```
